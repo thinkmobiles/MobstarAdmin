@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 		}
 		
 
-		return View::make('Login')->with('data', $this->data);
+		return View::make('login')->with('data', $this->data);
 	}
 
 	public function doLogin()
