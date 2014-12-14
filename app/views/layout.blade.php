@@ -12,6 +12,12 @@
 	<link rel="apple-touch-icon" href="/images/icons/favicon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/images/icons/favicon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="/images/icons/favicon-114x114.png">
+	{{ HTML::script('vendors/video/video.js'); }}
+
+    {{ HTML::script('js/jquery-1.10.2.min.js'); }}
+    {{ HTML::script('js/jquery-migrate-1.2.1.min.js'); }}
+    {{ HTML::script('js/jquery-ui.js'); }}
+
 	<!--Loading bootstrap css-->
 	{{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700'); }}
 	{{ HTML::style('http://fonts.googleapis.com/css?family=Oswald:400,700,300'); }}
@@ -33,6 +39,7 @@
 	{{ HTML::style('vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css'); }}
 
 	<!--Loading style vendors-->
+
 	{{ HTML::style('vendors/animate.css/animate.css'); }}
 	{{ HTML::style('vendors/iCheck/skins/all.css'); }}
 	{{ HTML::style('vendors/jquery-notific8/jquery.notific8.min.css'); }}
@@ -115,10 +122,6 @@
 		</div>
 </div>
 
-{{ HTML::script('js/jquery-1.10.2.min.js'); }}
-{{ HTML::script('js/jquery-migrate-1.2.1.min.js'); }}
-{{ HTML::script('js/jquery-ui.js'); }}
-
 <!--loading bootstrap js-->
 {{ HTML::script('vendors/bootstrap/js/bootstrap.min.js'); }}
 {{ HTML::script('vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js'); }}
@@ -140,6 +143,7 @@
 {{ HTML::script('js/main.js'); }}
 
 <!--LOADING SCRIPTS FOR PAGE-->
+
 {{ HTML::script('vendors/bootstrap-switch/js/bootstrap-switch.min.js'); }}
 {{ HTML::script('vendors/flot-chart/jquery.flot.js'); }}
 {{ HTML::script('vendors/flot-chart/jquery.flot.categories.js'); }}
@@ -163,7 +167,7 @@
 
 {{ HTML::script('vendors/intro.js/intro.js'); }}
 {{ HTML::script('js/index.js'); }}
-		
+
 @yield('pagefoot')
 
 </body>

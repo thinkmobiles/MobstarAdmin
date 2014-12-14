@@ -19,100 +19,148 @@
 					<div class="col-lg-12">
 						<div class="panel">
 							<div class="panel-body">
-								<div id="grid-layout-ul-li" class="box jplist">
-									<div class="jplist-ios-button"><i class="fa fa-sort"></i>jPList Actions</div>
-									<div class="jplist-panel box panel-top">
-										<button type="button" data-control-type="reset" data-control-name="reset" data-control-action="reset" class="jplist-reset-btn btn btn-default">Reset<i class="fa fa-share mls"></i></button>
-										<div data-control-type="drop-down" data-control-name="paging" data-control-action="paging" class="jplist-drop-down form-control">
-											<ul class="dropdown-menu">
-												<li><span data-number="3"> 3 per page</span></li>
-												<li><span data-number="5"> 5 per page</span></li>
-												<li><span data-number="10" data-default="true"> 10 per page</span></li>
-												<li><span data-number="all"> view all</span></li>
-											</ul>
-										</div>
-										<div data-control-type="drop-down" data-control-name="sort" data-control-action="sort" data-datetime-format="{month}/{day}/{year}" class="jplist-drop-down form-control">
-											<ul class="dropdown-menu">
-												<li><span data-path="default">Sort by</span></li>
-												<li><span data-path=".title" data-order="asc" data-type="text">Title A-Z</span></li>
-												<li><span data-path=".title" data-order="desc" data-type="text">Title Z-A</span></li>
-												<li><span data-path=".desc" data-order="asc" data-type="text">Description A-Z</span></li>
-												<li><span data-path=".desc" data-order="desc" data-type="text">Description Z-A</span></li>
-												<li><span data-path=".like" data-order="asc" data-type="number" data-default="true">Likes asc</span></li>
-												<li><span data-path=".like" data-order="desc" data-type="number">Likes desc</span></li>
-												<li><span data-path=".date" data-order="asc" data-type="datetime">Date asc</span></li>
-												<li><span data-path=".date" data-order="desc" data-type="datetime">Date desc</span></li>
-											</ul>
-										</div>
-										<div class="text-filter-box">
-											<div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input data-path=".title" type="text" value="" placeholder="Filter by Title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter" class="form-control"/></div>
-										</div>
-										<div class="text-filter-box">
-											<div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input data-path=".desc" type="text" value="" placeholder="Filter by Description" data-control-type="textbox" data-control-name="desc-filter" data-control-action="filter" class="form-control input-medium"/></div>
-										</div>
-										<div data-control-type="views" data-control-name="views" data-control-action="views" data-default="jplist-grid-view" class="jplist-views">
-											<button type="button" data-type="jplist-list-view" class="jplist-view jplist-list-view btn btn-default"><i class="fa fa-th-list"></i></button>
-											<button type="button" data-type="jplist-grid-view" class="jplist-view jplist-grid-view btn btn-default"><i class="fa fa-th"></i></button>
-											<button type="button" data-type="jplist-thumbs-view" class="jplist-view jplist-thumbs-view btn btn-default"><i class="fa fa-reorder"></i></button>
-										</div>
-										<div data-type="Page {current} of {pages}" data-control-type="pagination-info" data-control-name="paging" data-control-action="paging" class="jplist-label btn btn-default"></div>
-										<div data-control-type="pagination" data-control-name="paging" data-control-action="paging" class="jplist-pagination"></div>
-									</div>
+
+							    <div class="panel panel-green">
+
+                                    <div class="panel-heading">Filter Entries</div>
+
+
+							       <form method="get" action="/entries">
+							        <?php
+							            if(isset($_GET['orderBy']))
+							                $selected = $_GET['orderBy'];
+							            else
+							                $selected = 'latest';
+							        ?>
+
+                                        <div class="form-group">
+                                            <label for="orderBy" class="col-md-2 control-label">Sort</label>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                <select id="orderBy" class="form-control"  name="orderBy">
+                                                    <option value="latest" <?php echo ($selected == 'latest') ? "selected" : "" ?>>Latest</option>
+                                                    <option value="popular" <?php echo ($selected == 'popular') ? "selected" : "" ?>>Most Popular</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="cat" class="col-md-2 control-label">Category</label>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                <select id="cat" class="form-control" name="category">
+                                                    <?php
+                                                        if(isset($_GET['category']))
+                                                            $selected = $_GET['category'];
+                                                        else
+                                                            $selected = 'latest';
+                                                    ?>
+                                                    <option></option>
+                                                    @foreach($data['categories'] as $category)
+                                                        <option value="{{$category->category_id}}" <?php echo ($selected == $category->category_id) ? "selected" : "" ?>>{{$category->category_name}}</option>
+                                                    @endforeach
+
+                                                </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="deleted" class="col-md-2 control-label">Status</label>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <select id="deleted" class="form-control" name="deleted">
+                                                        <?php
+                                                            if(isset($_GET['deleted']))
+                                                                $selected = $_GET['deleted'];
+                                                            else
+                                                                $selected = 0;
+                                                        ?>
+                                                            <option value="0" <?php echo ($selected == 0) ? "selected" : "" ?>>All</option>
+                                                            <option value="1" <?php echo ($selected == 1) ? "selected" : "" ?>>Enabled</option>
+                                                            <option value="2" <?php echo ($selected == 2) ? "selected" : "" ?>>Disabled</option>
+                                                        </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-actions">
+                                        <div class="col-md-2">
+
+							                <input type="submit" class="btn btn-default" value="Filter">
+                                        </div>
+                                        </div>
+							       </form>
+							    </div>
+
+
+
 									<ul class="box text-shadow ul-li-list">
 
 										@foreach($data['entries'] as $entry)
-										<li id="list-item-{{ $entry->entry_id }}" class="list-item">
+										<li id="list-item-{{ $entry['entry_id']}}" class="list-item">
 											<div class="list-box"><!--<img/>-->
 												<div class="img">
-													<video style="width:100%; height:auto" class="video-js vjs-default-skin" controls preload="metadata" poster="https://mobstar-1.s3.amazonaws.com/thumbs/wcYbWuXfC5Pq-thumb.jpg?AWSAccessKeyId=AKIAIE4TLASFISDQDHPA">
-														<source src="https://mobstar-1.s3.amazonaws.com/wcYbWuXfC5Pq.mp4?AWSAccessKeyId=AKIAIE4TLASFISDQDHPA&Expires=1417620862&Signature=ySaiLetqXKKiB0Oo%2FZWzxFRXGuk%3D" type="video/mp4">
+
+													<video style="width:100%; height:auto" class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}">
+														<source src="{{$entry['entry_file']}}" type="video/mp4">
 														Your browser does not support the video tag.
 													</video>
 												</div>
 												<!--<data></data>-->
-												<div class="block">
-													<p class="date">03/15/2012</p>
-													<p class="title">{{ $entry->entry_name }}</p>
-													<p class="desc">{{ $entry->entry_description }}</p>
-													<p class="like">5 Likes</p>
-												</div>
+													<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
+													<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>
+													<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
+
+
+                                                    @if($entry['entry_deleted'] == 0)
+                                                        <a class="disable btn btn-warning toggle" id="{{$entry['entry_id']}}">Disable Entry</a>
+                                                    @else
+                                                        <a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable Entry</a>
+                                                    @endif
 											</div>
 										</li>
 										@endforeach
-										
+
 									</ul>
-									<div class="jplist-ios-button"><i class="fa fa-sort"></i>jPList Actions</div>
-									<div class="jplist-panel box panel-bottom">
-										<div data-control-type="drop-down" data-control-name="paging" data-control-action="paging" data-control-animate-to-top="true" class="jplist-drop-down form-control">
-											<ul class="dropdown-menu">
-												<li><span data-number="3"> 3 per page</span></li>
-												<li><span data-number="5"> 5 per page</span></li>
-												<li><span data-number="10" data-default="true"> 10 per page</span></li>
-												<li><span data-number="all"> view all</span></li>
-											</ul>
-										</div>
-										<div data-control-type="drop-down" data-control-name="sort" data-control-action="sort" data-control-animate-to-top="true" data-datetime-format="{month}/{day}/{year}" class="jplist-drop-down form-control">
-											<ul class="dropdown-menu">
-												<li><span data-path="default">Sort by</span></li>
-												<li><span data-path=".title" data-order="asc" data-type="text">Title A-Z</span></li>
-												<li><span data-path=".title" data-order="desc" data-type="text">Title Z-A</span></li>
-												<li><span data-path=".desc" data-order="asc" data-type="text">Description A-Z</span></li>
-												<li><span data-path=".desc" data-order="desc" data-type="text">Description Z-A</span></li>
-												<li><span data-path=".like" data-order="asc" data-type="number" data-default="true">Likes asc</span></li>
-												<li><span data-path=".like" data-order="desc" data-type="number">Likes desc</span></li>
-												<li><span data-path=".date" data-order="asc" data-type="datetime">Date asc</span></li>
-												<li><span data-path=".date" data-order="desc" data-type="datetime">Date desc</span></li>
-											</ul>
-										</div>
-										<div data-type="{start} - {end} of {all}" data-control-type="pagination-info" data-control-name="paging" data-control-action="paging" class="jplist-label btn btn-default"></div>
-										<div data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-control-animate-to-top="true" class="jplist-pagination"></div>
-									</div>
-									<div class="box jplist-no-results text-shadow align-center"><p>No results found</p></div>
-								</div>
+
+									{{$data['pages']}}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<script>
+            $('.toggle').click(function(){
+            var id = $(this).attr('id');
+
+            if($(this).hasClass("disable"))
+            {
+
+                $.ajax({
+                    url: '/entry/'+id,
+                    type: 'DELETE'
+                }
+                ).done(function(){
+                $('a#'+id+'.disable').removeClass('disable btn-warning').addClass('restore btn-success').text("Enable Entry");
+                });
+            }
+            else if($(this).hasClass("restore"))
+            {
+
+            $.ajax({
+                url: '/restoreentry/'+id,
+                type: 'GET'
+            }
+            ).done(function(){
+            $('a#'+id+'.restore').removeClass('restore btn-success').addClass('disable btn-warning').text("Disable Entry");
+            });
+
+
+            }
+            });
+
+            </script>
 
 @stop
