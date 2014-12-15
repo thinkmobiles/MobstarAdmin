@@ -56,7 +56,7 @@ class TagsController extends BaseController {
 	{
 		if(isset($_POST['id']))
 		{
-			Entrytag::where('entry_tag_tag_id', '=', $_POST['id'])->delete();
+			EntryTag::where('entry_tag_tag_id', '=', $_POST['id'])->delete();
 			Tag::destroy($_POST['id']);
 			die('true');
 		}
@@ -71,15 +71,15 @@ class TagsController extends BaseController {
 	{
 		if(isset($_POST['id']) && isset($_POST['new_id']))
 		{
-			$entrytags = Entrytag::where('entry_tag_tag_id', '=', $_POST['id'])->get();
+			$entrytags = EntryTag::where('entry_tag_tag_id', '=', $_POST['id'])->get();
 
 			foreach ($entrytags as $entrytag) {
 				
-				$entrytags = Entrytag::where('entry_tag_tag_id', '=', $_POST['id'])->get();
+				$entrytags = EntryTag::where('entry_tag_tag_id', '=', $_POST['id'])->get();
 				
-			}			
+			}
 
-			->update(array('entry_tag_tag_id' => $_POST['new_id']))
+			$entrytags->update(array('entry_tag_tag_id' => $_POST['new_id']));
 
 
 			Tag::destroy($_POST['id']);
