@@ -86,7 +86,6 @@
 
                                         <div class="form-actions">
                                         <div class="col-md-2">
-
 							                <input type="submit" class="btn btn-default" value="Filter">
                                         </div>
                                         </div>
@@ -95,7 +94,7 @@
 
 
 
-									<ul class="box text-shadow ul-li-list">
+									<ul class="box text-shadow jplist-grid-view">
 
 										@foreach($data['entries'] as $entry)
 										<li id="list-item-{{ $entry['entry_id']}}" class="list-item">
