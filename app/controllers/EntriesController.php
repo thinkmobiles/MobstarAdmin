@@ -206,8 +206,9 @@ class EntriesController extends BaseController
 			$this->data[ 'entry' ]->save();
 		}
 
-		return View::make( 'entries/edit' )->with( 'data', $this->data );
-	}
+		return Redirect::to('entry/' . $_POST['entry_id']);
+
+		}
 
 	public function delete( $id )
 	{
