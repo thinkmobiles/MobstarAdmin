@@ -168,7 +168,7 @@ class EntriesController extends BaseController
 
 		$this->data[ 'reports' ] = Report::where( 'entry_report_entry_id', '=', $entry_id )->get();
 
-		$this->data[ 'tags' ] = Entrytag::leftJoin( 'tags', function ( $join )
+		$this->data[ 'tags' ] = EntryTag::leftJoin( 'tags', function ( $join )
 		{
 			$join->on( 'entry_tags.entry_tag_tag_id', '=', 'tags.tag_id' );
 		} )->where( 'entry_tag_entry_id', '=', $entry_id )->get();
