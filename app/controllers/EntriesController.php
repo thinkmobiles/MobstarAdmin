@@ -9,7 +9,7 @@ class EntriesController extends BaseController
 
 		$order_by = ( Input::get( 'orderBy', 'latest' ) );
 
-		switch($order_by)
+		switch( $order_by )
 		{
 			case "popular":
 				$order = 'entry_rank';
@@ -24,7 +24,6 @@ class EntriesController extends BaseController
 				$dir = 0;
 		}
 
-
 		//Get tags
 		$tag = ( Input::get( 'tagId', '0' ) );
 		$tag = ( !is_numeric( $tag ) ) ? 0 : $tag;
@@ -36,18 +35,23 @@ class EntriesController extends BaseController
 		$category = ( !is_numeric( $category ) ) ? 0 : $category;
 
 		$query = Entry::with( 'category', 'vote', 'user', 'file', 'entryTag.tag' )
-			->where( 'entry_id', '>', '0');
+					  ->where( 'entry_id', '>', '0' );
+
+		if( $order_by == 'popular' )
+		{
+			$query = $query->where( 'entry_rank', '>', 0 );
+		}
 
 		if( $category )
 		{
 			$query = $query->where( 'entry_category_id', '=', $category );
 		}
 
-		if( $deleted == 1  )
+		if( $deleted == 1 )
 		{
 			$query = $query->where( 'entry_deleted', '=', 0 );
 		}
-		elseif( $deleted == 2  )
+		elseif( $deleted == 2 )
 		{
 			$query = $query->where( 'entry_deleted', '=', 1 );
 		}
@@ -60,11 +64,11 @@ class EntriesController extends BaseController
 			} );
 		}
 
-		$entries = $query->orderBy($order, $dir)->paginate(15);
+		$entries = $query->orderBy( $order, $dir )->paginate( 15 );
 
-		$this->data['pages'] = $entries->appends(Input::all())->links();
+		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
 
-		$this->data[ 'entries' ] = [];
+		$this->data[ 'entries' ] = [ ];
 
 		foreach( $entries as $entry )
 		{
@@ -87,7 +91,7 @@ class EntriesController extends BaseController
 			{
 				continue;
 			}
-			$new['entry_file'] = $new['entry_image'] = "";
+			$new[ 'entry_file' ] = $new[ 'entry_image' ] = "";
 
 			foreach( $entry->file as $file )
 			{
@@ -204,7 +208,6 @@ class EntriesController extends BaseController
 
 		return View::make( 'entries/edit' )->with( 'data', $this->data );
 	}
-
 
 	public function delete( $id )
 	{
