@@ -1047,3 +1047,25 @@
 div[data-control-type="pagination-info"] {
     clear: both;
 }
+
+.flex-container{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-webkit-flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+.flex-child{
+	padding: 5px;
+	width: 300px;
+	margin-top: 10px;
+	text-align: center;
+}

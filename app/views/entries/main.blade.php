@@ -94,18 +94,14 @@
 
 
 
-									<ul class="box text-shadow jplist-grid-view">
+									<div class="flex-container">
 
 										@foreach($data['entries'] as $entry)
-										<li id="list-item-{{ $entry['entry_id']}}" class="list-item">
-											<div class="list-box"><!--<img/>-->
-												<div class="img">
-
-													<video style="width:100%; height:auto" class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}">
+											<div class="flex-child"><!--<img/>-->
+													<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}">
 														<source src="{{$entry['entry_file']}}" type="video/mp4">
 														Your browser does not support the video tag.
 													</video>
-												</div>
 												<!--<data></data>-->
 													<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
 													<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>
@@ -118,10 +114,9 @@
                                                         <a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable Entry</a>
                                                     @endif
 											</div>
-										</li>
 										@endforeach
 
-									</ul>
+									</div>
 
 									{{$data['pages']}}
 							</div>
