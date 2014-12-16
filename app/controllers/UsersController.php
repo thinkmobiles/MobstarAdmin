@@ -6,7 +6,7 @@ class UsersController extends BaseController {
 	{
 		$this->data['sidenav']['users']['page_selected'] = true;
 
-		$this->data['users'] = User::paginate(20);
+		$this->data['users'] = User::where('user_deleted', '=', 0)->paginate(20);
 
     	return View::make('users/main')->with('data', $this->data);
 	}
