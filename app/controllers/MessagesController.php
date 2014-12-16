@@ -8,7 +8,7 @@ class MessagesController extends BaseController {
 
 		$this->data['messages'] = Message::leftJoin('users', function($join) {
 			$join->on('messages.message_creator_id', '=', 'users.user_id');
-		})->get();
+		})->where('message_deleted', '=', 0)->get();
 
     	return View::make('messages/main')->with('data', $this->data);
 	}
