@@ -62,7 +62,7 @@
 			<div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
 				<ul class="nav navbar navbar-top-links navbar-right mbn">
 					<li class="dropdown topbar-user">
-						<a data-hover="dropdown" href="/user/{{ $data['this_user']->user_id }}" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">{{ $data['this_user']->user_display_name }}</span>&nbsp;<span class="caret"></span></a>
+						<a data-hover="dropdown" href="/user/{{ $data['this_user']->user_id }}" class="dropdown-toggle"><img src="/images/logo.png" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">{{ $data['this_user']->user_display_name }}</span>&nbsp;<span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-user pull-right">
 							<li><a href="/logout"><i class="fa fa-key"></i>Log Out</a></li>
 						</ul>
@@ -78,7 +78,7 @@
 			<div class="sidebar-collapse menu-scroll">
 				<ul id="side-menu" class="nav">
 					<li class="user-panel">
-						<div class="thumb"><img src="/images/avatar/128.jpg" alt="" class="img-circle"/></div>
+						<div class="thumb"><img src="/images/icon.png" alt="" class="img-circle"/></div>
 						<div class="info"><p>{{ $data['this_user']->user_display_name }}</p>
 							<ul class="list-inline list-unstyled">
 								<li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
