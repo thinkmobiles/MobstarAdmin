@@ -13,7 +13,8 @@
 	<div class="page-content">
 		<div class="row">
 			<div class="col-lg-8">
-				<p><a href="/user/add" role="button" class="btn btn-green">Add user</a></p>
+				<p><a href="/user/add" role="button" class="btn btn-green">Add user</a>
+				<a href="/users?showAll=1" role="button" class="btn btn-green">Show All</a></p>
 				<div class="list-group">
 
 					@foreach($data['users'] as $user)
@@ -24,7 +25,7 @@
 					@endforeach
 
 				</div>
-				<?php echo $data['users']->links(); ?>
+				<?php echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>
 			</div>
 		</div>
 	</div>
