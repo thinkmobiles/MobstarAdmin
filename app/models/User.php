@@ -44,4 +44,37 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('Entry', 'entry_user_id');
     }
 
+	public function TwitterUser()
+	{
+		return $this->hasOne( 'TwitterUser', 'twitter_user_id', 'user_twitter_id' );
+	}
+
+	public function GoogleUser()
+	{
+		return $this->hasOne( 'GoogleUser', 'google_user_id', 'user_google_id' );
+	}
+
+	public function FacebookUser()
+	{
+		return $this->hasOne( 'FacebookUser', 'facebook_user_id', 'user_facebook_id' );
+	}
+
+	public function getUserDisplayNameAttribute($value){
+//		return var_dump($this->FacebookUser());
+		if($value == "")
+		{
+			if($this->user_name != "")
+				return $this->user_name;
+			if($this->user_facebook_id != 0)
+				return $this->FacebookUser->facebook_user_display_name;
+			elseif($this->user_twitter_id != 0)
+				return $this->TwitterUser->twitter_user_display_name;
+			elseif($this->user_google_id != 0)
+				return $this->GoogleUser->google_user_display_name;
+		}
+		else
+			return $value;
+
+	}
+
 }
