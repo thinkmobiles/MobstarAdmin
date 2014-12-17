@@ -62,7 +62,7 @@
 			<div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
 				<ul class="nav navbar navbar-top-links navbar-right mbn">
 					<li class="dropdown topbar-user">
-						<a data-hover="dropdown" href="/user/{{ $data['this_user']->user_id }}" class="dropdown-toggle"><img src="/images/logo.png" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">{{ $data['this_user']->user_display_name }}</span>&nbsp;<span class="caret"></span></a>
+						<a data-hover="dropdown" href="/user/{{ $data['this_user']->user_id }}" class="dropdown-toggle"><img src="/images/logo.png" alt=""/>&nbsp;<span class="hidden-xs">{{ $data['this_user']->user_display_name }}</span>&nbsp;<span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-user pull-right">
 							<li><a href="/logout"><i class="fa fa-key"></i>Log Out</a></li>
 						</ul>
