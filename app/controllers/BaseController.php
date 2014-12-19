@@ -59,6 +59,12 @@ class BaseController extends Controller {
 				'page_selected' => false,
 				'page_counter' => Report::all()->count(),
 			),
+			'support' => array(
+				'page_title' => 'Support Admin Area',
+				'page_url' => 'https://mobstar.freshdesk.com/support/login',
+				'page_icon' => '',
+				'page_selected' => false,
+			),
 		);
 	
 		$this->data['this_user'] = Auth::user();
