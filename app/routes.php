@@ -44,6 +44,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('entries', array('uses' => 'EntriesController@showEntries'));
 	Route::get('entry/{entry_id}', array('uses' => 'EntriesController@showEntry'));
 	Route::post('entry/{entry_id}', array('uses' => 'EntriesController@saveEntry'));
+	Route::delete('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
+ 	Route::get('restoreentry/{entry_id}', array('uses' => 'EntriesController@restoreentry'));
 
 	Route::get('tags', array('uses' => 'TagsController@showTags'));
 	Route::post('tag/delete', array('uses' => 'TagsController@deleteTag'));
