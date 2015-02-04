@@ -25,7 +25,12 @@
 									<div class="col-md-3">
 									</div>
 									<div class="col-md-9">
-										<img src="http://api.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+										@if ( !file_exists(($data['mentor']->mentor_profile_picture)) )
+											<img src="http://api.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+										@else
+											<img src="http://admin.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+										@endif
+										
 										<input type="file" name="mentor_profile_picture" />
 									</div>
 								</div>
