@@ -16,7 +16,7 @@
 				<div class="panel panel-green">
 					<div class="panel-heading">{{ empty($data['category']->category_id) ? 'Add' : 'Edit' }} category</div>
 					<div class="panel-body pan">
-						<form class="form-horizontal" method="post">
+						<form class="form-horizontal" method="post" enctype="multipart/form-data">
 							@if ( !empty($data['category']->category_id) )
 							<input type="hidden" name="category_id" value="{{ $data['category']->category_id }}" />
 							@endif
@@ -38,6 +38,15 @@
 									<label for="inputCategoryDescription" class="col-md-3 control-label">Description</label>
 									<div class="col-md-9">
 										<textarea name="category_description" id="inputCategoryDescription" rows="3" class="form-control">{{ isset($data['category']->category_description) ? $data['category']->category_description : '' }}</textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputCategoryIcon" class="col-md-3 control-label">Icon</label>
+									<div class="col-md-9">
+									@if (!empty($data['category']->category_icon))
+										<img src="../../{{ $data['category']->category_icon }}" width="100%" />
+									@endif
+									<input type="file" name="category_icon"/>
 									</div>
 								</div>
 							</div>
