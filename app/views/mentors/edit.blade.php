@@ -25,7 +25,7 @@
 									<div class="col-md-3">
 									</div>
 									<div class="col-md-9">
-										<img src="http://admin.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+										<img src="http://api.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
 										<input type="file" name="mentor_profile_picture" />
 									</div>
 								</div>
