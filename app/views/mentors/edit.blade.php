@@ -16,7 +16,7 @@
 				<div class="panel panel-green">
 					<div class="panel-heading">{{ empty($data['mentor']->mentor_id) ? 'Add' : 'Edit' }} mentor</div>
 					<div class="panel-body pan">
-						<form class="form-horizontal" method="post" enctype="multipart/form-data>
+						<form class="form-horizontal" method="post" enctype="multipart/form-data">
 							@if ( !empty($data['mentor']->mentor_id) )
 							<input type="hidden" name="mentor_id" value="{{ $data['mentor']->mentor_id }}" />
 							@endif
