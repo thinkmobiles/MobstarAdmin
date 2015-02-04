@@ -1,5 +1,6 @@
 <?php
-
+use Aws\S3\S3Client;
+use Aws\Common\Credentials\Credentials as Creds;
 class CategoriesController extends BaseController {
 
 	public function showCategories()
@@ -63,6 +64,41 @@ class CategoriesController extends BaseController {
 		if(empty($this->data['errors']))
 		{
 			$this->data['category']->save();
+			$icon = Input::file( 'category_icon' );
+
+			if( !empty( $icon ) )
+			{
+				$destinationPath = 'categoryIcon/';
+
+				$file_in = $icon->getRealPath();
+
+				$file_out = $destinationPath.$this->data['category']->category_id . "-" . str_random( 12 ). ".jpg";
+
+				$img = Image::make( $file_in );
+
+				$img->resize( 160, 160 );
+
+				$img->save( $file_out, 80 );
+				
+				/*if(!is_dir($destinationPath))
+					$result = File::makeDirectory($destinationPath, 0777, true);
+				*/
+				//$profile->move($destinationPath, $filename);
+
+				if(isset($_POST['category_id']) && $_POST['category_id'] != '0')
+				{
+					if(File::exists($destinationPath.$this->data['category']->category_icon))
+						File::delete($destinationPath.$this->data['category']->category_icon);
+				}
+
+				$this->data['category']->category_icon = $file_out;	
+
+				$handle = fopen( $file_out , "r" );
+
+				Flysystem::connection( 'awss3' )->put( $file_out , fread( $handle,filesize( $file_out ) ) );		
+
+				$this->data['category']->save();
+			}
 			return Redirect::to('category/'.$this->data['category']->category_id);
 		}
 		else
