@@ -16,7 +16,7 @@
 				<div class="panel panel-green">
 					<div class="panel-heading">{{ empty($data['mentor']->mentor_id) ? 'Add' : 'Edit' }} mentor</div>
 					<div class="panel-body pan">
-						<form class="form-horizontal" method="post">
+						<form class="form-horizontal" method="post" enctype="multipart/form-data>
 							@if ( !empty($data['mentor']->mentor_id) )
 							<input type="hidden" name="mentor_id" value="{{ $data['mentor']->mentor_id }}" />
 							@endif
@@ -25,8 +25,8 @@
 									<div class="col-md-3">
 									</div>
 									<div class="col-md-9">
-										<img src="http://api.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
-										<input type="file" />
+										<img src="http://admin.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+										<input type="file" name="mentor_profile_picture" />
 									</div>
 								</div>
 
