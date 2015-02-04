@@ -8,7 +8,9 @@
 		"laravel/framework": "4.2.*",
         "graham-campbell/flysystem": "~1.0@dev",
 		"aws/aws-sdk-php": "~2.4",
-		"guzzle/guzzle": "~3.9"
+		"guzzle/guzzle": "~3.9",
+		"intervention/image": "2.*",
+		"league/flysystem-aws-s3-v2": "~1.0"
 	},
 	"autoload": {
 		"classmap": [
