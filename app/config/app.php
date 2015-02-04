@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+		'GrahamCampbell\Flysystem\FlysystemServiceProvider',
+		'Intervention\Image\ImageServiceProvider'
 	),
 
 	/*
@@ -188,7 +189,9 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Creds'               => 'Aws\Common\Credentials\Credentials'
+		'Creds'               => 'Aws\Common\Credentials\Credentials',
+		'Image'           => 'Intervention\Image\Facades\Image',
+		'Flysystem' 	  => 'GrahamCampbell\Flysystem\Facades\Flysystem'
 
 
 	),
