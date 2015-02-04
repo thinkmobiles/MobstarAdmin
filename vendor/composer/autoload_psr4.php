@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
+    'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'GrahamCampbell\\Manager\\' => array($vendorDir . '/graham-campbell/manager/src'),
     'GrahamCampbell\\Flysystem\\' => array($vendorDir . '/graham-campbell/flysystem/src'),
 );
