@@ -72,7 +72,7 @@ class CategoriesController extends BaseController {
 
 				$file_in = $icon->getRealPath();
 
-				$file_out = $destinationPath.$this->data['category']->category_id . "-" . str_random( 12 ). ".jpg";
+				$file_out = $destinationPath.$this->data['category']->category_id . "-" . str_random( 12 ). ".".$icon->getClientOriginalExtension();
 
 				$img = Image::make( $file_in );
 
