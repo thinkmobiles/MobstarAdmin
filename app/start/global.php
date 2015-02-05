@@ -79,3 +79,5 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+//Requie Helpers file
+require app_path().'/helper.php';
