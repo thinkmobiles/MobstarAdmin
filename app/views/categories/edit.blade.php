@@ -61,7 +61,7 @@
 			</div>
 		</div>
 
-		@if ( !empty($data['category']->category_id) )
+		@if ( !empty($data['category']->category_id) && !in_array($data['category']->category_id,array(7,8)) )
 		
 		<div id="form-layouts" class="row">
 			<div class="col-lg-6">
