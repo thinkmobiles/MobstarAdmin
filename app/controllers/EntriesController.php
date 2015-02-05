@@ -1,5 +1,8 @@
 <?php
 
+use Aws\S3\S3Client;
+use Aws\Common\Credentials\Credentials as Creds;
+
 class EntriesController extends BaseController
 {
 
@@ -217,6 +220,77 @@ class EntriesController extends BaseController
 		$entry->entry_deleted = 1;
 
 		$entry->save();
+
+		return Response::make( [ 'status' => 'entry deleted' ], 200 );
+	}
+
+	public function harddelete( $id )
+	{
+
+		$client = getS3Client();
+		$files = EntryFile::where('entry_file_entry_id', '=', $id )->get();
+		$data = array();
+
+		foreach($files as $file)
+		{
+			$ch = curl_init();
+			$filename = $file->entry_file_name;
+			$filetype = $file->entry_file_type;
+			$data = array("filename" => "$filename", "filetype" => "$filetype");
+			
+			$url = 'http://api.mobstar.com/entry/deleteentryfiles';
+			//$url = 'http://192.168.1.32/project/mobstarapi/public/index.php/entry/deleteentryfiles';
+			
+			//set URL and other appropriate options
+			$options = array(CURLOPT_URL => $url,
+							 CURLOPT_POST => true,
+			                 CURLOPT_POSTFIELDS => $data,
+			                 CURLOPT_RETURNTRANSFER => true
+			                );
+			//print_r($options);
+			curl_setopt_array($ch, $options);
+
+			// grab URL and pass it to the browser
+			$response = curl_exec($ch);
+			
+			// close cURL resource, and free up system resources
+			curl_close($ch);
+
+			//print_r($response);
+			
+			$thumbimage = 'thumbs/'.$filename.'-thumb.jpg';
+			$video = $filename.'.'.$filetype;
+			$bucket = 'mobstar-1';
+			
+			//$removethumb = $client->deleteObject('mobstar-1', $thumbimage);
+			$removethumb = $client->deleteObject(array(
+			    'Bucket' => $bucket,
+			    'Key'    => $thumbimage
+			));
+
+			//$removevideo = $client->deleteObject('mobstar-1', $video);
+			$removevideo = $client->deleteObject(array(
+			    'Bucket' => $bucket,
+			    'Key'    => $video
+			));
+
+		}
+
+		EntryFile::where('entry_file_entry_id', '=', $id)->delete();
+
+		EntryReport::where('entry_report_entry_id', '=', $id)->delete();
+
+		Entrytag::where('entry_tag_entry_id', '=', $id)->delete();
+
+		EntryView::where('entry_view_entry_id', '=', $id)->delete();
+
+		Vote::where('vote_entry_id', '=', $id)->delete();
+
+		Comment::where('comment_entry_id', '=', $id)->delete();
+
+		$entry = Entry::find( $id );
+
+		$entry->delete();
 
 		return Response::make( [ 'status' => 'entry deleted' ], 200 );
 	}
