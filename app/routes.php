@@ -35,6 +35,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('users', array('uses' => 'UsersController@showUsers'));
 	Route::get('user/{user_id}', array('uses' => 'UsersController@showUser'));
 	Route::post('user/{users_id}', array('uses' => 'UsersController@saveUser'));
+	Route::get('users/sendpushmessage', array('uses' => 'UsersController@sendpushmessage'));
+	Route::post('users/sendpushmessage', array('uses' => 'UsersController@pushmessage'));
 
 	Route::get('messages', array('uses' => 'MessagesController@showMessages'));
 	Route::get('my_messages', array('uses' => 'MessagesController@showMyMessages'));
@@ -44,7 +46,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('entries', array('uses' => 'EntriesController@showEntries'));
 	Route::get('entry/{entry_id}', array('uses' => 'EntriesController@showEntry'));
 	Route::post('entry/{entry_id}', array('uses' => 'EntriesController@saveEntry'));
-	Route::delete('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
+	Route::get('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
+	Route::post('entry/delete/{entry_id}', array('uses' => 'EntriesController@harddelete'));
  	Route::get('restoreentry/{entry_id}', array('uses' => 'EntriesController@restoreentry'));
 
 	Route::get('tags', array('uses' => 'TagsController@showTags'));
