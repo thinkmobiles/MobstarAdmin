@@ -97,8 +97,8 @@
 									<div class="flex-container">
 
 										@foreach($data['entries'] as $entry)
-											<div class="flex-child"><!--<img/>-->
-													<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}">
+											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child"><!--<img/>-->
+													<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
 														<source src="{{$entry['entry_file']}}" type="video/mp4">
 														Your browser does not support the video tag.
 													</video>
@@ -113,6 +113,7 @@
                                                     @else
                                                         <a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable Entry</a>
                                                     @endif
+                                                    <a class="deletebtn btn btn-danger" id="{{$entry['entry_id']}}">Delete</a>
 											</div>
 										@endforeach
 
@@ -133,8 +134,8 @@
             {
 
                 $.ajax({
-                    url: '/entry/'+id,
-                    type: 'DELETE'
+                    url: '/delete/'+id,
+                    type: 'GET'
                 }
                 ).done(function(){
                 $('a#'+id+'.disable').removeClass('disable btn-warning').addClass('restore btn-success').text("Enable Entry");
@@ -153,6 +154,25 @@
 
 
             }
+            });
+
+            $('.deletebtn').click(function(){
+                var id = $(this).attr('id');
+                if(confirm('Are you sure, you want to delete this feed ? Also necessary feed related things also get deleted.'))
+                {
+                    var t = $(this);
+                    $.ajax({
+                    url: 'entry/delete/'+id,
+                    type: 'POST'
+                    }
+                    ).done(function(){
+                        t.parent().remove();
+                    });
+                }
+                else
+                {
+                    return false;
+                }
             });
 
             </script>
