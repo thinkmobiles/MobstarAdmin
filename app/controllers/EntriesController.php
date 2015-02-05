@@ -280,7 +280,7 @@ class EntriesController extends BaseController
 
 		EntryReport::where('entry_report_entry_id', '=', $id)->delete();
 
-		Entrytag::where('entry_tag_entry_id', '=', $id)->delete();
+		EntryTag::where('entry_tag_entry_id', '=', $id)->delete();
 
 		EntryView::where('entry_view_entry_id', '=', $id)->delete();
 
