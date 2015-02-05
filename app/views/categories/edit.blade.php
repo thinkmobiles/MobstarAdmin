@@ -27,6 +27,7 @@
 										<input id="inputCategoryName" name="category_name" type="text" placeholder="Name" class="form-control" {{ isset($data['category']->category_name) ? "value=\"".$data['category']->category_name."\"" : '' }} />
 									</div>
 								</div>
+								@if ( !empty($data['category']->category_id) && !in_array($data['category']->category_id,array(7,8)) )
 								<div class="form-group">
 									<label class="col-md-3 control-label">Status</label>
 									<div class="col-md-9">
@@ -34,6 +35,7 @@
 										<div data-on="info" data-off="success" class="make-switch"><input name="category_active" value="1" type="checkbox" {{ isset($data['category']) && $data['category']->category_active==1 ? ' checked="checked"' : '' }} class="switch"/></div>
 									</div>
 								</div>
+								@endif
 								<div class="form-group mbn">
 									<label for="inputCategoryDescription" class="col-md-3 control-label">Description</label>
 									<div class="col-md-9">
