@@ -62,4 +62,9 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('{page}', array('uses' => 'PageController@showPage'))->where('page', '[A-Za-z]+');
 	Route::get('{page}/{subpage}', array('uses' => 'PageController@showPage'))->where(array('page' => '[A-Za-z]+', 'subpage' => '[a-z]+'));
+	
+	Route::get('comment/entry/{entry_id}', array('uses' => 'CommentsController@showEntryComment'));
+	Route::post('comment/setstatus', array('uses' => 'CommentsController@setstatus'));
+	Route::post('comment/delete', array('uses' => 'CommentsController@commetDelete'));
+	Route::post('comment/savecomment', array('uses' => 'CommentsController@saveComment'));
 });
