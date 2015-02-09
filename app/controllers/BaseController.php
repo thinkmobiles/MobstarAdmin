@@ -48,7 +48,7 @@ class BaseController extends Controller {
 			),
 			'send' => array(
 				'page_title' => 'Send Notification',
-				'page_url' => URL::to('users/sendpushmessage'),
+				'page_url' => URL::to('/users/sendpushmessage'),
 				'page_icon' => 'send',
 				'page_selected' => false,
 			),
