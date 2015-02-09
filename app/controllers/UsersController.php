@@ -104,5 +104,116 @@ class UsersController extends BaseController {
 		
 		
 	}
+	public function sendpushmessage()
+	{
+		return View::make('users/sendpush')->with('data', $this->data);
+	}
+
+	public function pushmessage()
+	{
+		if(isset($_POST['message']) && !empty($_POST['message']))
+		{
+			$message = trim($_POST['message']);
+			$users = DB::table('device_registrations')->select(DB::raw('max(device_registration_id) as device_registration_id,device_registration_device_type,device_registration_device_token'))
+			->leftJoin('users','device_registrations.device_registration_user_id','=','users.user_id')
+			->where('user_deleted', '=', '0')->groupby('device_registration_user_id')->get();
+
+			foreach($users as $key=>$val)
+			{
+				$this->registerSNSEndpoint($val,$message);
+				//break;
+			}
+
+		}
+		Session::flash('message', 'Push Message sent Successfully.');
+		Session::flash('alert-class', 'alert-success'); 
+		return View::make('users/sendpush')->with('data', $this->data);
+	}
+
+	public function registerSNSEndpoint( $device , $message)
+	{
+		if( $device->device_registration_device_type == "apple" )
+		{
+			$arn = "arn:aws:sns:eu-west-1:830026328040:app/APNS/adminpushdemo";
+			$sns = getSNSClient();
+
+			$Model1 = $sns->listPlatformApplications();  
+			
+			$result1 = $sns->listEndpointsByPlatformApplication(array(
+				// PlatformApplicationArn is required
+				'PlatformApplicationArn' => $arn,
+			));
+			//echo '<pre>';
+			foreach($result1['Endpoints'] as $Endpoint){
+				$EndpointArn = $Endpoint['EndpointArn']; 
+				$EndpointToken = $Endpoint['Attributes'];
+				foreach($EndpointToken as $key=>$newVals){
+					if($key=="Token"){
+						if($device->device_registration_device_token==$newVals){
+						//if('c39bac35f298c66d7398673566179deee27618c2036d8c82dcef565c8d732f84'==$newVals){
+						//Delete ARN
+							$result = $sns->deleteEndpoint(array(
+								// EndpointArn is required
+								'EndpointArn' => $EndpointArn,
+							));
+						}
+					}
+					//print_r($EndpointToken);
+				}
+				//print_r($Endpoint);
+			}
+
+			 $result = $sns->createPlatformEndpoint(array(
+				 // PlatformApplicationArn is required
+				 'PlatformApplicationArn' => $arn,
+				 // Token is required
+				 //'Token' => 'c39bac35f298c66d7398673566179deee27618c2036d8c82dcef565c8d732f84',
+				 'Token' => $device->device_registration_device_type,
+
+			 ));
+
+			 $endpointDetails = $result->toArray();
+			 
+			 //print_r($device);echo "\n".$message."\n";print_r($result);print_r($endpointDetails);
+
+			 //die;
+			 try
+			 {
+				$sns->publish(array(
+				 'TargetArn' => $endpointDetails['EndpointArn'],
+				 'MessageStructure' => 'json',
+				 'Message' => json_encode(array(
+					'default' => $message,
+					//'APNS_SANDBOX' => json_encode(array(
+					'APNS' => json_encode(array(
+						'aps' => array(
+							"sound" => "default",
+							"alert" => $message,
+							"badge"=> intval(0),
+						)
+					))
+				))
+			 ));
+
+				$myfile = 'sns-log.txt';
+				file_put_contents($myfile, date('d-m-Y H:i:s') . ' debug log:', FILE_APPEND);
+				file_put_contents($myfile, print_r($endpointDetails, true), FILE_APPEND);
+
+				//print($EndpointArn . " - Succeeded!\n");    
+			 }   
+			 catch (Exception $e)
+			 {
+				print($endpointDetails . " - Failed: " . $e->getMessage() . "!\n");
+			 }
+		}
+		/*else
+		{
+			$arn = "arn:aws:sns:eu-west-1:830026328040:app/GCM/Mobstar-Android";
+		}*/
+
+		 
+
+
+	}
 
 }
