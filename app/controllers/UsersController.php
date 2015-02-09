@@ -121,7 +121,7 @@ class UsersController extends BaseController {
 			foreach($users as $key=>$val)
 			{
 				$this->registerSNSEndpoint($val,$message);
-				//break;
+				break;
 			}
 
 		}
@@ -149,8 +149,8 @@ class UsersController extends BaseController {
 				$EndpointToken = $Endpoint['Attributes'];
 				foreach($EndpointToken as $key=>$newVals){
 					if($key=="Token"){
-						if($device->device_registration_device_token==$newVals){
-						//if('c39bac35f298c66d7398673566179deee27618c2036d8c82dcef565c8d732f84'==$newVals){
+						//if($device->device_registration_device_token==$newVals){
+						if('c39bac35f298c66d7398673566179deee27618c2036d8c82dcef565c8d732f84'==$newVals){
 						//Delete ARN
 							$result = $sns->deleteEndpoint(array(
 								// EndpointArn is required
@@ -167,8 +167,8 @@ class UsersController extends BaseController {
 				 // PlatformApplicationArn is required
 				 'PlatformApplicationArn' => $arn,
 				 // Token is required
-				 //'Token' => 'c39bac35f298c66d7398673566179deee27618c2036d8c82dcef565c8d732f84',
-				 'Token' => $device->device_registration_device_type,
+				 'Token' => 'c39bac35f298c66d7398673566179deee27618c2036d8c82dcef565c8d732f84',
+				 //'Token' => $device->device_registration_device_type,
 
 			 ));
 
