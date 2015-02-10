@@ -287,6 +287,8 @@ class EntriesController extends BaseController
 		Vote::where('vote_entry_id', '=', $id)->delete();
 
 		Comment::where('comment_entry_id', '=', $id)->delete();
+		
+		Notification::where('notification_entry_id','=',$id)->delete();
 
 		$entry = Entry::find( $id );
 
