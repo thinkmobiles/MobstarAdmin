@@ -1071,6 +1071,6 @@ div[data-control-type="pagination-info"] {
 	text-align: center;
 }
 
-.flex-child video {
+.flex-child video,.flex-child img {
     width: 100% !important;
 }

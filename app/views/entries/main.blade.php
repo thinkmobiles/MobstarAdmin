@@ -98,10 +98,14 @@
 
 										@foreach($data['entries'] as $entry)
 											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child"><!--<img/>-->
+													@if($entry['entry_type'] !='image')
 													<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
 														<source src="{{$entry['entry_file']}}" type="video/mp4">
 														Your browser does not support the video tag.
 													</video>
+													@else
+													<img src="{{$entry['entry_file']}}" />
+													@endif
 												<!--<data></data>-->
 													<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
 													<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>

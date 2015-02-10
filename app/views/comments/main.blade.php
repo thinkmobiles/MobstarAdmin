@@ -18,8 +18,8 @@
 					<div class="row" id="row-{{$comment->comment_id}}">
 						<div class="col-lg-8 col-xs-8 col-mg-8">
 							<h4 class="list-group-item-heading">{{ getusernamebyid($comment->comment_user_id) }}</h4>
-							<p class="list-group-item-text" id="comment-{{$comment->comment_id}}">{{ $comment->comment_content }}</p>
-							{{Form::text('comment_content',"$comment->comment_content",array('style'=>"display:none;","id"=>"text-$comment->comment_id","class"=>"form-control"))}}
+							<p class="list-group-item-text" id="comment-{{$comment->comment_id}}">{{ json_decode('"'.$comment->comment_content.'"') }}</p>
+							{{Form::text('comment_content',json_decode('"'.$comment->comment_content.'"'),array('style'=>"display:none;","id"=>"text-$comment->comment_id","class"=>"form-control"))}}
 						</div>
 						<div class="col-lg-4 col-xs-4 col-mg-4">
 							@if($comment->comment_deleted == 0)
