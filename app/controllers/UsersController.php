@@ -114,14 +114,17 @@ class UsersController extends BaseController {
 		if(isset($_POST['message']) && !empty($_POST['message']))
 		{
 			$message = trim($_POST['message']);
-			$users = DB::table('device_registrations')->select(DB::raw('max(device_registration_id) as device_registration_id,device_registration_device_type,device_registration_device_token'))
-			->leftJoin('users','device_registrations.device_registration_user_id','=','users.user_id')
-			->where('user_deleted', '=', '0')->groupby('device_registration_user_id')->get();
-
+			$users = DB::select( DB::raw("SELECT t1.* FROM 
+				(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
+					from device_registrations where device_registration_device_token  != '' 
+					order by device_registration_date_created desc
+				) t1 left join users u on t1.device_registration_user_id = u.user_id 
+				where u.user_deleted = 0 
+				group by u.user_id 
+				order by t1.device_registration_date_created desc"));
 			foreach($users as $key=>$val)
 			{
 				$this->registerSNSEndpoint($val,$message);
-				//break;
 			}
 
 		}
@@ -140,16 +143,15 @@ class UsersController extends BaseController {
 		{
 			$arn = "arn:aws:sns:eu-west-1:830026328040:app/GCM/admin-android-notification";
 		}
-		
+
 		$sns = getSNSClient();
 
 		$Model1 = $sns->listPlatformApplications();  
-			
+		
 		$result1 = $sns->listEndpointsByPlatformApplication(array(
 			// PlatformApplicationArn is required
 			'PlatformApplicationArn' => $arn,
 		));
-		//echo '<pre>';
 		foreach($result1['Endpoints'] as $Endpoint){
 			$EndpointArn = $Endpoint['EndpointArn']; 
 			$EndpointToken = $Endpoint['Attributes'];
@@ -163,27 +165,24 @@ class UsersController extends BaseController {
 						));
 					}
 				}
-				//print_r($EndpointToken);
 			}
-			//print_r($Endpoint);
 		}
 
-		$result = $sns->createPlatformEndpoint(array(
+		 $result = $sns->createPlatformEndpoint(array(
 			 // PlatformApplicationArn is required
 			 'PlatformApplicationArn' => $arn,
 			 // Token is required
-			 'Token' => $device->device_registration_device_type,
+			 'Token' => $device->device_registration_device_token,
 
-		));
+		 ));
 
-		$endpointDetails = $result->toArray();
-			 
-		if($device->device_registration_device_type == "apple")
-		{	
-			$publisharray = array(
-				'TargetArn' => $endpointDetails['EndpointArn'],
-				'MessageStructure' => 'json',
-				 'Message' => json_encode(array(
+		 $endpointDetails = $result->toArray();		 
+		 if($device->device_registration_device_type == "apple")
+		 {	
+			 $publisharray = array(
+			 	'TargetArn' => $endpointDetails['EndpointArn'],
+			 	'MessageStructure' => 'json',
+			 	 'Message' => json_encode(array(
 					'default' => $message,
 					//'APNS_SANDBOX' => json_encode(array(
 					'APNS' => json_encode(array(
@@ -194,14 +193,14 @@ class UsersController extends BaseController {
 						)
 					)),
 				))
-			);
-		}
-		else
-		{
-			$publisharray = array(
-				'TargetArn' => $endpointDetails['EndpointArn'],
-				'MessageStructure' => 'json',
-				'Message' => json_encode(array(
+			 );
+		 }
+		 else
+		 {
+			 $publisharray = array(
+			 	'TargetArn' => $endpointDetails['EndpointArn'],
+			 	'MessageStructure' => 'json',
+			 	'Message' => json_encode(array(
 					'default' => $message,
 					'GCM'=>json_encode(array(
 						'data'=>array(
@@ -209,19 +208,19 @@ class UsersController extends BaseController {
 						)
 					))
 				))
-			);
-		}
+			 );
+		 }
 		try
 		{
 			$sns->publish($publisharray);
+
 			$myfile = 'sns-log.txt';
 			file_put_contents($myfile, date('d-m-Y H:i:s') . ' debug log:', FILE_APPEND);
 			file_put_contents($myfile, print_r($endpointDetails, true), FILE_APPEND);
-			//print($EndpointArn . " - Succeeded!\n");    
 		}   
 		catch (Exception $e)
 		{
-			print($endpointDetails . " - Failed: " . $e->getMessage() . "!\n");			
+			print($endpointDetails['EndpointArn'] . " - Failed: " . $e->getMessage() . "!\n");
 		}
 	}
 }
