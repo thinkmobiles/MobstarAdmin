@@ -56,7 +56,8 @@
                                                         else
                                                             $selected = 'latest';
                                                     ?>
-                                                    <option></option>
+                                                    <!--  <option></option> -->
+                                                    <option value="All" <?php echo ($selected == 'All') ? 'selected' : '' ?>>All</option>
                                                     @foreach($data['categories'] as $category)
                                                         <option value="{{$category->category_id}}" <?php echo ($selected == $category->category_id) ? "selected" : "" ?>>{{$category->category_name}}</option>
                                                     @endforeach

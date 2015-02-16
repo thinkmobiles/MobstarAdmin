@@ -34,8 +34,9 @@ class EntriesController extends BaseController
 		$deleted = ( Input::get( 'deleted', 0 ) );
 
 		//Get Category
-		$category = ( Input::get( 'category', '0' ) );
-		$category = ( !is_numeric( $category ) ) ? 0 : $category;
+		$category = ( Input::get( 'category', 'All' ) );
+		//$category = ( Input::get( 'category', '0' ) );
+		//$category = ( !is_numeric( $category ) ) ? 0 : $category;
 
 		$query = Entry::with( 'category', 'vote', 'user', 'file', 'entryTag.tag' )
 					  ->where( 'entry_id', '>', '0' );
@@ -45,9 +46,16 @@ class EntriesController extends BaseController
 			$query = $query->where( 'entry_rank', '>', 0 );
 		}
 
-		if( $category )
+		/*if( $category )
 		{
 			$query = $query->where( 'entry_category_id', '=', $category );
+		}*/
+		if( $category )
+		{
+			if( Input::get( 'category', '0' ) == 'All')
+				$query = $query->whereNotIn( 'entry_category_id', array('7','8'));
+			else
+				$query = $query->where( 'entry_category_id', '=', $category );
 		}
 
 		if( $deleted == 1 )
