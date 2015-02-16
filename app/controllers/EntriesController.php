@@ -52,11 +52,11 @@ class EntriesController extends BaseController
 		}*/
 		if( $category )
 		{
-			if( Input::get( 'category', '0' ) == 'All')
+			if( Input::get( 'category', 'All' ) == 'All')
 				$query = $query->whereNotIn( 'entry_category_id', array('7','8'));
 			else
 				$query = $query->where( 'entry_category_id', '=', $category );
-		}
+		}	
 
 		if( $deleted == 1 )
 		{
