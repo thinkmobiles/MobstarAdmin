@@ -46,7 +46,9 @@
 									<label for="inputCategoryIcon" class="col-md-3 control-label">Icon</label>
 									<div class="col-md-9">
 									@if (!empty($data['category']->category_icon))
-										<img src="../../{{ $data['category']->category_icon }}" width="100%" />
+										<div class="colorbg">
+											<img src="../../{{ $data['category']->category_icon }}" width="100%" />
+										</div>	
 									@endif
 									<input type="file" name="category_icon"/>
 									</div>
