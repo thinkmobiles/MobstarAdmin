@@ -218,7 +218,7 @@
 							<div class="list-group mbn">
 							@foreach ($data['stars'] as $star)
 								<a href="/user/{{ $star->user_id }}" class="list-group-item">
-									<p class="list-group-item-text">{{ $star->user_display_name }}</p>
+									<p class="list-group-item-text">{{ /*$star->user_display_name*/ getusernamebyid($star->user_id) }}</p>
 								</a>
 							@endforeach
 							</div>
