@@ -17,11 +17,8 @@
 				<div class="list-group">
 					@foreach($data['settings'] as $setting)
 					<a href="setting/{{ $setting->iSettingId }}" class="list-group-item">
-						<h4 class="list-group-item-heading">Title = {{ $setting->vTitle }}</h4>
-						<p class="list-group-item-text">Unique name = {{ $setting->vUniqueName }}</p>
+						<h4 class="list-group-item-heading">{{ $setting->vTitle }}</h4>
 						<p class="list-group-item-text">Setting value = {{ $setting->vSettingValue }}</p>
-						<p class="list-group-item-text">Setting Type = {{ $setting->eSettingType }}</p>
-						<p class="list-group-item-text">Status = {{ $setting->eStatus }}</p>
 					</a>
 					@endforeach
 				</div>
