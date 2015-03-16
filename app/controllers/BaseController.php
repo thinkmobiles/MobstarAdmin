@@ -60,7 +60,7 @@ class BaseController extends Controller {
 			),
 			'settings' => array(
 				'page_title' => 'Settings',
-				'page_url' => URL::to('settings'),
+				'page_url' => 'settings',
 				'page_icon' => 'cog',
 				'page_selected' => false,
 			),
