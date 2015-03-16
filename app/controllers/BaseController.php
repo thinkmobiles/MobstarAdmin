@@ -58,6 +58,12 @@ class BaseController extends Controller {
 				'page_icon' => 'tags',
 				'page_selected' => false,
 			),
+			'settings' => array(
+				'page_title' => 'Settings',
+				'page_url' => URL::to('settings'),
+				'page_icon' => '',
+				'page_selected' => false,
+			),
 			'reports' => array(
 				'page_title' => 'Reports',
 				'page_url' => 'reports',
