@@ -30,7 +30,7 @@
 								<div class="form-group">
 									<label for="inputUniqueName" class="col-md-3 control-label">Unique Name <span class='require'>*</span></label>
 									<div class="col-md-9">
-										<input id="inputUniqueName" name="vUniqueName" type="text" placeholder="Unique Name" class="form-control" {{ isset($data['settings']->vUniqueName) ? "value=\"".$data['settings']->vUniqueName."\"" : '' }} />
+										<input id="inputUniqueName" name="vUniqueName" type="text" readonly="readonly" placeholder="Unique Name" class="form-control" {{ isset($data['settings']->vUniqueName) ? "value=\"".$data['settings']->vUniqueName."\"" : '' }} />
 									</div>
 								</div>		
 								<div class="form-group mbn">
