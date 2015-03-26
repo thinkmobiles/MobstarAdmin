@@ -27,6 +27,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('category/{category_id}', array('uses' => 'CategoriesController@showCategory'));
 	Route::post('category/{category_id}', array('uses' => 'CategoriesController@saveCategory'));
 	
+	Route::get('defaultNotification', array('uses' => 'DefaultNotificationController@showDefaultNotifications'));
+	Route::get('defaultNotification/{iDefaultNotificationId}', array('uses' => 'DefaultNotificationController@showDefaultNotification'));
+	Route::post('defaultNotification/{iDefaultNotificationId}', array('uses' => 'DefaultNotificationController@saveDefaultNotification'));
+	
 	Route::get('settings', array('uses' => 'SettingsController@showSettings'));
 	Route::get('setting/{iSettingId}',array('uses' => 'SettingsController@showSetting'));
 	Route::post('setting/{iSettingId}',array('uses' => 'SettingsController@saveSetting'));

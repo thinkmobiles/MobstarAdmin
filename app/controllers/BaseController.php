@@ -58,6 +58,12 @@ class BaseController extends Controller {
 				'page_icon' => 'tags',
 				'page_selected' => false,
 			),
+			'defaultNotification' => array(
+					'page_title' => 'Default Notification',
+					'page_url' => 'defaultNotification',
+					'page_icon' => 'bell',
+					'page_selected' => false,
+			),
 			'settings' => array(
 				'page_title' => 'Settings',
 				'page_url' => 'settings',
