@@ -22,6 +22,17 @@
 						{{ Form::open(array('url' => 'users/sendpushmessage','class'=>'form-horizontal')) }}
 						<div class="form-body pal">
 							<div class="form-group">
+								<h4><input type='checkbox' id='selectall' name="selectall" />  Select All</h4>
+								<div class="list-group">
+									@foreach($data['users'] as $user)
+
+										<h4 class="list-group-item">
+										<input type='checkbox' class='case' id="{{ $user->user_id }}" name='checkbox[]' value='{{ $user->user_id }}'>
+											{{ $user->user_display_name }}</h4>
+
+									@endforeach
+								</div>	
+								<?php echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>
 								{{ Form::label('message', 'Send Push Notification Message', array('class' => 'col-md-3 control-label')) }}
 								<div class="col-md-9">
 									{{ Form::textarea('message', '',array('class'=>'form-control','placeholder'=>'Push Notification Message')) }}
@@ -38,5 +49,20 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
 
+// var $a = $.noConflict();
+ 	$('document').ready(function () 
+ 	{	
+ 		$('#selectall').on('ifChecked ifUnchecked', function(event) {
+	        if (event.type == 'ifChecked') {
+	            $('.list-group input[type="checkbox"]').iCheck('check');
+	        } else {
+	            $('.list-group input[type="checkbox"]').iCheck('uncheck');
+	        }
+    });
+
+});
+
+</script>
 @stop
