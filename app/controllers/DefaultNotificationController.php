@@ -71,7 +71,7 @@ class DefaultNotificationController extends BaseController {
 
 				$img = Image::make( $file_in );
 
-				$img->resize( 200, 200 );
+				//$img->resize( 200, 200 );
 
 				$img->save( $file_out, 80 );
 
