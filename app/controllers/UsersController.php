@@ -106,6 +106,11 @@ class UsersController extends BaseController {
 	}
 	public function sendpushmessage()
 	{
+		$this->data['sidenav']['send']['page_selected'] = true;
+		$this->data['users'] = User::where('user_deleted', '=', 0)->paginate(20);
+		if(isset($_GET['showAll']))
+			$this->data['users'] = User::where('user_deleted', '=', 0)->get();
+
 		return View::make('users/sendpush')->with('data', $this->data);
 	}
 
