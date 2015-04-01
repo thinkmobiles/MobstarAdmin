@@ -155,7 +155,7 @@ class UsersController extends BaseController {
 
 					if(!empty($usersData))
 					{	
-						if($usersData[0]['device_registration_device_token'] != 'mobstar')
+						if($usersData[0]->device_registration_device_token != 'mobstar')
 							$this->registerSNSEndpoint($usersData[0],$message);
 					}
 				} 		
