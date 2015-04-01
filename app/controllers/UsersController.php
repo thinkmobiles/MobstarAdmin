@@ -116,7 +116,7 @@ class UsersController extends BaseController {
 
 	public function pushmessage()
 	{
-		if(isset($_POST['message']) && !empty($_POST['message']))
+		/*if(isset($_POST['message']) && !empty($_POST['message']))
 		{
 			$message = trim($_POST['message']);
 			$users = DB::select( DB::raw("SELECT t1.* FROM 
@@ -132,7 +132,41 @@ class UsersController extends BaseController {
 				$this->registerSNSEndpoint($val,$message);
 			}
 
+		}*/
+		if(isset($_POST['message']) && !empty($_POST['message']))
+		{
+			$message = trim($_POST['message']);
+			$friends_checked = Input::get('checkbox');
+			if(is_array($friends_checked))
+			{	
+				for($i=0; $i<count($friends_checked);$i++)
+				{	
+					$u = $friends_checked[$i];
+		
+					$usersData = DB::select( DB::raw("SELECT t1.* FROM 
+								(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
+								from device_registrations where device_registration_device_token  != '' 
+								order by device_registration_date_created desc
+								) t1 left join users u on t1.device_registration_user_id = u.user_id 
+								where u.user_deleted = 0 
+								AND u.user_id = $u
+								group by u.user_id 
+								order by t1.device_registration_date_created desc"));
+
+					if(!empty($usersData))
+					{	
+						if($usersData[0]['device_registration_device_token'] != 'mobstar')
+							$this->registerSNSEndpoint($usersData[0],$message);
+					}
+				} 		
+			}
 		}
+		/* Added for check box */
+		$this->data['sidenav']['send']['page_selected'] = true;
+		$this->data['users'] = User::where('user_deleted', '=', 0)->paginate(20);
+		if(isset($_GET['showAll']))
+			$this->data['users'] = User::where('user_deleted', '=', 0)->get();
+		
 		Session::flash('message', 'Push Message sent Successfully.');
 		Session::flash('alert-class', 'alert-success'); 
 		return View::make('users/sendpush')->with('data', $this->data);
