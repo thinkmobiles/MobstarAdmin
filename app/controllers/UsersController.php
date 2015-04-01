@@ -135,6 +135,8 @@ class UsersController extends BaseController {
 		}*/
 		if(isset($_POST['message']) && !empty($_POST['message']))
 		{
+			print_r($_POST);
+			die;
 			$message = trim($_POST['message']);
 			$friends_checked = Input::get('checkbox');
 			if(is_array($friends_checked))
