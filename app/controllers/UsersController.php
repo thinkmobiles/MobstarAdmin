@@ -142,7 +142,7 @@ class UsersController extends BaseController {
 			{
 				$usersData = DB::select( DB::raw("SELECT t1.* FROM 
 								(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
-								from device_registrations where device_registration_device_token  != ''  AND device_registration_device_token != 'mobstar'
+								from device_registrations where device_registration_device_token  != ''  AND device_registration_device_token != 'mobstar' AND device_registration_device_type = 'apple'
 								order by device_registration_date_created desc
 								) t1 left join users u on t1.device_registration_user_id = u.user_id 
 								where u.user_deleted = 0 
@@ -166,7 +166,7 @@ class UsersController extends BaseController {
 			
 						$usersData = DB::select( DB::raw("SELECT t1.* FROM 
 									(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
-									from device_registrations where device_registration_device_token  != '' 
+									from device_registrations where device_registration_device_token  != '' AND device_registration_device_token != 'mobstar' AND device_registration_device_type = 'apple'
 									order by device_registration_date_created desc
 									) t1 left join users u on t1.device_registration_user_id = u.user_id 
 									where u.user_deleted = 0 
@@ -176,7 +176,6 @@ class UsersController extends BaseController {
 
 						if(!empty($usersData))
 						{	
-							if($usersData[0]->device_registration_device_token != 'mobstar')
 								$this->registerSNSEndpoint($usersData[0],$message);
 						}
 					} 		
