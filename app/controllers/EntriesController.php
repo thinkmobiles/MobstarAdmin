@@ -76,7 +76,7 @@ class EntriesController extends BaseController
 		}
 
 		$entries = $query->orderBy( $order, $dir )->paginate( 15 );
-
+		dd(DB::getQueryLog());
 		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
 
 		$this->data[ 'entries' ] = [ ];
