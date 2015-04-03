@@ -8,7 +8,12 @@ class HomeController extends BaseController {
 
 		return View::make('home')->with('data', $this->data);
 	}
+	public function showWelcomes()
+	{
+		$this->data['sidenav']['dashboard']['page_selected'] = true;
 
+		return View::make('home')->with('data', $this->data);
+	}
 	public function showLogin()
 	{
 		$this->data['sidenav']['dashboard']['page_selected'] = true;

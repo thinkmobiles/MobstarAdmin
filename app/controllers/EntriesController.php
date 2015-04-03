@@ -6,6 +6,142 @@ use Aws\Common\Credentials\Credentials as Creds;
 class EntriesController extends BaseController
 {
 
+	public function showFashionEntries()
+	{
+		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
+		$order_by = ( Input::get( 'orderBy', 'latest' ) );
+
+		switch( $order_by )
+		{
+			case "popular":
+				$order = 'entry_rank';
+				$dir = 'asc';
+				break;
+			case "latest":
+				$order = 'entry_created_date';
+				$dir = 'desc';
+				break;
+			default:
+				$order = 0;
+				$dir = 0;
+		}
+
+		//Get tags
+		$tag = ( Input::get( 'tagId', '0' ) );
+		$tag = ( !is_numeric( $tag ) ) ? 0 : $tag;
+
+		$deleted = ( Input::get( 'deleted', 0 ) );
+
+		//Get Category
+		$category = ( Input::get( 'subCategory', 'All' ) );
+		//$category = ( !is_numeric( $category ) ) ? 0 : $category;
+// print_r($category);
+// die();
+		$query = Entry::with( 'category', 'vote', 'user', 'file', 'entryTag.tag' )
+					  ->where( 'entry_id', '>', '0' )
+					  ->where('entry_category_id','=','3');
+
+		if( $order_by == 'popular' )
+		{
+			$query = $query->where( 'entry_rank', '>', 0 );
+		}
+
+		if( $category )
+		{
+			if( Input::get( 'subCategory', 'All' ) == 'All')
+			{
+				$query = $query->where( 'entry_category_id', array('3'));
+			}			
+			elseif (Input::get('subCategory') == 'Male') 
+			{
+				$query = $query->where( 'entry_subcategory', '=', 'Male');
+			}
+			elseif (Input::get('subCategory') == 'Female') 
+			{
+				$query = $query->where( 'entry_subcategory', '=', 'Female');
+			}
+			elseif (Input::get('subCategory') == 'Curve') 
+			{
+				$query = $query->where( 'entry_subcategory', '=', 'Curve');
+			}
+			// else
+			// 	$query = $query->where( 'entry_subcategory', '=', $category );
+		}
+		if( $deleted == 1 )
+		{
+			$query = $query->where( 'entry_deleted', '=', 0 );
+		}
+		elseif( $deleted == 2 )
+		{
+			$query = $query->where( 'entry_deleted', '=', 1 );
+		}
+
+		if( $tag )
+		{
+			$query = $query->whereHas( 'entryTag', function ( $q ) use ( $tag )
+			{
+				$q->where( 'entry_tag_tag_id', '=', $tag );
+			} );
+		}
+
+		$entries = $query->orderBy( $order, $dir )->paginate( 15 );
+		
+		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
+
+		$this->data[ 'entries' ] = [ ];
+
+		foreach( $entries as $entry )
+		{
+			$up_votes = 0;
+			$down_votes = 0;
+			foreach( $entry->vote as $vote )
+			{
+				if( $vote->vote_up == 1 && $vote->vote_deleted == 0 )
+				{
+					$up_votes++;
+				}
+				elseif( $vote->vote_down == 1 && $vote->vote_deleted == 0 )
+				{
+					$down_votes++;
+				}
+
+			}
+
+			if( count( $entry->file ) == 0 )
+			{
+				continue;
+			}
+			$new[ 'entry_file' ] = $new[ 'entry_image' ] = "";
+
+			foreach( $entry->file as $file )
+			{
+				if( $entry->entry_type == 'video' )
+				{
+					if( $file->entry_file_type == 'mp4' )
+					{
+						$new[ 'entry_file' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type );
+						$new[ 'entry_image' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type, true );
+
+					}
+				}
+			}
+
+			$new[ 'entry_name' ] = $entry->user->user_display_name;
+			$new[ 'entry_date' ] = $entry->entry_created_date;
+			$new[ 'entry_down_votes' ] = $down_votes;
+			$new[ 'entry_up_votes' ] = $up_votes;
+			$new[ 'entry_description' ] = $entry->entry_description;
+			$new[ 'entry_type' ] = $entry->entry_type;
+			$new[ 'entry_id' ] = $entry->entry_id;
+			$new[ 'entry_deleted' ] = $entry->entry_deleted;
+			$new[ 'entry_subcategory' ] = $entry->entry_subcategory;
+			$this->data[ 'entries' ][ ] = $new;
+
+		}
+		$this->data[ 'subCategories' ] = Entry::all();
+		return View::make( 'fashionCategory/main' )->with( 'data', $this->data );
+	}
+
 	public function showEntries()
 	{
 		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;

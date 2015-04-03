@@ -20,6 +20,8 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 
 Route::group(array('before' => 'auth'), function()
 {
+	Route::get('fashion', array('uses' => 'HomeController@showWelcomes'));
+
 	Route::get('/', array('uses' => 'HomeController@showWelcome'));
 
 	Route::get('categories', array('uses' => 'CategoriesController@showCategories'));
@@ -57,7 +59,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
 	Route::post('entry/delete/{entry_id}', array('uses' => 'EntriesController@harddelete'));
  	Route::get('restoreentry/{entry_id}', array('uses' => 'EntriesController@restoreentry'));
-
+	
+	Route::get('fashionEntries', array('uses' => 'EntriesController@showFashionEntries'));
+	Route::get('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
+	
 	Route::get('tags', array('uses' => 'TagsController@showTags'));
 	Route::post('tag/delete', array('uses' => 'TagsController@deleteTag'));
 	Route::post('tag/combine', array('uses' => 'TagsController@combineTag'));
