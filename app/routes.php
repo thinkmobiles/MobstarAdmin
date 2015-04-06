@@ -33,6 +33,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('defaultNotification/{iDefaultNotificationId}', array('uses' => 'DefaultNotificationController@showDefaultNotification'));
 	Route::post('defaultNotification/{iDefaultNotificationId}', array('uses' => 'DefaultNotificationController@saveDefaultNotification'));
 	
+	Route::get('modelingVideo', array('uses' => 'ModelingVideoController@showVideos'));
+	Route::get('video/{iModelingVideoId}', array('uses' => 'ModelingVideoController@showVideo'));
+	Route::post('video/{iModelingVideoId}', array('uses' => 'ModelingVideoController@saveVideo'));
+	
 	Route::get('settings', array('uses' => 'SettingsController@showSettings'));
 	Route::get('setting/{iSettingId}',array('uses' => 'SettingsController@showSetting'));
 	Route::post('setting/{iSettingId}',array('uses' => 'SettingsController@saveSetting'));

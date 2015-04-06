@@ -79,6 +79,12 @@ class BaseController extends Controller {
 					'page_icon' => 'tags',
 					'page_selected' => false,
 				),
+				'modelingVideo' => array(
+					'page_title' => 'Modeling Video',
+					'page_url' => 'modelingVideo',
+					'page_icon' => 'file-video-o',
+					'page_selected' => false,
+				),
 				'defaultNotification' => array(
 						'page_title' => 'Default Notification',
 						'page_url' => 'defaultNotification',
