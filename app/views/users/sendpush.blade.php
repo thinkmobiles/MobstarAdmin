@@ -26,10 +26,11 @@
 								<div class="col-md-9">
 									{{ Form::textarea('message', '',array('class'=>'form-control','placeholder'=>'Push Notification Message')) }}
 								</div>
-								<div class="form-actions">
-									<div class="col-md-offset-3 col-md-9">
-										{{ Form::submit('Send',array('class'=>'btn btn-primary')) }}
-									</div>
+							</div>
+
+							<div class="form-actions">
+								<div class="col-md-offset-3 col-md-9">
+									{{ Form::submit('Send',array('class'=>'btn btn-primary')) }}
 								</div>
 							</div>
 							<div class="form-group">
@@ -43,8 +44,8 @@
 
 									@endforeach
 								</div>	
-								<?php //echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>								
-							</div>							
+								<?php //echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>
+								</div>
 						</div>
     					{{ Form::close() }}
 				</div>
