@@ -22,6 +22,17 @@
 						{{ Form::open(array('url' => 'users/sendpushmessage','class'=>'form-horizontal')) }}
 						<div class="form-body pal">
 							<div class="form-group">
+								{{ Form::label('message', 'Send Push Notification Message', array('class' => 'col-md-3 control-label')) }}
+								<div class="col-md-9">
+									{{ Form::textarea('message', '',array('class'=>'form-control','placeholder'=>'Push Notification Message')) }}
+								</div>
+								<div class="form-actions">
+									<div class="col-md-offset-3 col-md-9">
+										{{ Form::submit('Send',array('class'=>'btn btn-primary')) }}
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
 								<h4><input type='checkbox' id='selectall' name="selectall" />  Select All</h4>
 								<div class="list-group">
 									@foreach($data['users'] as $user)
@@ -32,17 +43,8 @@
 
 									@endforeach
 								</div>	
-								<?php echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>
-								{{ Form::label('message', 'Send Push Notification Message', array('class' => 'col-md-3 control-label')) }}
-								<div class="col-md-9">
-									{{ Form::textarea('message', '',array('class'=>'form-control','placeholder'=>'Push Notification Message')) }}
-								</div>
-							</div>
-							<div class="form-actions">
-								<div class="col-md-offset-3 col-md-9">
-									{{ Form::submit('Send',array('class'=>'btn btn-primary')) }}
-								</div>
-							</div>
+								<?php //echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>								
+							</div>							
 						</div>
     					{{ Form::close() }}
 				</div>
