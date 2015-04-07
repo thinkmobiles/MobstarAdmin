@@ -55,6 +55,12 @@ class BaseController extends Controller {
 					'page_icon' => 'group',
 					'page_selected' => false,
 				),
+				'blogs' => array(
+					'page_title' => 'Blogs',
+					'page_url' => 'blogs',
+					'page_icon' => 'rss',
+					'page_selected' => false,
+				),
 				'entries' => array(
 					'page_title' => 'Entries',
 					'page_url' => 'entries',

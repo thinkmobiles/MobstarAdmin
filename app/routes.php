@@ -52,6 +52,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('users/sendpushmessage', array('uses' => 'UsersController@sendpushmessage'));
 	Route::post('users/sendpushmessage', array('uses' => 'UsersController@pushmessage'));
 
+	Route::get('blogs',array('uses' => 'BlogsController@showBlogs'));
+	Route::get('blog/{iBlogId}',array('uses' => 'BlogsController@showBlog'));
+	Route::post('blog/{iBlogId}',array('uses' => 'BlogsController@saveBlog'));
+
 	Route::get('messages', array('uses' => 'MessagesController@showMessages'));
 	Route::get('my_messages', array('uses' => 'MessagesController@showMyMessages'));
 	Route::get('message/{user_id}', array('uses' => 'MessagesController@showMessage'));
