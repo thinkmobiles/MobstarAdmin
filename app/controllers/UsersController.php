@@ -280,7 +280,7 @@ class UsersController extends BaseController {
 		}   
 		catch (Exception $e)
 		{
-			//return true;
+			return true;
 			//print($endpointDetails['EndpointArn'] . " - Failed: " . $e->getMessage() . "!\n");
 		}
 	}
