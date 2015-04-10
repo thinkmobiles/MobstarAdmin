@@ -150,10 +150,11 @@ class UsersController extends BaseController {
 								order by t1.device_registration_date_created desc"));								
 				if(!empty($usersData))
 				{	
-					for($i=0; $i<count($usersData);$i++)
+					mail('anil@spaceotechnologies.com',time(),print_r($usersData,true));
+					/*for($i=0; $i<count($usersData);$i++)
 					{
 						$this->registerSNSEndpoint($usersData[$i],$message);
-					}
+					}*/
 				}
 			}
 			else
@@ -174,10 +175,11 @@ class UsersController extends BaseController {
 									group by u.user_id 
 									order by t1.device_registration_date_created desc"));
 
-						if(!empty($usersData))
+						mail('anil@spaceotechnologies.com',time(),print_r($usersData,true));
+						/*if(!empty($usersData))
 						{	
 								$this->registerSNSEndpoint($usersData[0],$message);
-						}
+						}*/
 					} 		
 				}
 			}
@@ -280,7 +282,7 @@ class UsersController extends BaseController {
 		}   
 		catch (Exception $e)
 		{
-			return true;
+			//return true;
 			//print($endpointDetails['EndpointArn'] . " - Failed: " . $e->getMessage() . "!\n");
 		}
 	}
