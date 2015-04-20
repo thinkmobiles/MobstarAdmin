@@ -77,18 +77,18 @@ class UsersController extends BaseController {
 			$this->data['user']->user_user_group = '3';
 		}
 
-		$this->data['user']->user_display_name 	= $_POST['user_display_name'];
-		$this->data['user']->user_email 		= $_POST['user_email'];
-		$this->data['user']->user_name 			= $_POST['user_name'];
-		$this->data['user']->user_full_name 	= $_POST['user_full_name'];
-		$this->data['user']->user_tagline 		= $_POST['user_tagline'];
+		$this->data['user']->user_display_name 	= @$_POST['user_display_name'];
+		$this->data['user']->user_email 		= @$_POST['user_email'];
+		$this->data['user']->user_name 			= @$_POST['user_name'];
+		$this->data['user']->user_full_name 	= @$_POST['user_full_name'];
+		$this->data['user']->user_tagline 		= @$_POST['user_tagline'];
 	
-		$this->data['user']->user_dob 			= $_POST['user_dob'];
-		$this->data['user']->user_user_group 	= $_POST['user_user_group'];
-		$this->data['user']->user_activated 	= $_POST['user_activated'];
+		$this->data['user']->user_dob 			= @$_POST['user_dob'];
+		$this->data['user']->user_user_group 	= @$_POST['user_user_group'];
+		$this->data['user']->user_activated 	= @$_POST['user_activated'];
 
-		$this->data['user']->user_policy_seen 		= $_POST['user_policy_seen'];
-		$this->data['user']->user_policy_accepted 	= $_POST['user_policy_accepted'];
+		$this->data['user']->user_policy_seen 		= @$_POST['user_policy_seen'];
+		$this->data['user']->user_policy_accepted 	= @$_POST['user_policy_accepted'];
 
 
 		$this->data['user']->updated_at			= date('Y-m-d H:i:s');
