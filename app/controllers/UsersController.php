@@ -54,14 +54,17 @@ class UsersController extends BaseController {
 			$this->data['errors']['user_display_name'] = "Display name can't be left blank.";
 		}
 
-		$bits = explode('/',$_POST['user_dob']);
-		if(count($bits)==3)
+		if(isset($_POST['user_dob']) && $_POST['user_dob'] != '')
 		{
-			$_POST['user_dob'] = date('Y-m-d',strtotime($bits[1].'/'.$bits[0].'/'.$bits[2]));	
-		}
-		else
-		{
-			$this->data['errors']['user_dob'] = "Date of birth is invalid.";
+			$bits = explode('/',$_POST['user_dob']);
+			if(count($bits)==3)
+			{
+				$_POST['user_dob'] = date('Y-m-d',strtotime($bits[1].'/'.$bits[0].'/'.$bits[2]));	
+			}
+			else
+			{
+				$this->data['errors']['user_dob'] = "Date of birth is invalid.";
+			}
 		}
 
 		if(isset($_POST['user_id']))
