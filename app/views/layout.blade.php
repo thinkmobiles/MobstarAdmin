@@ -12,6 +12,7 @@
 	<link rel="apple-touch-icon" href="/images/icons/favicon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/images/icons/favicon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="/images/icons/favicon-114x114.png">
+	{{ HTML::script('vendors/video/video.js'); }}
 
     {{ HTML::script('js/jquery-1.10.2.min.js'); }}
     {{ HTML::script('js/jquery-migrate-1.2.1.min.js'); }}
@@ -144,6 +145,14 @@
 <!--LOADING SCRIPTS FOR PAGE-->
 
 {{ HTML::script('vendors/bootstrap-switch/js/bootstrap-switch.min.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.categories.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.pie.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.tooltip.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.resize.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.fillbetween.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.stack.js'); }}
+{{ HTML::script('vendors/flot-chart/jquery.flot.spline.js'); }}
 {{ HTML::script('vendors/calendar/zabuto_calendar.min.js'); }}
 {{ HTML::script('vendors/sco.message/sco.message.js'); }}
 
@@ -154,8 +163,10 @@
 {{ HTML::script('vendors/bootstrap-daterangepicker/daterangepicker.js'); }}
 {{ HTML::script('vendors/moment/moment.js'); }}
 {{ HTML::script('vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); }}
+{{ HTML::script('js/form-components.js'); }}
 
 {{ HTML::script('vendors/intro.js/intro.js'); }}
+{{ HTML::script('js/index.js'); }}
 
 @yield('pagefoot')
 
