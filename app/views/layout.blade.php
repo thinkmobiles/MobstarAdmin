@@ -162,7 +162,6 @@
 {{ HTML::script('vendors/bootstrap-daterangepicker/daterangepicker.js'); }}
 {{ HTML::script('vendors/moment/moment.js'); }}
 {{ HTML::script('vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); }}
-{{ HTML::script('js/form-components.js'); }}
 
 {{ HTML::script('vendors/intro.js/intro.js'); }}
 {{ HTML::script('js/index.js'); }}
