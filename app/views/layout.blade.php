@@ -12,7 +12,6 @@
 	<link rel="apple-touch-icon" href="/images/icons/favicon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/images/icons/favicon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="/images/icons/favicon-114x114.png">
-	{{ HTML::script('vendors/video/video.js'); }}
 
     {{ HTML::script('js/jquery-1.10.2.min.js'); }}
     {{ HTML::script('js/jquery-migrate-1.2.1.min.js'); }}
