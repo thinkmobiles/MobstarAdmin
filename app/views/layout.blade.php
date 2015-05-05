@@ -144,14 +144,6 @@
 <!--LOADING SCRIPTS FOR PAGE-->
 
 {{ HTML::script('vendors/bootstrap-switch/js/bootstrap-switch.min.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.categories.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.pie.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.tooltip.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.resize.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.fillbetween.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.stack.js'); }}
-{{ HTML::script('vendors/flot-chart/jquery.flot.spline.js'); }}
 {{ HTML::script('vendors/calendar/zabuto_calendar.min.js'); }}
 {{ HTML::script('vendors/sco.message/sco.message.js'); }}
 
