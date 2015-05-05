@@ -156,7 +156,6 @@
 {{ HTML::script('vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); }}
 
 {{ HTML::script('vendors/intro.js/intro.js'); }}
-{{ HTML::script('js/index.js'); }}
 
 @yield('pagefoot')
 
