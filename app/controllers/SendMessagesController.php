@@ -2,6 +2,10 @@
 
 class SendMessagesController extends BaseController {
 
+	public function index()
+	{
+		return View::make('sendMessagess/sendpush')->with('data', $this->data);
+	}
 	public function sendMessage()
 	{
 		$this->data['sidenav']['sendMessages']['page_selected'] = true;
