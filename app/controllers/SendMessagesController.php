@@ -4,7 +4,7 @@ class SendMessagesController extends BaseController {
 
 	public function index()
 	{
-		return View::make('sendMessagess/sendpush')->with('data', $this->data);
+		return View::make('sendMessages/sendpush')->with('data', $this->data);
 	}
 	public function sendMessage()
 	{
@@ -139,6 +139,6 @@ class SendMessagesController extends BaseController {
 			MessageParticipants::insert( $particArray );
 			MessageRecipients::insert( $recipArray );
 		}
-		return View::make('sendMessagess/sendpush')->with('data', $this->data);
+		return View::make('sendMessages/sendpush')->with('data', $this->data);
 	}
 }
