@@ -1,5 +1,5 @@
 <?php
-class SendMessageController extends BaseController {
+class SendMessagesController extends BaseController {
 
 	public function send()
 	{
