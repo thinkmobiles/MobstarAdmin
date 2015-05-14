@@ -18,21 +18,14 @@ class SendMessagesController extends BaseController {
 		$message_group = 0;
 		if($message_group == 0)
 		{
-			$recipient = DB::select( DB::raw("SELECT t1.* FROM 
-								(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
-								from device_registrations where device_registration_device_token  != ''  AND device_registration_device_token != 'mobstar' AND device_registration_device_type = 'apple'
-								order by device_registration_date_created desc
-								) t1 left join users u on t1.device_registration_user_id = u.user_id 
-								where u.user_deleted = 0 
-								group by u.user_id 
-								order by t1.device_registration_date_created desc"));								
+			$recipient = DB::select( DB::raw("SELECT u.user_id FROM users u where u.user_deleted = 0 group by u.user_id"));								
 			if(!empty($recipient))
 			{	
 				for($i=0; $i<count($recipient);$i++)
 				{
 					$thread_id = DB::table('join_message_participants')
 						->groupBy('join_message_participant_message_thread_id')
-						->havingRaw("max(join_message_participant_user_id ='3101' ) > 0 and max(join_message_participant_user_id =$recipient[$i]->device_registration_user_id ) > 0 ")
+						->havingRaw("max(join_message_participant_user_id ='3101' ) > 0 and max(join_message_participant_user_id =$recipient[$i]->user_id ) > 0 ")
 						->pluck('join_message_participant_message_thread_id');
 					print_r"<pre>";
 					die($thread_id);
@@ -46,7 +39,7 @@ class SendMessagesController extends BaseController {
 					{
 						$totalCount = DB::table('join_message_participants')
 									->where('join_message_participant_message_thread_id','=',$thread_id,'and')
-									->whereNotIn('join_message_participant_user_id',array('3101', $recipient[$i]->device_registration_user_id))
+									->whereNotIn('join_message_participant_user_id',array('3101', $recipient[$i]->user_id))
 									->count('join_message_participant_id');
 						
 						if($totalCount == 0)
@@ -71,18 +64,18 @@ class SendMessagesController extends BaseController {
 					$particArray [ ] = [
 						//'join_message_participant_message_thread_id' => $messageThread->message_thread_thread_id,
 						'join_message_participant_message_thread_id' => $newThread,
-						'join_message_participant_user_id'           => $recipient[$i]->device_registration_user_id,
+						'join_message_participant_user_id'           => $recipient[$i]->user_id,
 					];
 
 					$recipArray [ ] = [
 						//'join_message_recipient_thread_id'  => $messageThread->message_thread_thread_id,
 						'join_message_recipient_thread_id'  => $newThread,
-						'join_message_recipient_user_id'    => $recipient[$i],
+						'join_message_recipient_user_id'    => $recipient[$i]->user_id,
 						'join_message_recipient_message_id' => (int)$messageOb->message_id,
 						'join_message_recipient_created'    => 0,
 						'join_message_recipient_read'       => 0,
 					];
-					$prev_not = Notification::where( 'notification_user_id', '=', $recipient[$i], 'and' )
+					$prev_not = Notification::where( 'notification_user_id', '=', $recipient[$i]->user_id, 'and' )
 											->where( 'notification_entry_id', '=', $newThread, 'and' )
 											->where( 'notification_details', '=', ' message you.', 'and' )
 											->orderBy( 'notification_updated_date', 'desc' )
@@ -90,7 +83,7 @@ class SendMessagesController extends BaseController {
 					$icon = 'message.png';
 					if( !count( $prev_not ) )
 					{
-						Notification::create( [ 'notification_user_id'      => $recipient[$i],
+						Notification::create( [ 'notification_user_id'      => $recipient[$i]->user_id,
 												'notification_subject_ids'  => json_encode( [ '3101' ] ),
 												'notification_details'      => ' has messaged you.',
 												'notification_icon'			=> $icon,
