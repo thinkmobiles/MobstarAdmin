@@ -43,6 +43,7 @@
 	$(function(){
 		$('submit').click(function(){
 			var message = $('#message').val();
+			alert(message);
 			if(message=='')
 			{
 				alert('Message can not be blank');
