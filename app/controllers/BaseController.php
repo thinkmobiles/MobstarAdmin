@@ -97,9 +97,9 @@ class BaseController extends Controller {
 						'page_icon' => 'bell',
 						'page_selected' => false,
 				),
-				'sendMessages' => array(
+				'showmessage' => array(
 					'page_title' => 'Send Message',
-					'page_url' => 'sendMessages',
+					'page_url' => 'users/showmessage',
 					'page_icon' => 'envelope-o',
 					'page_selected' => false,
 				),

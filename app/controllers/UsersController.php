@@ -116,6 +116,11 @@ class UsersController extends BaseController {
 
 		return View::make('users/sendpush')->with('data', $this->data);
 	}
+	public function showmessage()
+	{
+		$this->data['sidenav']['showmessage']['page_selected'] = true;
+		return View::make('users/sendmessage')->with('data', $this->data);
+	}
 
 	public function pushmessage()
 	{

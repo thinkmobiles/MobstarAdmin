@@ -51,6 +51,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('user/{users_id}', array('uses' => 'UsersController@saveUser'));
 	Route::get('users/sendpushmessage', array('uses' => 'UsersController@sendpushmessage'));
 	Route::post('users/sendpushmessage', array('uses' => 'UsersController@pushmessage'));
+	Route::get('users/showmessage', array('uses' => 'UsersController@showmessage'));
+	Route::post('users/showmessage', array('uses' => 'UsersController@sendmessage'));
 
 	Route::get('blogs',array('uses' => 'BlogsController@showBlogs'));
 	Route::get('blog/{iBlogId}',array('uses' => 'BlogsController@showBlog'));
@@ -89,6 +91,6 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('comment/delete', array('uses' => 'CommentsController@commetDelete'));
 	Route::post('comment/savecomment', array('uses' => 'CommentsController@saveComment'));
 	
-	Route::get('sendMessages/show', array('uses' => 'SendMessagesController@show'));
+	//Route::get('sendMessages/show', array('uses' => 'SendMessagesController@show'));
 	//Route::post('sendMessages/send', array('uses' => 'SendMessagesController@sendMessage'));
 });
