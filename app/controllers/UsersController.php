@@ -335,7 +335,7 @@ class UsersController extends BaseController {
 		}
 		Session::flash('message', 'Message sent Successfully.');
 		Session::flash('alert-class', 'alert-success'); 
-		return View::make('users/showmessage')->with('data', $this->data);
+		return View::make('users/sendmessage')->with('data', $this->data);
 	}
 	public function registerSNSEndpoint( $device , $message)
 	{
