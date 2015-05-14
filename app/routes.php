@@ -91,4 +91,4 @@ Route::group(array('before' => 'auth'), function()
 	
 	//Route::get('sendMessage', array('uses' => 'SendMessageController@send'));
 });
-Route::post('sendMessage', array('uses' => 'SendMessagesController@send'));
+Route::post('sendMessages', array('uses' => 'SendMessagesController@send'));
