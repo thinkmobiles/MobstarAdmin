@@ -89,5 +89,5 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('comment/delete', array('uses' => 'CommentsController@commetDelete'));
 	Route::post('comment/savecomment', array('uses' => 'CommentsController@saveComment'));
 	
-	Route::get('sendMessages', array('uses' => 'SendMessagesController@index'));
+	Route::get('sendMessages/store', array('uses' => 'SendMessagesController@store'));
 });

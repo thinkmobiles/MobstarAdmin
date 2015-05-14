@@ -2,7 +2,7 @@
 
 class SendMessagesController extends BaseController {
 
-	public function index()
+	public function store()
 	{
 		die('here');		
 	}
