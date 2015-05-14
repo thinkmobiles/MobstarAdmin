@@ -3,6 +3,6 @@ class SendMessagesController extends BaseController {
 
 	public function send()
 	{
-		die('here');		
+		$recipient = User::where('user_deleted', '=', 0)->get();
 	}
 }
