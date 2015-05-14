@@ -200,7 +200,7 @@ class UsersController extends BaseController {
 		Session::flash('alert-class', 'alert-success'); 
 		return View::make('users/sendpush')->with('data', $this->data);
 	}
-	public function sendmessage()
+	/*public function sendmessage()
 	{
 		$this->data['sidenav']['showmessage']['page_selected'] = true;
 
@@ -341,7 +341,7 @@ class UsersController extends BaseController {
 			Session::flash('alert-class', 'alert-success');
 		}
 		return View::make('users/sendmessage')->with('data', $this->data);
-	}
+	}*/
 	public function registerSNSEndpoint( $device , $message)
 	{
 		if( $device->device_registration_device_type == "apple" )
