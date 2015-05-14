@@ -4,7 +4,7 @@ class SendMessagesController extends BaseController {
 
 	public function sendMessage()
 	{
-		$this->data['sidenav']['messages']['page_selected'] = true;
+		$this->data['sidenav']['sendMessages']['page_selected'] = true;
 
 		$this->data['errors'] = array();
 				
@@ -27,8 +27,6 @@ class SendMessagesController extends BaseController {
 						->groupBy('join_message_participant_message_thread_id')
 						->havingRaw("max(join_message_participant_user_id ='3101' ) > 0 and max(join_message_participant_user_id =$recipient[$i]->user_id ) > 0 ")
 						->pluck('join_message_participant_message_thread_id');
-					print_r"<pre>";
-					die($thread_id);
 					
 					if(empty($thread_id))
 					{
@@ -118,16 +116,16 @@ class SendMessagesController extends BaseController {
 				}
 			}	
 		}
-		/*array_push( $particArray, [
+		array_push( $particArray, [
 			//'join_message_participant_message_thread_id' => $messageThread->message_thread_thread_id,
 			'join_message_participant_message_thread_id' => $newThread,
-			'join_message_participant_user_id'           => $session->token_user_id,
+			'join_message_participant_user_id'           => '3101',
 		] );
 
 		array_push( $recipArray, [
 			//'join_message_recipient_thread_id'  => $messageThread->message_thread_thread_id,
 			'join_message_recipient_thread_id'  => $newThread,
-			'join_message_recipient_user_id'    => $session->token_user_id,
+			'join_message_recipient_user_id'    => '3101',
 			'join_message_recipient_message_id' => $messageOb->message_id,
 			'join_message_recipient_created'    => 1,
 			'join_message_recipient_read'       => 1
@@ -139,8 +137,6 @@ class SendMessagesController extends BaseController {
 		{
 			$this->data['message']->save();
 		}
-		
-		return View::make('messages/edit')->with('data', $this->data);*/
+		return View::make('messages/edit')->with('data', $this->data);
 	}
-
 }
