@@ -39,4 +39,20 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	$(function(){
+		$('submit').click(function(){
+			var message = $('#message').val();
+			if(message=='')
+			{
+				alert('Message can not be blank');
+				return false;
+			}	
+			else
+			{
+				return true;
+			}
+		});
+	});
+	</script>
 @stop
