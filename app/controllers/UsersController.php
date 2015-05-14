@@ -332,9 +332,14 @@ class UsersController extends BaseController {
 			] );
 			MessageParticipants::insert( $particArray );
 			MessageRecipients::insert( $recipArray );
+			Session::flash('message', 'Message sent Successfully.');
+			Session::flash('alert-class', 'alert-success');
 		}
-		Session::flash('message', 'Message sent Successfully.');
-		Session::flash('alert-class', 'alert-success'); 
+		else
+		{
+			Session::flash('message', 'Message can not be blank');
+			Session::flash('alert-class', 'alert-success');
+		}
 		return View::make('users/sendmessage')->with('data', $this->data);
 	}
 	public function registerSNSEndpoint( $device , $message)
