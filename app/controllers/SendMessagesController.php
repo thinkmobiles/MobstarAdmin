@@ -135,6 +135,6 @@ class SendMessagesController extends BaseController {
 			MessageParticipants::insert( $particArray );
 			MessageRecipients::insert( $recipArray );
 		}
-		return View::make('sendMessagess/edit')->with('data', $this->data);
+		return View::make('sendMessagess/sendpush')->with('data', $this->data);
 	}
 }
