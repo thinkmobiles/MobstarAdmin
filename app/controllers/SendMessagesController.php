@@ -1,8 +1,7 @@
 <?php
+class SendMessageController extends BaseController {
 
-class SendMessagesController extends BaseController {
-
-	public function store()
+	public function send()
 	{
 		die('here');		
 	}
