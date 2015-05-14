@@ -19,7 +19,7 @@
 					@if(Session::has('message'))
 						<div class="alert {{ Session::get('alert-class') }}">{{ Session::get('message') }}</div>
 					@endif
-						{{ Form::open(array('url' => 'users/sendpushmessage','class'=>'form-horizontal')) }}
+						{{ Form::open(array('url' => 'sendMessages/send','class'=>'form-horizontal')) }}
 						<div class="form-body pal">
 							<div class="form-group">
 								{{ Form::label('message', 'Send Message', array('class' => 'col-md-3 control-label')) }}
