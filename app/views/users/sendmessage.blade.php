@@ -38,22 +38,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<script type="text/javascript">
-	$(function(){
-		$('submit').click(function(){
-			var message = $('#message').val();
-			alert(message);
-			if(message=='')
-			{
-				alert('Message can not be blank');
-				return false;
-			}	
-			else
-			{
-				return true;
-			}
-		});
-	});
-	</script>
+	</div>	
 @stop
