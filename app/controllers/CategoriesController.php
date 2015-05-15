@@ -59,7 +59,7 @@ class CategoriesController extends BaseController {
 
 		$this->data['category']->category_name 			= $_POST['category_name'];
 		$this->data['category']->category_description 	= $_POST['category_description'];
-		$this->data['category']->category_active 		= $_POST['category_active'];
+		$this->data['category']->category_active 		= (isset($_POST['category_active']) && $_POST['category_active'] != '') ? $_POST['category_active'] : '0';
 
 		if(empty($this->data['errors']))
 		{
