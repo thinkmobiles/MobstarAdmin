@@ -23,6 +23,15 @@
 							@if ( !empty($data['user']->user_id) )
 							<input type="hidden" name="user_id" value="{{ $data['user']->user_id }}" />
 							@endif
+							@if ( !empty($data['user']->user_facebook_id) )
+							<input type="hidden" name="user_facebook_id" value="{{ $data['user']->user_facebook_id }}" />
+							@endif
+							@if ( !empty($data['user']->user_twitter_id) )
+							<input type="hidden" name="user_twitter_id" value="{{ $data['user']->user_twitter_id }}" />
+							@endif
+							@if ( !empty($data['user']->user_twitter_id) )
+							<input type="hidden" name="user_twitter_id" value="{{ $data['user']->user_twitter_id }}" />
+							@endif
 							<div class="form-body pal">
 								<div class="form-group">
 									<label for="inputDisplayName" class="col-md-3 control-label">Display name <span class='require'>*</span></label>
