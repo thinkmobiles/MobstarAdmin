@@ -44,8 +44,6 @@ class UsersController extends BaseController {
 	}
 	public function saveUser()
 	{
-		print_r($_POST);
-		die;
 		$this->data['sidenav']['users']['page_selected'] = true;
 
 		$this->data['errors'] = array();
