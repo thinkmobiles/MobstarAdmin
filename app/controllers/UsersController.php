@@ -75,11 +75,26 @@ class UsersController extends BaseController {
 			$this->data['user'] = new User;
 			$this->data['user']->user_user_group = '3';
 		}
-
-		$this->data['user']->user_display_name 	= @$_POST['user_display_name'];
-		$this->data['user']->user_email 		= @$_POST['user_email'];
-		$this->data['user']->user_name 			= @$_POST['user_name'];
-		$this->data['user']->user_full_name 	= @$_POST['user_full_name'];
+		$community_login = false;	
+		if(isset($_POST['user_facebook_id']) && $_POST['user_facebook_id'] > 0)
+		{
+			$community_login = true;
+		}
+		if(isset($_POST['user_twitter_id']) && $_POST['user_twitter_id'] > 0)
+		{
+			$community_login = true;
+		}
+		if(isset($_POST['user_google_id']) && $_POST['user_google_id'] > 0)
+		{
+			$community_login = true;
+		}
+		if(!$community_login)
+		{
+			$this->data['user']->user_display_name 	= @$_POST['user_display_name'];
+			$this->data['user']->user_email 		= @$_POST['user_email'];
+			$this->data['user']->user_name 			= @$_POST['user_name'];
+			$this->data['user']->user_full_name 	= @$_POST['user_full_name'];
+		}
 		$this->data['user']->user_tagline 		= @$_POST['user_tagline'];
 	
 		$this->data['user']->user_dob 			= @$_POST['user_dob'];

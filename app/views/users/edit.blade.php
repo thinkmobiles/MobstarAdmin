@@ -29,8 +29,8 @@
 							@if ( !empty($data['user']->user_twitter_id) )
 							<input type="hidden" name="user_twitter_id" value="{{ $data['user']->user_twitter_id }}" />
 							@endif
-							@if ( !empty($data['user']->user_twitter_id) )
-							<input type="hidden" name="user_twitter_id" value="{{ $data['user']->user_twitter_id }}" />
+							@if ( !empty($data['user']->user_google_id) )
+							<input type="hidden" name="user_google_id" value="{{ $data['user']->user_google_id }}" />
 							@endif
 							<div class="form-body pal">
 								<div class="form-group">
