@@ -146,14 +146,15 @@
 				<div class="panel panel-green">
 					<div class="panel-heading">Images</div>
 					<div class="panel-body pan">
-						<form class="form-horizontal" method="post">
+						<form class="form-horizontal" method="post" action="http://api.mobstar.com/user/uploadimage" name="uploadimage" enctype="multipart/form-data">
+
 							<div class="form-body pal">
 								<div class="form-group">
 									<div class="col-md-3">
 										<img src="http://api.mobstar.com/{{ $data['user']->user_profile_image }}" width="100%" />
 									</div>
 									<div class="col-md-9">
-										<input type="file" />
+										<input type="file" name="user_profile_image"/>
 									</div>
 								</div>
 								<div class="form-group">
@@ -161,7 +162,7 @@
 										<img src="http://api.mobstar.com/{{ $data['user']->user_cover_image }}" width="100%" />
 									</div>
 									<div class="col-md-9">
-										<input type="file" />
+										<input type="file" name="user_cover_image"/>
 									</div>
 								</div>
 							</div>
@@ -170,6 +171,7 @@
 									<button type="submit" class="btn btn-primary">Save</button>&nbsp;<a href="/users" role="button" class="btn btn-green">Cancel</a>
 								</div>
 							</div>
+							<input type="hidden" id="uploadimageuserid" name="user_id" value="{{ (!empty($data['user']->user_id)) ? $data['user']->user_id : '' }}">
 						</form>
 					</div>
 				</div>

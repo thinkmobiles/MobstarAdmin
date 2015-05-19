@@ -109,13 +109,11 @@ class UsersController extends BaseController {
 
 		if(empty($this->data['errors']))
 		{
-			//die('if');
 			$this->data['user']->save();
 			return Redirect::to('user/'.$this->data['user']->user_id);
 		}
 		else
 		{
-			//die('else');
 			$this->data['usergroups'] = Usergroup::all();
 
 			return View::make('users/edit')->with('data', $this->data);
