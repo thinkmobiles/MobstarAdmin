@@ -76,17 +76,28 @@ class UsersController extends BaseController {
 			$this->data['user']->user_user_group = '3';
 		}
 		$community_login = false;	
+		$result = array();
 		if(isset($_POST['user_facebook_id']) && $_POST['user_facebook_id'] > 0)
 		{
 			$community_login = true;
+			$result = FacebookUser::find($_POST['user_facebook_id']);
+			$result->facebook_user_display_name = @$_POST['user_display_name'];
 		}
 		if(isset($_POST['user_twitter_id']) && $_POST['user_twitter_id'] > 0)
 		{
 			$community_login = true;
+			$result = TwitterUser::find($_POST['user_twitter_id']);
+			$result->twitter_user_display_name = @$_POST['user_display_name'];
 		}
 		if(isset($_POST['user_google_id']) && $_POST['user_google_id'] > 0)
 		{
 			$community_login = true;
+			$result = GoogleUser::find($_POST['user_google_id']);
+			$result->google_user_display_name = @$_POST['user_display_name'];
+		}
+		if( count( $result ) > 0 )
+		{
+			$result->facebook_user_display_name = @$_POST['user_display_name'];
 		}
 		if(!$community_login)
 		{
@@ -110,6 +121,9 @@ class UsersController extends BaseController {
 		if(empty($this->data['errors']))
 		{
 			$this->data['user']->save();
+			$result->save();
+			$ship->find(1)->captain()->save(new Captain(array('name' => 'jean Luc Picard')));
+			
 			return Redirect::to('user/'.$this->data['user']->user_id);
 		}
 		else
