@@ -95,10 +95,6 @@ class UsersController extends BaseController {
 			$result = GoogleUser::find($_POST['user_google_id']);
 			$result->google_user_display_name = @$_POST['user_display_name'];
 		}
-		if( count( $result ) > 0 )
-		{
-			$result->facebook_user_display_name = @$_POST['user_display_name'];
-		}
 		if(!$community_login)
 		{
 			$this->data['user']->user_display_name 	= @$_POST['user_display_name'];
@@ -121,7 +117,10 @@ class UsersController extends BaseController {
 		if(empty($this->data['errors']))
 		{
 			$this->data['user']->save();
-			$result->save();
+			if( count( $result ) > 0 )
+			{
+				$result->save();
+			}
 			return Redirect::to('user/'.$this->data['user']->user_id);
 		}
 		else
