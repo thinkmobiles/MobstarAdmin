@@ -122,8 +122,6 @@ class UsersController extends BaseController {
 		{
 			$this->data['user']->save();
 			$result->save();
-			$ship->find(1)->captain()->save(new Captain(array('name' => 'jean Luc Picard')));
-			
 			return Redirect::to('user/'.$this->data['user']->user_id);
 		}
 		else
