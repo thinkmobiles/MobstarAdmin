@@ -33,12 +33,12 @@
 										<input id="inputUniqueName" name="vUniqueName" type="text" readonly="readonly" placeholder="Unique Name" class="form-control" {{ isset($data['settings']->vUniqueName) ? "value=\"".$data['settings']->vUniqueName."\"" : '' }} />
 									</div>
 								</div>		
-								<div class="form-group mbn">
+								<!--<div class="form-group mbn">
 									<label for="inputSettingValue" class="col-md-3 control-label">Setting Value</label>
 									<div class="col-md-9">
 										<textarea name="vSettingValue" id="inputSettingValue" rows="3" class="form-control">{{ isset($data['settings']->vSettingValue) ? $data['settings']->vSettingValue : '' }}</textarea>
 									</div>
-								</div>
+								</div>-->
 								<div class="form-group">
 									<label for="SettingType" class="col-md-3 control-label">Setting Type</label>
 									<div class="col-md-9">
