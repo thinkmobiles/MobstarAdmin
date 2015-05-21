@@ -56,17 +56,19 @@ class SettingsController extends BaseController
 
 		$this->data['settings']->vTitle	= $_POST['vTitle'];
 		$this->data['settings']->vUniqueName = $_POST['vUniqueName'];
-		$this->data['settings']->vSettingValue = $_POST['vSettingValue'];
+		//$this->data['settings']->vSettingValue = $_POST['vSettingValue'];
 		$this->data['settings']->eSettingType = $_POST['eSettingType'];
 		
 
 		if ($_POST['eStatus'] == 0) 
 		{
 			$this->data['settings']->eStatus = 'Inactive';
+			$this->data['settings']->vSettingValue = 'TRUE';
 		}
 		else
 		{
 			$this->data['settings']->eStatus = 'Active';
+			$this->data['settings']->vSettingValue = 'FALSE';
 		}
 
 		if(empty($this->data['errors']))
