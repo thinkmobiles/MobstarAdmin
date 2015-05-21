@@ -63,12 +63,12 @@ class SettingsController extends BaseController
 		if ($_POST['eStatus'] == 0) 
 		{
 			$this->data['settings']->eStatus = 'Inactive';
-			$this->data['settings']->vSettingValue = 'TRUE';
+			$this->data['settings']->vSettingValue = 'FALSE';
 		}
 		else
 		{
 			$this->data['settings']->eStatus = 'Active';
-			$this->data['settings']->vSettingValue = 'FALSE';
+			$this->data['settings']->vSettingValue = 'TRUE';
 		}
 
 		if(empty($this->data['errors']))
