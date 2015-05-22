@@ -329,8 +329,11 @@ class EntriesController extends BaseController
 
 	public function showEntry( $entry_id = '' )
 	{
-		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;
-
+		if(isset($this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ]))
+			$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ]= true;
+		else
+			$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ]= true;
+		
 		$this->data[ 'entry' ] = !empty( $entry_id ) ? Entry::find( $entry_id ) : new Entries;
 
 		$this->data[ 'users' ] = User::all();
