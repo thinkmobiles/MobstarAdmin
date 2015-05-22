@@ -16,7 +16,7 @@ class BaseController extends Controller {
     		$this->data['sidenav'] = array(
 				'dashboard' => array(
 					'page_title' => 'Dashboard',
-					'page_url' => 'fashionEntries',
+					'page_url' => 'entries',
 					'page_icon' => 'tachometer',
 					'page_selected' => false,
 				),
