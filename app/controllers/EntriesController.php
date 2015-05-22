@@ -124,6 +124,30 @@ class EntriesController extends BaseController
 
 					}
 				}
+				elseif( $entry->entry_type == 'audio' )
+				{
+					if( $file->entry_file_type == 'mp3' )
+					{
+						$new[ 'entry_file' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type );
+					}
+
+					else
+					{
+						if( strtolower( trim( $file->entry_file_type, '.' ) ) == 'jpg' || strtolower( trim( $file->entry_file_type, '.' ) ) == 'png' )
+						{
+							$new[ 'entry_image' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type, true );
+						}
+					}
+				}
+				elseif( $entry->entry_type == 'image' )
+				{
+					if( strtolower( trim( $file->entry_file_type, '.' ) ) == 'jpg' || strtolower( trim( $file->entry_file_type, '.' ) ) == 'png' )
+					{
+						$new[ 'entry_image' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type, true );
+						$new[ 'entry_file' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type );
+
+					}
+				}
 			}
 
 			$new[ 'entry_name' ] = $entry->user->user_display_name;
