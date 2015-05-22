@@ -331,7 +331,7 @@ class EntriesController extends BaseController
 	{
 		if(isset($this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ]))
 			$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ]= true;
-		else
+		if(isset($this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ]))
 			$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ]= true;
 		
 		$this->data[ 'entry' ] = !empty( $entry_id ) ? Entry::find( $entry_id ) : new Entries;
