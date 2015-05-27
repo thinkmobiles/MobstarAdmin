@@ -143,6 +143,9 @@ class UsersController extends BaseController {
 	}
 	public function pushmessage()
 	{
+		print_r($_POST);
+		die('here');
+		
 		/*if(isset($_POST['message']) && !empty($_POST['message']))
 		{
 			$message = trim($_POST['message']);
