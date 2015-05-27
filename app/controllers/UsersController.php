@@ -169,7 +169,7 @@ class UsersController extends BaseController {
 			$friends_checked = Input::get('checkbox');
 			if(isset($selectall) && $selectall == 'on')
 			{
-				print_r($_POST);
+				print_r($selectall);
 				die('here');
 				$usersData = DB::select( DB::raw("SELECT t1.* FROM 
 								(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
