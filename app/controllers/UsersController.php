@@ -143,8 +143,7 @@ class UsersController extends BaseController {
 	}
 	public function pushmessage()
 	{
-		print_r($_POST);
-		die('here');
+		
 		
 		/*if(isset($_POST['message']) && !empty($_POST['message']))
 		{
@@ -170,6 +169,8 @@ class UsersController extends BaseController {
 			$friends_checked = Input::get('checkbox');
 			if(isset($selectall) && $selectall == 'on')
 			{
+				print_r($_POST);
+				die('here');
 				$usersData = DB::select( DB::raw("SELECT t1.* FROM 
 								(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
 								from device_registrations where device_registration_device_token  != ''  AND device_registration_device_token != 'mobstar' AND device_registration_device_type = 'apple'

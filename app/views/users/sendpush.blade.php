@@ -26,6 +26,7 @@
 								<div class="col-md-9">
 									{{ Form::textarea('message', '',array('class'=>'form-control','placeholder'=>'Push Notification Message')) }}
 								</div>
+								<input type='hidden' id='selectall' name="selectall" value ="on" />
 							</div>
 
 							<div class="form-actions">
