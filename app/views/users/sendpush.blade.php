@@ -33,7 +33,7 @@
 									{{ Form::submit('Send',array('class'=>'btn btn-primary')) }}
 								</div>
 							</div>
-							<div class="form-group">
+							<!--<div class="form-group">
 								<h4><input type='checkbox' id='selectall' name="selectall" />  Select All</h4>
 								<div class="list-group">
 									@foreach($data['users'] as $user)
@@ -45,7 +45,7 @@
 									@endforeach
 								</div>	
 								<?php //echo (!isset($_GET['showAll'])) ? $data['users']->links() : ""; ?>
-								</div>
+								</div>-->
 						</div>
     					{{ Form::close() }}
 				</div>
