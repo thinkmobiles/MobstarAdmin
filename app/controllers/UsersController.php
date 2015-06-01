@@ -1,5 +1,5 @@
 <?php
-
+echo phpinfo();
 class UsersController extends BaseController {
 
 	public function showUsers()
