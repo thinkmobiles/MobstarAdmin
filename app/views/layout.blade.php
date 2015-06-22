@@ -86,9 +86,10 @@
 						?>
 							<div class="thumb"><img src="/images/new_icon.png" alt="" class="img-circle"/></div>
 						<?php
-						} 
+						} else { 
 						?>
 						<div class="thumb"><img src="/images/icon.png" alt="" class="img-circle"/></div>
+						<?php } ?>
 						<div class="info"><p>{{ $data['this_user']->user_display_name }}</p>
 							<ul class="list-inline list-unstyled">
 								<li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
