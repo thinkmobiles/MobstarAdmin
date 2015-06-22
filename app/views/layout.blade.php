@@ -78,6 +78,16 @@
 			<div class="sidebar-collapse menu-scroll">
 				<ul id="side-menu" class="nav">
 					<li class="user-panel">
+						<?php 
+						$adminUser = Auth::User();   	
+						$type = DB::table('admins')->where('admin_email',(isset($adminUser->admin_email)?$adminUser->admin_email:''))->pluck('admin_type');
+						if($type == 'fashion_user')
+						{
+						?>
+							<div class="thumb"><img src="/images/new_icon.png" alt="" class="img-circle"/></div>
+						<?php
+						} 
+						?>
 						<div class="thumb"><img src="/images/icon.png" alt="" class="img-circle"/></div>
 						<div class="info"><p>{{ $data['this_user']->user_display_name }}</p>
 							<ul class="list-inline list-unstyled">
