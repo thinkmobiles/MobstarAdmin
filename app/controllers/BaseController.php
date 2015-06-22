@@ -21,7 +21,7 @@ class BaseController extends Controller {
 					'page_selected' => false,
 				),
 				'fashionEntries' => array(
-					'page_title' => 'Fashion Entries',
+					'page_title' => 'Model Entries',
 					'page_url' => 'fashionEntries',
 					'page_icon' => 'sitemap',
 					'page_selected' => false,
