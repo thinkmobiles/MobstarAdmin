@@ -25,10 +25,14 @@
 
 				       <form method="get" action="fashionEntries">
 				        <?php
-                            if(isset($_GET['pageList']))
+                            /*if(isset($_GET['pageList']))
                                 $selected = $_GET['pageList'];
                             else
-                                $selected = $_COOKIE['cookie_pageList'];
+                                $selected = $_COOKIE['cookie_pageList'];*/
+							if(isset($_GET['pageList']) && !empty($_GET['pageList']))
+                                $selected = $_GET['pageList'];
+                            else
+                            $selected = (isset($_COOKIE['cookie_pageList']) && !empty($_COOKIE['cookie_pageList'])) ? $_COOKIE['cookie_pageList'] : '20';
                             //$selected = Cookie::get('cookie_pageList');
                         ?>
                         <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
