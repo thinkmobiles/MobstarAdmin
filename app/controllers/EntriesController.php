@@ -10,7 +10,20 @@ class EntriesController extends BaseController
 	{
 		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
 		$order_by = ( Input::get( 'orderBy', 'latest' ) );
-
+		if(Input::has('pageList'))
+		{
+			$pageList = (Input::get('pageList',20));
+			setcookie('cookie_pageList', $pageList, time() + (86400 * 30), "/");
+		}
+		else
+		{
+			if(isset($_COOKIE['cookie_pageList']))
+			{
+				$pageList = $_COOKIE['cookie_pageList'];	
+			}else{
+			setcookie('cookie_pageList','1', time() + (86400 * 30), "/");		
+			}			
+		}
 		switch( $order_by )
 		{
 			case "popular":
@@ -41,6 +54,53 @@ class EntriesController extends BaseController
 					  ->where( 'entry_id', '>', '0' )
 					  ->where('entry_category_id','=','3');
 
+		$age = Input::get('age','all');
+				 
+		if(Input::has('age') && $age != 'all')
+		{		
+			$values = explode('-',Input::get('age'));
+			$start = intval($values[0]);
+			$end = intval($values[1]);
+
+			$query = $query->where('entry_age','>=',$start)->where('entry_age','<=',$end);
+		 
+		}
+		///////////////////
+		//////////////Get Height
+		$height = Input::get('height','all');
+				 
+		if(Input::has('height') && $height != 'all')
+		{		
+			$values = explode('-',Input::get('height'));
+			$start = floatval($values[0]);
+			$end = floatval($values[1]);
+
+			$query = $query->where('entry_height','>=',$start)->where('entry_height','<=',$end);
+		 
+		}
+		///////////////////
+		//////////////Get Name
+		$name = Input::get('name','');
+				 
+		if(Input::has('name') && $name != '')
+		{		
+			$values = Input::get('name');
+			$query = $query->where('entry_name', 'LIKE', '%'.$values.'%');
+
+		}
+		///////////////////
+		//////////////Get Date
+		$datepicker = Input::get('datepicker','');
+				 
+		if(Input::has('datepicker') && $datepicker != '')
+		{		
+			$values = Input::get('datepicker');
+			$dt = date("Y-m-d", strtotime($values));
+			
+			$query = $query->where('entry_created_date', 'LIKE', '%'.$dt.'%');
+
+		}
+		///////////////////
 		if( $order_by == 'popular' )
 		{
 			$query = $query->where( 'entry_rank', '>', 0 );
@@ -83,8 +143,13 @@ class EntriesController extends BaseController
 				$q->where( 'entry_tag_tag_id', '=', $tag );
 			} );
 		}
-
-		$entries = $query->orderBy( $order, $dir )->paginate( 15 );
+		//////////////Get Vote
+		$entryRange = Input::get('entryRange','0 - 500');
+		$first = '';
+		$last = '';
+		
+		///////////////////
+		$entries = $query->orderBy( $order, $dir )->paginate( $pageList );
 		
 		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
 
@@ -106,7 +171,20 @@ class EntriesController extends BaseController
 				}
 
 			}
+			if(Input::has('entryRange') && $entryRange != '0 - 500')
+			{
 
+				$removedSpace = str_replace(' ', '', $entryRange);
+				$values = explode('-', $removedSpace);
+				$first = intval($values[0]);
+				$last = intval($values[1]);
+				// echo $up_votes;
+				// echo "<br>".$first."<br>".$last;
+				if($up_votes < $first || $up_votes > $last)
+				{
+					continue;
+				}
+			}			
 			if( count( $entry->file ) == 0 )
 			{
 				continue;
@@ -165,7 +243,13 @@ class EntriesController extends BaseController
 		$this->data[ 'subCategories' ] = Entry::all();
 		return View::make( 'fashionCategory/main' )->with( 'data', $this->data );
 	}
-
+	public function ellipsis($text, $max=110, $append='&hellip;')
+	{
+	  	if (strlen($text) <= $max) return $text;
+	  	$out = substr($text,0,$max);
+	  	if (strpos($text,' ') === FALSE) return $out.$append;
+	  	return preg_replace('/\w+$/','',$out).$append;
+	}
 	public function showEntries()
 	{
 		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;

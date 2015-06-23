@@ -3887,6 +3887,10 @@ ul.list-icon li:hover {
   margin-bottom: 5px;
   margin-right: 5px;
 }
+
+.view1{ margin-right: 20px;}
+
+
 /*****
   Begin Page Loader
   *****/
@@ -8674,6 +8678,15 @@ ul.chats li.out .message {
   border-radius: 0px !important;
   border: 1px solid #e5e5e5;
 }
+
 .colorbg{
   background: #4B5D67
+}
+
+/* 20-June-2015 */
+.view{ margin:9px;}
+.bt-brd {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
 }

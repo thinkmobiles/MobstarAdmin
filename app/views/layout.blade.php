@@ -46,7 +46,21 @@
 	<!--Loading style-->
 	{{ HTML::style('css/themes/style1/yellow-grey.css'); }}
 	{{ HTML::style('css/style-responsive.css'); }}
-
+	<script>
+	  $(function() {
+		$( "#slider-range" ).slider({
+		  range: true,
+		  min: 0,
+		  max: 500,
+		  values: [ 0, 500 ],
+		  slide: function( event, ui ) {
+			$( "#entryRange" ).val( "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+		  }
+		});
+		$( "#entryRange" ).val( "" + $( "#slider-range" ).slider( "values", 0 ) +
+		  " - " + $( "#slider-range" ).slider( "values", 1 ) );
+	  });
+	</script>
 </head>
 <body>
 
