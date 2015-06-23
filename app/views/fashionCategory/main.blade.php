@@ -221,7 +221,9 @@
                                             </video>
                                         </div>
                                 @else
+									<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
                                     <img src="{{$entry['entry_file']}}" />
+									</div>
                                 @endif
                                     <!--<data></data>-->
                                         <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12 text-left">
