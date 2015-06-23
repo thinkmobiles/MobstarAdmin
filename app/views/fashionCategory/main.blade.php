@@ -240,8 +240,9 @@
                         
                         <!-- LIST VIEW END -->
 
-						{{$data['pages']}}
+						
 				</div>
+				{{$data['pages']}}
 			</div>
 		</div>
 	</div>
