@@ -15,20 +15,16 @@ class EntriesController extends BaseController
 		$order_by = ( Input::get( 'orderBy', 'latest' ) );
 		if(Input::has('pageList'))
 		{
-			echo "i am in if";
 			$pageList = (Input::get('pageList',20));
 			setcookie('cookie_pageList', $pageList, time() + (86400 * 30), "/");
 		}
 		else
 		{
-			echo "i am in else";
 			if(isset($_COOKIE['cookie_pageList']))
 			{
-				echo "i am in else if";
 				$pageList = $_COOKIE['cookie_pageList'];	
 			}else{
-				echo "i am in else else";
-			setcookie('cookie_pageList','20', time() + (86400 * 30), "/");		
+				$pageList = setcookie('cookie_pageList','20', time() + (86400 * 30), "/");		
 			}			
 		}
 		switch( $order_by )
