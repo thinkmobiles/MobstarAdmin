@@ -149,6 +149,8 @@ class EntriesController extends BaseController
 		$last = '';
 		
 		///////////////////
+		echo $pageList;
+		die('here');
 		$entries = $query->orderBy( $order, $dir )->paginate( $pageList );
 		
 		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
