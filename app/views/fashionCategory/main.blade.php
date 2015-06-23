@@ -180,7 +180,7 @@
 		<div class="flex-container2">
 
 			@foreach($data['entries'] as $entry)
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child"><!--<img/>-->
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child min-height"><!--<img/>-->
                 @if($entry['entry_type'] !='image')
 						<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
 							<source src="{{$entry['entry_file']}}" type="video/mp4">
