@@ -5,7 +5,7 @@
 	<!--BEGIN TITLE & BREADCRUMB PAGE-->
 	<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
 		<div class="page-header pull-left">
-			<div class="page-title">Fashion Entries</div>
+			<div class="page-title">Model Entries</div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
