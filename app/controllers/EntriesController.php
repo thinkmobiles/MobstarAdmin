@@ -8,6 +8,9 @@ class EntriesController extends BaseController
 
 	public function showFashionEntries()
 	{
+		echo "<pre>";
+			print_r($_COOKIE);
+			
 		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
 		$order_by = ( Input::get( 'orderBy', 'latest' ) );
 		if(Input::has('pageList'))
