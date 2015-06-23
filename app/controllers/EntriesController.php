@@ -28,7 +28,7 @@ class EntriesController extends BaseController
 				$pageList = $_COOKIE['cookie_pageList'];	
 			}else{
 				echo "i am in else else";
-			setcookie('cookie_pageList','1', time() + (86400 * 30), "/");		
+			setcookie('cookie_pageList','20', time() + (86400 * 30), "/");		
 			}			
 		}
 		switch( $order_by )
