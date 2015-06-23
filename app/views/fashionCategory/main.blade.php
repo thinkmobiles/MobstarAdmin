@@ -182,16 +182,12 @@
 			@foreach($data['entries'] as $entry)
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child min-height"><!--<img/>-->
                 @if($entry['entry_type'] !='image')
-					<div class="media-cover">	
 						<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
 							<source src="{{$entry['entry_file']}}" type="video/mp4">
 							Your browser does not support the video tag.
 						</video>
-					</div>
                 @else
-					<div class="media-cover">	
 						<img src="{{$entry['entry_file']}}" />
-					</div>
                 @endif
 					<!--<data></data>-->
 						<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
