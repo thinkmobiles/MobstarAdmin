@@ -187,7 +187,9 @@
                 @endif
 					<!--<data></data>-->
 						<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
-						<p class="title"><a href='entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>
+						<!--<p class="title"><a href='entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>-->
+						<p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],40); ?></a></p>
+
 						<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
 
                         <a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
