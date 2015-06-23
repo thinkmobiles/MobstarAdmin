@@ -24,7 +24,8 @@ class EntriesController extends BaseController
 			{
 				$pageList = $_COOKIE['cookie_pageList'];	
 			}else{
-				$pageList = setcookie('cookie_pageList','20', time() + (86400 * 30), "/");		
+				setcookie('cookie_pageList','20', time() + (86400 * 30), "/");
+				$pageList =	20;
 			}			
 		}
 		switch( $order_by )
@@ -152,8 +153,6 @@ class EntriesController extends BaseController
 		$last = '';
 		
 		///////////////////
-		echo $pageList;
-		die('here');
 		$entries = $query->orderBy( $order, $dir )->paginate( $pageList );
 		
 		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
