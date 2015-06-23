@@ -48,7 +48,7 @@
 				        ?>
 
                             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                <label for="orderBy" class="col-md-2 control-label">Sort</label>                                
+                                <label for="orderBy" class="control-label">Sort</label>                                
                                     <select id="orderBy" class="form-control"  name="orderBy">
                                         <option value="latest" <?php echo ($selected == 'latest') ? "selected" : "" ?>>Latest</option>
                                         <option value="popular" <?php echo ($selected == 'popular') ? "selected" : "" ?>>Most Popular</option>
@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                <label for="cat" class="col-md-2 control-label">Sub Category</label>                               
+                                <label for="cat" class="control-label">Sub Category</label>                               
                                     <select id="cat" class="form-control" name="subCategory">
                                         <?php
                                             if(isset($_GET['subCategory']))
@@ -78,7 +78,7 @@
                                     </select>                                   
                             </div>
                             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <label for="deleted" class="col-md-2 control-label">Status</label>                                   
+                                    <label for="deleted" class="control-label">Status</label>                                   
                                             <select id="deleted" class="form-control" name="deleted">
                                             <?php
                                                 if(isset($_GET['deleted']))
