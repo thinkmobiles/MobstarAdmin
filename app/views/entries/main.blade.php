@@ -100,16 +100,21 @@
 										@foreach($data['entries'] as $entry)
 											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child"><!--<img/>-->
 													@if($entry['entry_type'] !='image')
-													<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
-														<source src="{{$entry['entry_file']}}" type="video/mp4">
-														Your browser does not support the video tag.
-													</video>
+													<div class="media-thumb">	
+														<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
+															<source src="{{$entry['entry_file']}}" type="video/mp4">
+															Your browser does not support the video tag.
+														</video>
+													</div>
 													@else
-													<img src="{{$entry['entry_file']}}" />
+													<div class="media-thumb">	
+														<img src="{{$entry['entry_file']}}" />
+													</div>
 													@endif
 												<!--<data></data>-->
 													<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
-													<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>
+													<!--<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>-->
+			                                        <p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],25); ?></a></p> 
 													<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
 													<a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
 

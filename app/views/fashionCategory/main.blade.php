@@ -25,15 +25,16 @@
 
 				       <form method="get" action="fashionEntries">
 				        <?php
-                            /*if(isset($_GET['pageList']))
+                            if(isset($_GET['pageList']))
                                 $selected = $_GET['pageList'];
                             else
-                                $selected = $_COOKIE['cookie_pageList'];*/
-							if(isset($_GET['pageList']) && !empty($_GET['pageList']))
+                                $selected = $_COOKIE['cookie_pageList'];
+							/*if(isset($_GET['pageList']) && !empty($_GET['pageList']))
                                 $selected = $_GET['pageList'];
                             else
                             $selected = (isset($_COOKIE['cookie_pageList']) && !empty($_COOKIE['cookie_pageList'])) ? $_COOKIE['cookie_pageList'] : '20';
-                            //$selected = Cookie::get('cookie_pageList');
+                            */
+							//$selected = Cookie::get('cookie_pageList');
                         ?>
                         <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
                             <label for="pageList" class="control-label">Records per page :</label>
@@ -132,7 +133,7 @@
                                     <option value="101-125" <?php echo ($selected == '101-125') ? "selected" : "" ?>>101-125</option>
                                     <option value="126-150" <?php echo ($selected == '126-150') ? "selected" : "" ?>>126-150</option>
                                     <option value="151-175" <?php echo ($selected == '151-175') ? "selected" : "" ?>>151-175</option>
-                                    <option value="176-200" <?php echo ($selected == '176-200') ? "selected" : "" ?>>176-2000</option>
+                                    <option value="176-200" <?php echo ($selected == '176-200') ? "selected" : "" ?>>176-200</option>
                                     <option value="201-225" <?php echo ($selected == '201-225') ? "selected" : "" ?>>201-225</option>
                                     <option value="226-250" <?php echo ($selected == '226-250') ? "selected" : "" ?>>226-250</option>
 
@@ -182,19 +183,23 @@
 			@foreach($data['entries'] as $entry)
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child min-height"><!--<img/>-->
                 @if($entry['entry_type'] !='image')
-						<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
-							<source src="{{$entry['entry_file']}}" type="video/mp4">
-							Your browser does not support the video tag.
-						</video>
+						<div class="media-thumb">	
+							<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
+								<source src="{{$entry['entry_file']}}" type="video/mp4">	
+								Your browser does not support the video tag.
+							</video>
+						</div>
                 @else
+					<div class="media-thumb">	
 						<img src="{{$entry['entry_file']}}" />
+					</div>
                 @endif
 					<!--<data></data>-->
 						<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
 						<!--<p class="title"><a href='entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>-->
-						<p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],40); ?></a></p>
+						<p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],25); ?></a></p>
 
-						<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
+						<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes <a href="entryNote/{{$entry['entry_id']}}" class="view"><img style="width:18px!important; height:23px;" src="images/notes.png"></a></p>
 
                         <a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
                         @if($entry['entry_deleted'] == 0)
@@ -222,14 +227,14 @@
                                         </div>
                                 @else
 									<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                                    <img src="{{$entry['entry_file']}}" />
+										<img src="{{$entry['entry_file']}}" />
 									</div>
                                 @endif
                                     <!--<data></data>-->
                                         <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12 text-left">
                                             <p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
-                                            <p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],40); ?></a></p>
-                                            <p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
+                                            <p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],25); ?></a></p>
+                                            <p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes <a href="entryNote/{{$entry['entry_id']}}" class="view"><img style="width:18px!important; height:23px;" src="images/notes.png"></a></p>
 
                                             <a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
                                             @if($entry['entry_deleted'] == 0)
