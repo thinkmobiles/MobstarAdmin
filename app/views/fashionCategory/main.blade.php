@@ -205,7 +205,6 @@
 
 						<p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],25); ?></a></p>
 						<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes <a href="entryNote/{{$entry['entry_id']}}" class="view"><img style="width:18px!important; height:23px;" src="images/notes.png"></a></p>
-                        <p class="note"><a href='entryNote/{{$entry['entry_id']}}'>Entry Note</a></p>
                         <a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
                         @if($entry['entry_deleted'] == 0)
                             <a class="disable btn btn-warning toggle" id="{{$entry['entry_id']}}">Disable Entry</a>
