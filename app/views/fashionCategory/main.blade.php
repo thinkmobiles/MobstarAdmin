@@ -336,7 +336,7 @@
             });
 
             $(function() {
-                $( "#datepicker" ).datepicker({  maxDate: new Date() });
+                $( "#datepicker" ).datepicker({  endDate: new Date() });
             });
 			$(function() {
 			$( "#slider-range" ).slider({
