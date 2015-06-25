@@ -266,5 +266,9 @@
 
 		</div>
 	</div>
-
+<script>
+$(function() {
+                $( "#inputDOB" ).datepicker({  maxDate: new Date() });
+            });
+			</script>
 @stop
