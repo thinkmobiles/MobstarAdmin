@@ -526,7 +526,14 @@ class EntriesController extends BaseController
 			$join->on( 'entry_tags.entry_tag_tag_id', '=', 'tags.tag_id' );
 		} )->where( 'entry_tag_entry_id', '=', $entry_id )->get();
 
-		return View::make( 'entries/edit' )->with( 'data', $this->data );
+		if($this->data['entry']['entry_category_id'] == 3)
+		{
+			return View::make( 'fashionCategory/edit' )->with( 'data', $this->data );
+		}
+		else
+		{
+			return View::make( 'entries/edit' )->with( 'data', $this->data );	
+		}
 	}
 
 	public function saveEntry()
