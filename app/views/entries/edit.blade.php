@@ -1,3 +1,4 @@
+<?php echo "in main"; ?>
 @extends('layout')
 
 @section('content')
