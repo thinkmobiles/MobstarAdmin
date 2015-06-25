@@ -288,6 +288,53 @@ class EntriesController extends BaseController
 	  	if (strpos($text,' ') === FALSE) return $out.$append;
 	  	return preg_replace('/\w+$/','',$out).$append;
 	}
+	public function showEntryNote( $entry_id = '' )
+	{
+		$adminUser = Auth::User();   	
+    	$type = DB::table('admins')->where('admin_email',(isset($adminUser->admin_email)?$adminUser->admin_email:''))->pluck('admin_type');
+    	if($type == 'fashion_user')
+    	{
+    		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;	
+    	}
+    	else
+    	{
+    		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;	
+    	}
+		
+		$this->data[ 'entry' ] = !empty( $entry_id ) ? Entry::find( $entry_id ) : new Entries;
+
+		if($this->data['entry']['entry_category_id'] == 3)
+		{
+			return View::make( 'fashionCategory/showNote' )->with( 'data', $this->data );
+		}
+		// else
+		// {
+		// 	return View::make( 'entries/edit' )->with( 'data', $this->data );	
+		// }
+		
+	}
+
+	public function saveEntryNote()
+	{
+		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;
+
+		if( isset( $_POST[ 'entry_id' ] ) )
+		{
+			$this->data[ 'entry' ] = Entry::find( $_POST[ 'entry_id' ] );
+		}
+		else
+		{
+			$this->data[ 'entry' ] = new Entry;
+		}
+
+		$this->data[ 'entry' ]->entry_note = $_POST[ 'entryNote' ];
+		$this->data[ 'entry' ]->entry_modified_date = date( 'Y-m-d H:i:s' );
+
+		$this->data[ 'entry' ]->save();
+		return Redirect::to('fashionEntries');
+
+	}
+	
 	public function showEntries()
 	{
 		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;
