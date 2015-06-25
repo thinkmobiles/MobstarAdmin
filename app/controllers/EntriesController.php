@@ -65,8 +65,8 @@ class EntriesController extends BaseController
 
 		//////////////Get Vote
 		$entryRange = Input::get('entryRange','0 - 500');
-		$first = '';
-		$last = '';
+		$first = 0;
+		$last = 500;
 		if(Input::has('entryRange') && $entryRange != '0 - 500')
 		{
 			$removedSpace = str_replace(' ', '', $entryRange);
@@ -279,7 +279,7 @@ class EntriesController extends BaseController
 
 		}
 		$this->data[ 'subCategories' ] = Entry::all();
-		return View::make( 'fashionCategory/main' )->with( 'data', $this->data );
+		return View::make( 'fashionCategory/main' )->with( 'data', $this->data )->with('first',$first)->with('last',$last);
 	}
 	public function ellipsis($text, $max=25, $append='&hellip;')
 	{

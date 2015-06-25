@@ -30,7 +30,8 @@
                             if(isset($_GET['pageList']))
                                 $selected = $_GET['pageList'];
                             else
-                                $selected = $_COOKIE['cookie_pageList'];
+                               // $selected = $_COOKIE['cookie_pageList'];
+                               $selected = (isset($_COOKIE['cookie_pageList']) && !empty($_COOKIE['cookie_pageList'])) ? $_COOKIE['cookie_pageList'] : '20';
 
                             // if(isset($_GET['pageList']) && !empty($_GET['pageList']))
                             //     $selected = $_GET['pageList'];
@@ -188,42 +189,15 @@
                             </div>
 				       </form>
 				    </div>
-		<div class="flex-container2">
-
-			@foreach($data['entries'] as $entry)
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child"><!--<img/>-->
-                @if($entry['entry_type'] !='image')
-						<div class="media-thumb">
-							<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
-								<source src="{{$entry['entry_file']}}" type="video/mp4">
-								Your browser does not support the video tag.
-							</video>
-						</div>
-                @else
-					<div class="media-thumb">
-						<img src="{{$entry['entry_file']}}" />
-					</div>
-                @endif
-					<!--<data></data>-->
-						<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
-
-						<p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],22); ?></a></p>
-						<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes <a href="entryNote/{{$entry['entry_id']}}" class="view"><img style="width:18px!important; height:23px;" src="images/notes.png"></a></p>
-                        <a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
-                        @if($entry['entry_deleted'] == 0)
-                            <a class="disable btn btn-warning toggle" id="{{$entry['entry_id']}}">Disable Entry</a>
-                        @else
-                            <a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable Entry</a>
-                        @endif
-                        <a class="deletebtn btn btn-danger" id="{{$entry['entry_id']}}">Delete</a>
-				</div>
-			@endforeach
-
-		</div>
-
+		
+				<?php
+        if(isset($_COOKIE['myCookie']) && $_COOKIE['myCookie']=='listView')
+        {
+           
+       ?>
                     <!-- LIST VIEW START -->
 
-                    <div class="flex-container1" style="display:none;">
+                    <div class="flex-container1">
 
                         @foreach($data['entries'] as $entry)
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 flex-child bt-brd"><!--<img/>-->
@@ -258,7 +232,41 @@
                     </div>
                     
                     <!-- LIST VIEW END -->
-	
+				<?php      }else { ?>
+				<div class="flex-container2">
+
+					@foreach($data['entries'] as $entry)
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 flex-child"><!--<img/>-->
+						@if($entry['entry_type'] !='image')
+								<div class="media-thumb">
+									<video class="video-js vjs-default-skin" controls preload="metadata" poster="{{$entry['entry_image']}}" >
+										<source src="{{$entry['entry_file']}}" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+								</div>
+						@else
+							<div class="media-thumb">
+								<img src="{{$entry['entry_file']}}" />
+							</div>
+						@endif
+							<!--<data></data>-->
+								<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
+
+								<p class="title"><a href='entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],22); ?></a></p>
+								<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes <a href="entryNote/{{$entry['entry_id']}}" class="view"><img style="width:18px!important; height:23px;" src="images/notes.png"></a></p>
+								<a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
+								@if($entry['entry_deleted'] == 0)
+									<a class="disable btn btn-warning toggle" id="{{$entry['entry_id']}}">Disable Entry</a>
+								@else
+									<a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable Entry</a>
+								@endif
+								<a class="deletebtn btn btn-danger" id="{{$entry['entry_id']}}">Delete</a>
+						</div>
+					@endforeach
+
+				</div>
+		<?php }
+        ?> 
 				</div>
                 {{$data['pages']}}
 			</div>
@@ -314,18 +322,35 @@
                     return false;
                 }
             });
-            $('.view1').click(function(){
-                $('.flex-container2').show();
-                $('.flex-container1').hide();
+                        $('.view1').click(function(){
+                $.cookie('myCookie','gridView');
+                location.reload();
+                // $('.flex-container2').show();
+                // $('.flex-container1').hide();
             });
             $('.view2').click(function(){
-                $('.flex-container2').hide();
-                $('.flex-container1').show();
+                $.cookie('myCookie','listView');
+                location.reload();
+                // $('.flex-container2').hide();
+                // $('.flex-container1').show();
             });
 
             $(function() {
                 $( "#datepicker" ).datepicker();
             });
+			$(function() {
+			$( "#slider-range" ).slider({
+			  range: true,
+			  min: 0,
+			  max: 500,
+			  values: [ <?php echo $first;?>, <?php echo $last;?> ],
+			  slide: function( event, ui ) {
+				$( "#entryRange" ).val( "" + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+			  }
+			});
+			$( "#entryRange" ).val( "" + $( "#slider-range" ).slider( "values", 0 ) +
+			  " - " + $( "#slider-range" ).slider( "values", 1 ) );
+			});
         
         </script>
 
