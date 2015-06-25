@@ -8694,3 +8694,5 @@ ul.chats li.out .message {
 .media-thumb{ height:225px;}
 .media-thumb img{ width:100%; height:100% !important;}
 .media-thumb video{ height:220px;}
+.media-thumb-list{ height:auto;}
+.media-thumb-list img{ width:100%; height:100% !important;}

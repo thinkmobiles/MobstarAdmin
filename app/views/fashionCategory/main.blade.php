@@ -235,7 +235,7 @@
                                         </video>
                                     </div>
                             @else
-								<div class="media-thumb">
+								<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 media-thumb-list">
 									<img src="{{$entry['entry_file']}}" />
 								</div>
                             @endif
