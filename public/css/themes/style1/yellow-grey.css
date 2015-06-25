@@ -8691,4 +8691,6 @@ ul.chats li.out .message {
     padding-bottom: 20px;
 }
 .min-height{height:450px;}
-.media-cover{height:200px;}
+.media-thumb{ height:225px;}
+.media-thumb img{ width:100%;}
+.media-thumb video{ height:220px;}

@@ -8,8 +8,12 @@ class EntriesController extends BaseController
 
 	public function showFashionEntries()
 	{
+
 		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
 		$order_by = ( Input::get( 'orderBy', 'latest' ) );
+		$this->data['errors'] = array();
+		
+		
 		if(Input::has('pageList'))
 		{
 			$pageList = (Input::get('pageList',20));
@@ -19,12 +23,15 @@ class EntriesController extends BaseController
 		{
 			if(isset($_COOKIE['cookie_pageList']))
 			{
-				$pageList = $_COOKIE['cookie_pageList'];	
-			}else{
-				setcookie('cookie_pageList','20', time() + (86400 * 30), "/");
-				$pageList =	20;
-			}			
+				$pageList = $_COOKIE['cookie_pageList']; 
+			}
+			else
+			{
+				setcookie('cookie_pageList','20', time() + (86400 * 30), "/"); 
+				$pageList = 20;
+			}   
 		}
+		
 		switch( $order_by )
 		{
 			case "popular":
@@ -46,15 +53,56 @@ class EntriesController extends BaseController
 
 		$deleted = ( Input::get( 'deleted', 0 ) );
 
+
+
 		//Get Category
 		$category = ( Input::get( 'subCategory', 'All' ) );
 		//$category = ( !is_numeric( $category ) ) ? 0 : $category;
-// print_r($category);
-// die();
-		$query = Entry::with( 'category', 'vote', 'user', 'file', 'entryTag.tag' )
-					  ->where( 'entry_id', '>', '0' )
-					  ->where('entry_category_id','=','3');
 
+		$query = Entry::with( 'category', 'vote', 'user', 'file', 'entryTag.tag' )
+		 			  ->where( 'entry_id', '>', '0' )
+		 			  ->where('entry_category_id','=','3');
+
+		//////////////Get Vote
+		$entryRange = Input::get('entryRange','0 - 500');
+		$first = '';
+		$last = '';
+		if(Input::has('entryRange') && $entryRange != '0 - 500')
+		{
+			$removedSpace = str_replace(' ', '', $entryRange);
+			$values = explode('-', $removedSpace);
+			$first = intval($values[0]);
+			$last = intval($values[1]);
+
+			$ids = [];
+			$result = DB::table('votes')
+			->select(DB::raw('sum(votes.vote_up) as vote_up, entries.entry_id'))
+			->join('entries','votes.vote_entry_id','=','entries.entry_id')
+			->where('votes.vote_deleted','=',0)
+			->where('entries.entry_deleted','=',0)
+			->where('entries.entry_category_id','=',3)
+			->groupBy('votes.vote_entry_id')
+			->having('vote_up','>=',$first)
+			->having('vote_up','<=',$last)
+			->get();
+			//dd(DB::getQueryLog());
+			foreach ($result as $rs) {
+				$ids[]=$rs->entry_id;
+			}
+			if(!empty($ids))
+			{
+				$query = $query->whereIn('entry_id',$ids);				
+			}
+			else
+			{
+				$this->data[ 'errors' ][ ] = 'Entries not found.';
+			}
+		}
+		
+		
+		///////////////////
+
+		//////////////Get Age
 		$age = Input::get('age','all');
 				 
 		if(Input::has('age') && $age != 'all')
@@ -102,6 +150,9 @@ class EntriesController extends BaseController
 
 		}
 		///////////////////
+		
+
+
 		if( $order_by == 'popular' )
 		{
 			$query = $query->where( 'entry_rank', '>', 0 );
@@ -144,17 +195,16 @@ class EntriesController extends BaseController
 				$q->where( 'entry_tag_tag_id', '=', $tag );
 			} );
 		}
-		//////////////Get Vote
-		$entryRange = Input::get('entryRange','0 - 500');
-		$first = '';
-		$last = '';
+
 		
-		///////////////////
 		$entries = $query->orderBy( $order, $dir )->paginate( $pageList );
 		
+		//dd(DB::getQueryLog());
 		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
 
 		$this->data[ 'entries' ] = [ ];
+
+
 
 		foreach( $entries as $entry )
 		{
@@ -170,22 +220,9 @@ class EntriesController extends BaseController
 				{
 					$down_votes++;
 				}
-
 			}
-			if(Input::has('entryRange') && $entryRange != '0 - 500')
-			{
+			
 
-				$removedSpace = str_replace(' ', '', $entryRange);
-				$values = explode('-', $removedSpace);
-				$first = intval($values[0]);
-				$last = intval($values[1]);
-				// echo $up_votes;
-				// echo "<br>".$first."<br>".$last;
-				if($up_votes < $first || $up_votes > $last)
-				{
-					continue;
-				}
-			}			
 			if( count( $entry->file ) == 0 )
 			{
 				continue;
@@ -200,30 +237,6 @@ class EntriesController extends BaseController
 					{
 						$new[ 'entry_file' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type );
 						$new[ 'entry_image' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type, true );
-
-					}
-				}
-				elseif( $entry->entry_type == 'audio' )
-				{
-					if( $file->entry_file_type == 'mp3' )
-					{
-						$new[ 'entry_file' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type );
-					}
-
-					else
-					{
-						if( strtolower( trim( $file->entry_file_type, '.' ) ) == 'jpg' || strtolower( trim( $file->entry_file_type, '.' ) ) == 'png' )
-						{
-							$new[ 'entry_image' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type, true );
-						}
-					}
-				}
-				elseif( $entry->entry_type == 'image' )
-				{
-					if( strtolower( trim( $file->entry_file_type, '.' ) ) == 'jpg' || strtolower( trim( $file->entry_file_type, '.' ) ) == 'png' )
-					{
-						$new[ 'entry_image' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type, true );
-						$new[ 'entry_file' ] = EntryFile::s3Name( $file->entry_file_name, $file->entry_file_type );
 
 					}
 				}
@@ -244,7 +257,7 @@ class EntriesController extends BaseController
 		$this->data[ 'subCategories' ] = Entry::all();
 		return View::make( 'fashionCategory/main' )->with( 'data', $this->data );
 	}
-	public function ellipsis($text, $max=110, $append='&hellip;')
+	public function ellipsis($text, $max=25, $append='&hellip;')
 	{
 	  	if (strlen($text) <= $max) return $text;
 	  	$out = substr($text,0,$max);
