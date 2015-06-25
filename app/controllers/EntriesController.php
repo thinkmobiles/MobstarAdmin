@@ -557,6 +557,7 @@ class EntriesController extends BaseController
 		}
 
 		$this->data[ 'entry' ]->entry_name = $_POST[ 'entry_name' ];
+		$this->data[ 'entry' ]->entry_category_id = $_POST[ 'entry_category_id' ];
 		$this->data[ 'entry' ]->entry_description = $_POST[ 'entry_description' ];
 		$this->data[ 'entry' ]->entry_deleted = $_POST[ 'entry_deleted' ];
 		$this->data[ 'entry' ]->entry_modified_date = date( 'Y-m-d H:i:s' );
