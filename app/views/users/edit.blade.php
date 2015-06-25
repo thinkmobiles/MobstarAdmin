@@ -268,7 +268,7 @@
 	</div>
 <script>
 $(function() {
-                $( "#inputDOB" ).datepicker({  maxDate: new Date() });
+                $( "#inputDOB" ).datepicker({  endDate: new Date() });
             });
 			</script>
 @stop
