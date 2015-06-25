@@ -1,4 +1,3 @@
-<?php die('i am here'); ?>
 @extends('layout')
 
 @section('content')
@@ -118,7 +117,7 @@
 
 							<div class="form-actions">
 								<div class="col-md-offset-3 col-md-9">
-									<button type="submit" class="btn btn-primary">Save</button>&nbsp;<a href="/fashionEntries" role="button" class="btn btn-green">Cancel</a>
+									<button type="submit" class="btn btn-primary">Save</button>&nbsp;<a href="/entries" role="button" class="btn btn-green">Cancel</a>
 								</div>
 							</div>
 
