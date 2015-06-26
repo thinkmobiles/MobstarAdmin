@@ -44,9 +44,12 @@ class ReportsController extends BaseController {
 		if(empty($this->data['errors']))
 		{
 			$this->data['report']->save();
+			return Redirect::to('reports');
 		}
-		
-		return View::make('reports/edit')->with('data', $this->data);
+		else
+		{
+			return View::make('reports/edit')->with('data', $this->data);	
+		}
 	}
 
 }
