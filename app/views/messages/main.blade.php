@@ -14,7 +14,6 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<!--<p><a href="/message/add" role="button" class="btn btn-green">Add message</a></p>-->
-
 				<div class="list-group mail-box">
 					
 					@foreach($data['messages'] as $message)
