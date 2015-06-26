@@ -21,6 +21,7 @@
 					</a>
 					@endforeach
 				</div>
+				<?php echo (!isset($_GET['showAll'])) ? $data['tags']->links() : ""; ?>
 			</div>
 		</div>
 	</div>

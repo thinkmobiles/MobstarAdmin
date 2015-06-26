@@ -6,7 +6,11 @@ class ReportsController extends BaseController {
 	{
 		$this->data['sidenav']['reports']['page_selected'] = true;
 
-		$this->data['reports'] = Report::all();
+		$this->data['reports'] = Report::paginate(20);
+		if(isset($_GET['showAll']))
+		{
+			$this->data['reports'] = Report::all();
+		}
 
     	return View::make('reports/main')->with('data', $this->data);
 	}

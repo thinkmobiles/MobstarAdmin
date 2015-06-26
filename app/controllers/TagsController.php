@@ -6,7 +6,11 @@ class TagsController extends BaseController {
 	{
 		$this->data['sidenav']['tags']['page_selected'] = true;
 
-		$this->data['tags'] = Tag::all();
+		$this->data['tags'] = Tag::paginate(20);
+		if(isset($_GET['showAll']))
+		{
+			$this->data['tags'] = Tag::all();
+		}
 
     	return View::make('tags/main')->with('data', $this->data);
 	}
@@ -47,9 +51,12 @@ class TagsController extends BaseController {
 		if(empty($this->data['errors']))
 		{
 			$this->data['tag']->save();
+			return Redirect::to('tags');
 		}
-		
-		return View::make('tags/edit')->with('data', $this->data);
+		else
+		{
+			return View::make('tags/edit')->with('data', $this->data);
+		}
 	}
 
 	public function deleteTag()

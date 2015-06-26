@@ -14,11 +14,11 @@
 		<div id="form-layouts" class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-green">
-					<div class="panel-heading">{{ empty($data['message']->entry_message_id) ? 'Add' : 'Edit' }} message</div>
+					<div class="panel-heading">{{ empty($data['message']->message_id) ? 'Add' : 'Edit' }} message</div>
 					<div class="panel-body pan">
 						<form class="form-horizontal" method="post">
-							@if ( !empty($data['message']->entry_message_id) )
-							<input type="hidden" name="entry_message_id" value="{{ $data['message']->entry_message_id }}" />
+							@if ( !empty($data['message']->message_id) )
+							<input type="hidden" name="message_id" value="{{ $data['message']->message_id }}" />
 							@endif
 							<div class="form-body pal">
 								<div class="form-group mbn">
