@@ -33,6 +33,9 @@
 									<label for="txDescription" class="col-md-3 control-label">Guideline Text <span class='require'>*</span></label>
 									<div class="col-md-9">
 										<textarea name="txDescription" id="inputDescription" rows="3" class="form-control">{{ isset($data['modelingVideo']->txDescription) ? $data['modelingVideo']->txDescription : '' }}</textarea>
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['txDescription']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 							</div>

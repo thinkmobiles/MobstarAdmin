@@ -25,12 +25,18 @@
 									<label for="inputTitle" class="col-md-3 control-label">Title <span class='require'>*</span></label>
 									<div class="col-md-9">
 										<input id="inputTitle" name="vTitle" type="text" placeholder="Title" class="form-control" {{ isset($data['settings']->vTitle) ? "value=\"".$data['settings']->vTitle."\"" : '' }} />
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['vTitle']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inputUniqueName" class="col-md-3 control-label">Unique Name <span class='require'>*</span></label>
 									<div class="col-md-9">
 										<input id="inputUniqueName" name="vUniqueName" type="text" readonly="readonly" placeholder="Unique Name" class="form-control" {{ isset($data['settings']->vUniqueName) ? "value=\"".$data['settings']->vUniqueName."\"" : '' }} />
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['vUniqueName']['0'] }}</p>
+										@endif
 									</div>
 								</div>		
 								<!--<div class="form-group mbn">

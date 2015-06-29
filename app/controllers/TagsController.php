@@ -32,9 +32,19 @@ class TagsController extends BaseController {
 
 		$this->data['errors'] = array();
 		
-		if(empty($_POST['tag_name']))
+		/*if(empty($_POST['tag_name']))
 		{
 			$this->data['errors']['tag_name'] = "Display name can't be left blank.";
+		}*/
+		$rules = array(
+			'tag_name'    => 'required',
+		);
+
+		$validator = Validator::make( Input::get(), $rules );
+
+		if( $validator->fails() )
+		{
+			$this->data['errors'] = $validator->messages();
 		}
 		
 		if(isset($_POST['tag_id']))

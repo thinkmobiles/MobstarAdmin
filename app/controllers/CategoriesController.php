@@ -40,14 +40,26 @@ class CategoriesController extends BaseController {
 	public function saveCategory()
 	{
 		$this->data['sidenav']['categories']['page_selected'] = true;
-
 		$this->data['errors'] = array();
+		// For error messages
+		$rules = array(
+			'category_name'    => 'required',
+		);
+
+		$validator = Validator::make( Input::get(), $rules );
+
+		if( $validator->fails() )
+		{
+			$this->data['errors'] = $validator->messages();
+		}		
+		// End
 		
+		/*
 		if(empty($_POST['category_name']))
 		{
 			$this->data['errors']['category_name'] = "Name can't be left blank.";
 		}
-		
+		*/
 		if(isset($_POST['category_id']))
 		{
 			$this->data['category'] = Category::find($_POST['category_id']);
@@ -99,7 +111,8 @@ class CategoriesController extends BaseController {
 
 				$this->data['category']->save();
 			}
-			return Redirect::to('category/'.$this->data['category']->category_id);
+			//return Redirect::to('category/'.$this->data['category']->category_id);
+			return Redirect::to('categories');
 		}
 		else
 		{

@@ -26,6 +26,9 @@
 									<label for="inputName" class="col-md-3 control-label">Tag <span class='require'>*</span></label>
 									<div class="col-md-9">
 										<input id="inputName" name="tag_name" type="text" placeholder="Tag" class="form-control" {{ isset($data['tag']->tag_name) ? "value=\"".$data['tag']->tag_name."\"" : '' }} />
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['tag_name']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 

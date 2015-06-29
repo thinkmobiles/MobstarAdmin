@@ -31,11 +31,20 @@ class ModelingVideoController extends BaseController {
 
 		$this->data['errors'] = array();
 		
-		if(empty($_POST['txDescription']))
+		/*if(empty($_POST['txDescription']))
 		{
 			$this->data['errors']['txDescription'] = "Guideline Description can't be left blank.";
-		}
-		
+		}*/
+		$rules = array(
+			'txDescription'    => 'required',
+		);
+
+		$validator = Validator::make( Input::get(), $rules );
+
+		if( $validator->fails() )
+		{
+			$this->data['errors'] = $validator->messages();
+		}	
 		if(isset($_POST['iModelingVideoId']))
 		{
 			$this->data['modelingVideo'] = ModelingVideo::find($_POST['iModelingVideoId']);

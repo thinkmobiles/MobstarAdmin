@@ -25,6 +25,9 @@
 									<label for="inputCategoryName" class="col-md-3 control-label">Name <span class='require'>*</span></label>
 									<div class="col-md-9">
 										<input id="inputCategoryName" name="category_name" type="text" placeholder="Name" class="form-control" {{ isset($data['category']->category_name) ? "value=\"".$data['category']->category_name."\"" : '' }} />
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['category_name']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 								@if ( !empty($data['category']->category_id) && !in_array($data['category']->category_id,array(7,8)) )

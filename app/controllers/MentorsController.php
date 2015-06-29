@@ -40,12 +40,22 @@ class MentorsController extends BaseController {
 		$this->data['sidenav']['mentors']['page_selected'] = true;
 
 		$this->data['errors'] = array();
-		
+		/*
 		if(empty($_POST['mentor_display_name']))
 		{
 			$this->data['errors']['mentor_name'] = "Display name can't be left blank.";
 		}
-		
+		*/
+		$rules = array(
+			'mentor_display_name'    => 'required',
+		);
+
+		$validator = Validator::make( Input::get(), $rules );
+
+		if( $validator->fails() )
+		{
+			$this->data['errors'] = $validator->messages();
+		}
 		if(isset($_POST['mentor_id']))
 		{
 			$this->data['mentor'] = Mentor::find($_POST['mentor_id']);
@@ -101,7 +111,8 @@ class MentorsController extends BaseController {
 				$this->data['mentor']->save();
 			}
 
-			return Redirect::to('mentor/'.$this->data['mentor']->mentor_id);
+			//return Redirect::to('mentor/'.$this->data['mentor']->mentor_id);
+			return Redirect::to('mentors');
 		}
 		else
 		{

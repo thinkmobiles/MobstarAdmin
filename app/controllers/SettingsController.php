@@ -36,7 +36,7 @@ class SettingsController extends BaseController
 
 		$this->data['errors'] = array();
 		
-		if(empty($_POST['vTitle']))
+		/*if(empty($_POST['vTitle']))
 		{
 			$this->data['errors']['vTitle'] = "Title can't be left blank.";
 		}
@@ -44,7 +44,18 @@ class SettingsController extends BaseController
 		{
 			$this->data['errors']['vUniqueName'] = "Unique Name can't be left blank.";
 		}
-		
+		*/
+		$rules = array(
+			'vTitle'    => 'required',
+			'vUniqueName'    => 'required',
+		);
+
+		$validator = Validator::make( Input::get(), $rules );
+
+		if( $validator->fails() )
+		{
+			$this->data['errors'] = $validator->messages();
+		}
 		if(isset($_POST['iSettingId']))
 		{
 			$this->data['settings'] = Settings::find($_POST['iSettingId']);

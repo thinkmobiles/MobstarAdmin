@@ -36,10 +36,22 @@ class BlogsController extends BaseController
 		$this->data['sidenav']['blogs']['page_selected'] = true;
 
 		$this->data['errors'] = array();
-		
+		/*
 		if(empty($_POST['vBlogTitle']))
 		{
 			$this->data['errors']['vBlogTitle'] = "Blog title can't be left blank.";
+		}*/
+		$rules = array(
+			'BlogTitle'    => 'required',
+			'BlogHeader'   => 'required',
+			'Description' => 'required',
+		);
+
+		$validator = Validator::make( Input::get(), $rules );
+
+		if( $validator->fails() )
+		{
+			$this->data['errors'] = $validator->messages();
 		}
 		
 		if(isset($_POST['iBlogId']))

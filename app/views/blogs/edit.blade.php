@@ -26,6 +26,9 @@
 									<label for="inputBlogTitle" class="col-md-3 control-label">Title<span class='require'>*</span></label>
 									<div class="col-md-9">
 										<input id="inputBlogTitle" name="vBlogTitle" type="text" placeholder="Blog Title" class="form-control" {{ isset($data['blogs']->vBlogTitle) ? "value=\"".$data['blogs']->vBlogTitle."\"" : '' }} />
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['BlogTitle']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 								
@@ -45,12 +48,18 @@
 									<label for="inputBlogHeader" class="col-md-3 control-label">Header</label>
 									<div class="col-md-9">
 										<input id="inputBlogHeader" name="vBlogHeader" type="text" placeholder="Blog Header" class="form-control" {{ isset($data['blogs']->vBlogHeader) ? "value=\"".$data['blogs']->vBlogHeader."\"" : '' }} />
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['BlogHeader']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 								<div class="form-group mbn">
 									<label for="inputBlogText" class="col-md-3 control-label">Description</label>
 									<div class="col-md-9">
 										<textarea name="txDescription" id="inputBlogText" rows="3" class="form-control">{{ isset($data['blogs']->txDescription) ? $data['blogs']->txDescription : '' }}</textarea>
+										@if (isset($data['errors']))
+											<p style="color: red;">{{ $data['errors']->getMessages()['Description']['0'] }}</p>
+										@endif
 									</div>
 								</div>
 							</div>
