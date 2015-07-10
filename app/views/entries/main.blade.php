@@ -112,7 +112,7 @@
 													<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>
 													<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
 													@if($entry['entry_uploaded_on_youtube'] != 0)
-														<a class="delete btn btn-warning toggle" id="{{$entry['entry_id']}}">Delete Youtube Entry</a>
+														<a class="delete btn btn-warning toggle" id="{{$entry['entry_youtube_id']}}">Delete Youtube Entry</a>
 													@else
 														<a class="upload btn btn-success toggle" id="{{$entry['entry_id']}}">Upload Youtube Entry</a>
 													@endif
