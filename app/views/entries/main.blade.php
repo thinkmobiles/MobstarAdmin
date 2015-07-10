@@ -191,8 +191,9 @@
 			// deleteFlag = 0;
 			// uploadFlag = 0;
 			$('.onyoutube').on('ifClicked', function(event){
+				var isCheck;
 				isCheck = $('.onyoutube').is(':checked');
-				
+				alert(isCheck);
 				if(isCheck)
 				{
 					if(confirm("Are you sure you want to delete this entry from youtube ?"))
