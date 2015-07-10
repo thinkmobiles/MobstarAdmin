@@ -192,8 +192,8 @@
 			// uploadFlag = 0;
 			$('.onyoutube').on('ifClicked', function(event){
 				var isCheck;
-				//isCheck = $('.onyoutube').is(':checked');
-				isCheck = 	$('input:checkbox[name=onyoutube]').is(':checked'));
+				isCheck = $('.onyoutube').is(':checked');
+				//isCheck = 	$('input:checkbox[name=onyoutube]').is(':checked'));
 				alert(isCheck);
 				if(isCheck)
 				{
