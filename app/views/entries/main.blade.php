@@ -184,6 +184,7 @@
                     return false;
                 }
             });
+			//Youtube upload
 			$('.toggle').click(function(){
 				var id = $(this).attr('id');
 
