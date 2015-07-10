@@ -200,6 +200,7 @@
 						}).done(function(eId){
 							alert(eId);
 							$('a#'+id+'.delete').removeClass('delete btn-warning').addClass('upload btn-success').text("Upload Youtube Entry");
+							$('a#'+id+'.delete').attr("id",eId);
 							//alert('Video uploaded successfully.');
 						});
 						
@@ -226,6 +227,7 @@
 							type: 'POST'
 						}).done(function(eId){
 							alert(eId);
+							$('a#'+id+'.delete').attr("id",eId);
 							$('a#'+id+'.upload').removeClass('upload btn-success').addClass('delete btn-warning').text("Delete Youtube Entry");
 						});
 					}
