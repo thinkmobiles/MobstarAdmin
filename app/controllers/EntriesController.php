@@ -668,11 +668,11 @@ class EntriesController extends BaseController
 		return Response::make( [ 'status' => 'entry enabled' ], 200 );
 	}
 	/* For Youtube upload */
-	public function uploadVideo( $id )
+	public function youtubeupload( $id )
 	{
 		return $id;
 	}
-	public function deleteVideo( $id )
+	public function youtubedelete( $id )
 	{
 		return $id;
 	}
