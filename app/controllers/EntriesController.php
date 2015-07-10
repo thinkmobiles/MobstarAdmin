@@ -478,6 +478,8 @@ class EntriesController extends BaseController
 			$new[ 'entry_type' ] = $entry->entry_type;
 			$new[ 'entry_id' ] = $entry->entry_id;
 			$new[ 'entry_deleted' ] = $entry->entry_deleted;
+			$new[ 'entry_uploaded_on_youtube' ] = $entry->entry_uploaded_on_youtube;
+			$new[ 'entry_youtube_id' ] = $entry->entry_youtube_id;
 
 			$this->data[ 'entries' ][ ] = $new;
 
