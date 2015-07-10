@@ -198,7 +198,7 @@
 					if(confirm("Are you sure you want to delete this entry from youtube ?"))
 					{
 						alert('perform delete action');
-						var id = $('.onyoutube').attr('id');
+						var id = $('.onyoutube').val();
 						$.ajax({
 							url: 'entry/youtubedelete/'+id,
 							type:'POST'
