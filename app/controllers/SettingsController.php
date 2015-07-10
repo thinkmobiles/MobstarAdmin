@@ -54,7 +54,7 @@ class SettingsController extends BaseController
 
 		if( $validator->fails() )
 		{
-			$this->data['errors'] = $validator->messages();
+			$this->data['errors'] = $validator->messages();			
 		}
 		if(isset($_POST['iSettingId']))
 		{

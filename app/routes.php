@@ -71,6 +71,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
 	Route::post('entry/delete/{entry_id}', array('uses' => 'EntriesController@harddelete'));
  	Route::get('restoreentry/{entry_id}', array('uses' => 'EntriesController@restoreentry'));
+	/* For youtube upload */
+	Route::post('entry/youtubeupload/{entry_id}', array('uses' => 'EntriesController@youtubeupload'));
+	Route::post('entry/youtubedelete/{entry_id}', array('uses' => 'EntriesController@youtubedelete'));
+	/* End */
 	
 	Route::get('fashionEntries', array('uses' => 'EntriesController@showFashionEntries'));
 	Route::get('delete/{entry_id}', array('uses' => 'EntriesController@delete'));

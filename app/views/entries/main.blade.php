@@ -111,6 +111,13 @@
 													<p class="date">{{date('d-m-Y H:i:s', strtotime($entry['entry_date']))}}</p>
 													<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p>
 													<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
+													<!-- Added for youtube -->
+													@if(isset($entry['entry_uploaded_on_youtube']) && $entry['entry_uploaded_on_youtube'] != 0)
+													<p><input checked="checked" name="onyoutube" class="onyoutube" type="checkbox" id= "onyoutube_{{$entry['entry_id']}}" value="{{$entry['entry_id']}}"> On Youtube</p>
+													@else
+													<p><input name="onyoutube" type="checkbox" class="onyoutube" id= "onyoutube_{{$entry['entry_id']}}" value="{{$entry['entry_id']}}"> On Youtube</p>
+													@endif
+													<!-- End -->
 													<a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
 
                                                     @if($entry['entry_deleted'] == 0)
@@ -179,7 +186,63 @@
                     return false;
                 }
             });
-
+			
+			$(function(){
+			// deleteFlag = 0;
+			// uploadFlag = 0;
+			$('.onyoutube').on('ifClicked', function(event){
+				isCheck = $('.onyoutube').is(':checked');
+				
+				if(isCheck)
+				{
+					if(confirm("Are you sure you want to delete this entry from youtube ?"))
+					{
+						alert('perform delete action');
+						var id = $('.onyoutube').attr('id');
+						$.ajax({
+							url: 'entry/youtubedelete/'+id,
+							type:'POST'
+						}).done(function(){
+							alert('Video deleted successfully.');
+						});
+					}
+					else
+					{
+						return false;
+						//downloadFlag = 1;
+					}
+				}
+				else
+				{
+					if(confirm("Are you sure need to uplaod this entry on youtube ?"))
+					{
+						alert('perform upload action');
+						var id = $('.onyoutube').val();
+						$.ajax({
+							url: 'entry/youtubeupload/'+id,
+							type:'POST'
+						}).done(function(eId){
+							alert(eId);
+							//alert('Video uploaded successfully.');
+						});
+					}
+					else
+					{
+						return false;
+						//uploadFlag = 1;
+					}
+				}
+				
+			}); 
+			// if(uploadFlag == 1)
+			// {
+			//     $('.onyoutube').attr('checked',false);
+			// }       
+			// if(deleteFlag == 1)
+			// {
+			//     $('.onyoutube').attr('checked',true);
+			// }
+		});
             </script>
 
 @stop
