@@ -480,6 +480,7 @@ class EntriesController extends BaseController
 			$new[ 'entry_deleted' ] = $entry->entry_deleted;
 			$new[ 'entry_uploaded_on_youtube' ] = $entry->entry_uploaded_on_youtube;
 			$new[ 'entry_youtube_id' ] = $entry->entry_youtube_id;
+			$new[ 'entry_category_id' ] = $entry->entry_category_id;
 
 			$this->data[ 'entries' ][ ] = $new;
 
@@ -670,7 +671,84 @@ class EntriesController extends BaseController
 	/* For Youtube upload */
 	public function youtubeupload( $id )
 	{
-		return $id;
+		$entry = Entry::find($id);
+		$title = $entry->entry_name;
+		$description = $entry->entry_description;
+
+		$entry_file = EntryFile::where('entry_file_entry_id','=',$id)->first();
+		if(!empty($entry_file) && count($entry_file) > 0)
+		{
+			$filename = $entry_file['entry_file_name'];
+			$extension = $entry_file['entry_file_type'];
+			$fileName = $filename.'.'.$extension;
+
+			if( $entry->entry_type == 'video' )
+			{
+				$contents = var_dump(file_get_contents( '/var/www/api/public/uploads/' . $fileName));
+				preg_match( "#rotate.*?([0-9]{1,3})#im", $contents, $rotationMatches );
+				
+				$rotation_angel = '';
+
+				if( count( $rotationMatches ) > 0 )
+				{
+					switch( $rotationMatches[ 1 ] )
+					{
+						case '90':
+							$rotation_angel = '90';
+							break;
+						case '180':
+							$rotation_angel = '180';
+							break;
+						case '270':
+							$rotation_angel = '270';
+							break;
+					}
+				}
+				if( $entry->entry_category_id != 7 && $entry->entry_category_id != 8 )
+			    {
+			    	$pathfile = '/var/www/api/public/uploads/'. $filename . '-uploaded.' . $extension;
+			    	$serviceDetails = array();
+			    	if(file_exists($pathfile))
+			    	{
+			    		$serviceDetails["pathfile"] = $pathfile;
+			       		$serviceDetails["entry_id"] = $entry->entry_id;
+			       		$serviceDetails["rotation_angel"] = $rotation_angel;
+			       		$serviceDetails["name"] = $title;
+			       		$serviceDetails["description"] = $description;			       		
+			       		$serviceDetails["category"] = $entry->entry_category_id;
+			       		$this->backgroundPost('http://api.mobstar.com/entry/youtubeUpload?jsonData='.urlencode(json_encode($serviceDetails)));
+			    	}
+			    }
+			}			
+		}
+	}
+	/**
+	 * This function useful to create background process call
+	 */
+	public function backgroundPost($url){
+
+		$parts = parse_url($url);
+		//mail('anil@spaceotechnologies.com','Backgroundcall_Called',print_r($parts,true));
+		$fp = fsockopen($parts['host'], 
+			  isset($parts['port'])?$parts['port']:80, 
+			  $errno, $errstr, 30);
+		if (!$fp) {
+			return false;
+		} else {
+			$out = "POST ".$parts['path']." HTTP/1.1\r\n";
+			$out.= "Host: ".$parts['host']."\r\n";
+			$out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+			$out.= "Content-Length: ".strlen($parts['query'])."\r\n";
+			$out.= "Connection: Close\r\n\r\n";
+			
+			if (isset($parts['query'])) $out.= $parts['query'];
+			//mail('anil@spaceotechnologies.com','out_check',print_r($out,true));
+			$rs = fwrite($fp, $out);
+			//mail('anil@spaceotechnologies.com','fwrite_check',print_r($rs,true));
+			fclose($fp);
+			return true;
+		}
+		
 	}
 	public function youtubedelete( $id )
 	{

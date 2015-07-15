@@ -74,6 +74,7 @@ Route::group(array('before' => 'auth'), function()
 	/* For youtube upload */
 	Route::post('entry/youtubeupload/{entry_id}', array('uses' => 'EntriesController@youtubeupload'));
 	Route::post('entry/youtubedelete/{entry_id}', array('uses' => 'EntriesController@youtubedelete'));
+	//Route::post('entry/youtubeFinalUpload', array('uses' => 'EntriesController@youtubeFinalUpload'));
 	/* End */
 	
 	Route::get('fashionEntries', array('uses' => 'EntriesController@showFashionEntries'));

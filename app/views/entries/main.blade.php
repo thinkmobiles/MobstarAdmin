@@ -116,6 +116,13 @@
 													@else
 														<a class="upload btn btn-success toggle" id="{{$entry['entry_id']}}">Upload Youtube Entry</a>
 													@endif -->
+													@if($entry['entry_type'] =='video' && $entry['entry_category_id'] != 7 && $entry['entry_category_id'] != 8 )
+														@if($entry['entry_uploaded_on_youtube'] != 0)
+															<a class="delete btn btn-warning toggle" id="{{$entry['entry_id']}}">Delete Youtube Entry</a>
+														@else
+															<a class="upload btn btn-success toggle" id="{{$entry['entry_id']}}">Upload Youtube Entry</a>
+														@endif
+													@endif
 													<a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
 
                                                     @if($entry['entry_deleted'] == 0)
@@ -200,22 +207,13 @@
 						}).done(function(eId){
 							alert(eId);
 							$('a#'+id+'.delete').removeClass('delete btn-warning').addClass('upload btn-success').text("Upload Youtube Entry");
-							$('a#'+id+'.delete').attr("id",eId);
 							//alert('Video uploaded successfully.');
 						});
-						
 					}
 					else
 					{
 						return false;
 					}
-					// $.ajax({
-					//     url: 'delete/'+id,
-					//     type: 'GET'
-					// }
-					// ).done(function(){
-					// $('a#'+id+'.disable').removeClass('disable btn-warning').addClass('restore btn-success').text("Enable Entry");
-					// });
 				}
 				else if($(this).hasClass("upload"))
 				{
@@ -227,7 +225,6 @@
 							type: 'POST'
 						}).done(function(eId){
 							alert(eId);
-							$('a#'+id+'.delete').attr("id",eId);
 							$('a#'+id+'.upload').removeClass('upload btn-success').addClass('delete btn-warning').text("Delete Youtube Entry");
 						});
 					}
