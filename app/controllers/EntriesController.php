@@ -652,9 +652,16 @@ class EntriesController extends BaseController
 		Notification::where('notification_entry_id','=',$id)->delete();
 
 		$entry = Entry::find( $id );
-
+		
+		if( $entry->entry_type == 'video' )
+		{
+			$serviceDetails = array();
+			$serviceDetails["entry_id"] = $entry->entry_id;
+			$serviceDetails["videoid"] = $entry->entry_youtube_id;
+			$this->backgroundPost('http://api.mobstar.com/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
+		}		
 		$entry->delete();
-
+		
 		return Response::make( [ 'status' => 'entry deleted' ], 200 );
 	}
 
