@@ -762,7 +762,7 @@ class EntriesController extends BaseController
 				$serviceDetails["videoid"] = $entry->entry_youtube_id;
 				$this->backgroundPost('http://api.mobstar.com/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
 			}
-		
+		}
 	}
 	/* End */
 }
