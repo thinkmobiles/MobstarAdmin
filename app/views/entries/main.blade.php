@@ -224,7 +224,7 @@
 							url: 'entry/youtubeupload/'+id,
 							type: 'POST'
 						}).done(function(eId){
-							alert(eId);
+							alert('Video uploaded successfully on youtube');
 							$('a#'+id+'.upload').removeClass('upload btn-success').addClass('delete btn-warning').text("Delete Youtube Entry");
 						});
 					}

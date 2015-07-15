@@ -752,7 +752,17 @@ class EntriesController extends BaseController
 	}
 	public function youtubedelete( $id )
 	{
-		return $id;
+   		$entry = Entry::find($id);
+		if(!empty($entry) && count($entry) > 0)
+		{
+			if( $entry->entry_type == 'video' )
+			{
+				$serviceDetails = array();
+				$serviceDetails["entry_id"] = $entry->entry_id;
+				$serviceDetails["videoid"] = $entry->entry_youtube_id;
+				$this->backgroundPost('http://api.mobstar.com/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
+			}
+		
 	}
 	/* End */
 }
