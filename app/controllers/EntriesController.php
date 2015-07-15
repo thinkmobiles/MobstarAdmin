@@ -684,7 +684,7 @@ class EntriesController extends BaseController
 
 			if( $entry->entry_type == 'video' )
 			{
-				$contents = file_get_contents( '/var/www/api/public/uploads/' . $fileName);
+				$contents = file_get_contents( '/var/www/api/public/uploads/' . $filename . '-log.txt' );
 				preg_match( "#rotate.*?([0-9]{1,3})#im", $contents, $rotationMatches );
 				
 				$rotation_angel = '';
