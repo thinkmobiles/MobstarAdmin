@@ -205,7 +205,7 @@
 							url: 'entry/youtubedelete/'+id,
 							type:'POST'
 						}).done(function(eId){
-							alert(eId);
+							alert('Video deleted successfully from youtube');
 							$('a#'+id+'.delete').removeClass('delete btn-warning').addClass('upload btn-success').text("Upload Youtube Entry");
 							//alert('Video uploaded successfully.');
 						});
