@@ -122,9 +122,11 @@
 													@endif -->
 													@if($entry['entry_type'] =='video' && $entry['entry_category_id'] != 7 && $entry['entry_category_id'] != 8 )
 														@if($entry['entry_uploaded_on_youtube'] != 0)
-															<a class="delete btn btn-warning toggle" id="{{$entry['entry_id']}}">Delete Youtube Entry</a>
+															<p><a class="deleteVideo twice" id="{{$entry['entry_id']}}"><img class="actionIcon" src="images/delete_icon.png" style=" width: auto!important;">Delete Youtube Entry</a></p>
+														<!--	<a class="delete btn btn-warning toggle" id="{{$entry['entry_id']}}">Delete Youtube Entry</a> -->
 														@else
-															<a class="upload btn btn-success toggle" id="{{$entry['entry_id']}}">Upload Youtube Entry</a>
+															<p><a class="uploadVideo twice" id="{{$entry['entry_id']}}"><img class="actionIcon" src="images/upload_icon.png" style=" width: auto!important;">Upload Youtube Entry</a></p>
+														<!--	<a class="upload btn btn-success toggle" id="{{$entry['entry_id']}}">Upload Youtube Entry</a> -->
 														@endif
 													@endif
 													<a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
@@ -196,10 +198,10 @@
                 }
             });
 			//Youtube upload
-			$('.toggle').click(function(){
+			$('.twice').click(function(){
 				var id = $(this).attr('id');
 
-				if($(this).hasClass("delete"))
+				if($(this).hasClass("deleteVideo"))
 				{
 					if(confirm("Are you sure you want to delete this entry from youtube ?"))
 					{
@@ -210,7 +212,8 @@
 							type:'POST'
 						}).done(function(eId){
 							alert('Video deleted successfully from youtube');
-							$('a#'+id+'.delete').removeClass('delete btn-warning').addClass('upload btn-success').text("Upload Youtube Entry");
+							//$('a#'+id+'.delete').removeClass('delete btn-warning').addClass('upload btn-success').text("Upload Youtube Entry");
+							$('a#'+id+'.deleteVideo').removeClass('deleteVideo').addClass('uploadVideo').html("<img class='actionIcon' src='images/upload_icon.png' style=' width: auto!important;'>Upload Youtube Entry");
 							//alert('Video uploaded successfully.');
 						});
 					}
@@ -219,7 +222,7 @@
 						return false;
 					}
 				}
-				else if($(this).hasClass("upload"))
+				else if($(this).hasClass("uploadVideo"))
 				{
 					if(confirm("Are you sure you want to Upload this entry on youtube ?"))
 					{
@@ -229,7 +232,8 @@
 							type: 'POST'
 						}).done(function(eId){
 							alert('Video uploaded successfully on youtube');
-							$('a#'+id+'.upload').removeClass('upload btn-success').addClass('delete btn-warning').text("Delete Youtube Entry");
+							//$('a#'+id+'.upload').removeClass('upload btn-success').addClass('delete btn-warning').text("Delete Youtube Entry");
+							$('a#'+id+'.uploadVideo').removeClass('uploadVideo').addClass('deleteVideo').html("<img class='actionIcon' src='images/delete_icon.png' style=' width: auto!important;'>Delete Youtube Entry");
 						});
 					}
 					else
