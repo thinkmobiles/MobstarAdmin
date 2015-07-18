@@ -253,7 +253,12 @@ class UsersController extends BaseController {
 						{
 							$this->registerSNSEndpoint($usersData[$i],$message);
 						}
+						Session::flash('message', 'Push Message sent Successfully.');
 					}
+				}
+				else
+				{
+					Session::flash('message', 'Please select atleast one group.');
 				}
 			}
 		}
@@ -263,7 +268,7 @@ class UsersController extends BaseController {
 		if(isset($_GET['showAll']))
 			$this->data['users'] = User::where('user_deleted', '=', 0)->get();
 		
-		Session::flash('message', 'Push Message sent Successfully.');
+		//Session::flash('message', 'Push Message sent Successfully.');
 		Session::flash('alert-class', 'alert-success'); 
 		return View::make('users/sendpush')->with('data', $this->data);
 	}
