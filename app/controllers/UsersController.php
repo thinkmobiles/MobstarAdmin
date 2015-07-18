@@ -262,6 +262,10 @@ class UsersController extends BaseController {
 				}
 			}
 		}
+		else
+		{
+			Session::flash('message', 'Message can not be blank.');
+		}
 		/* Added for check box */
 		$this->data['sidenav']['send']['page_selected'] = true;
 		$this->data['users'] = User::where('user_deleted', '=', 0)->paginate(20);
