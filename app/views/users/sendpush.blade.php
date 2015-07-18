@@ -22,7 +22,7 @@
 						{{ Form::open(array('url' => 'users/sendpushmessage','class'=>'form-horizontal')) }}
 						<div class="form-body pal">
 							<div class="form-group">
-								<div><h4><input type='checkbox' id='selectall' name="selectall" />  Select All</h4></div>
+								<!--<div><h4><input type='checkbox' id='selectall' name="selectall" />  Select All</h4></div>-->
 								<div><h4><input type='checkbox' id='2' name="selectModerator" />  Moderator</h4></div>
 								<div><h4><input type='checkbox' id='3' name="selectUser" />  User</h4></div>
 								<div><h4><input type='checkbox' id='4' name="selectTeam" />  Team</h4></div>
