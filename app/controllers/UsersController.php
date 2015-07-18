@@ -164,7 +164,11 @@ class UsersController extends BaseController {
 		{
 			$message = trim($_POST['message']);
 			$selectall = Input::get('selectall');
-			$friends_checked = Input::get('checkbox');
+			$selectModerator = Input::get('selectModerator');
+			$selectUser = Input::get('selectUser');
+			$selectTeam = Input::get('selectTeam');
+			$selectMentor = Input::get('selectMentor');
+			
 			if(isset($selectall) && $selectall == 'on')
 			{
 				$usersData = DB::select( DB::raw("SELECT t1.* FROM 
@@ -183,7 +187,7 @@ class UsersController extends BaseController {
 					}
 				}
 			}
-			else
+			/*else
 			{
 				if(!empty($friends_checked))
 				{	
@@ -206,6 +210,50 @@ class UsersController extends BaseController {
 								$this->registerSNSEndpoint($usersData[0],$message);
 						}
 					} 		
+				}
+			}*/
+			else
+			{
+				$groupId = array();
+				if(isset($selectModerator) && $selectModerator == 'on')
+				{
+					$groupId[] = 2;
+				}
+				if(isset($selectUser) && $selectUser == 'on')
+				{
+					$groupId[] = 3;
+				}
+				if(isset($selectTeam) && $selectTeam == 'on')
+				{
+					$groupId[] = 4;
+				}
+				if(isset($selectMentor) && $selectMentor == 'on')
+				{
+					$groupId[] = 5;
+				}
+
+				if(!empty($groupId) && count($groupId)>0)
+				{
+					$group_id = implode(',', $groupId);
+						
+					$usersData = DB::select( DB::raw("SELECT t1.* FROM 
+								(select device_registration_id,device_registration_device_type,device_registration_device_token,device_registration_date_created,device_registration_user_id 
+								from device_registrations where device_registration_device_token  != '' AND device_registration_device_token != 'mobstar' AND device_registration_device_type = 'apple'
+								order by device_registration_date_created desc
+								) t1 left join users u on t1.device_registration_user_id = u.user_id 
+								where u.user_deleted = 0 
+								AND u.user_user_group IN ($group_id)
+								group by u.user_id 
+								order by t1.device_registration_date_created desc"));
+
+					//dd(DB::getQueryLog());
+					if(!empty($usersData))
+					{	
+						for($i=0; $i<count($usersData);$i++)
+						{
+							$this->registerSNSEndpoint($usersData[$i],$message);
+						}
+					}
 				}
 			}
 		}

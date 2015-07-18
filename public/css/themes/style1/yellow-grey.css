@@ -8696,3 +8696,9 @@ ul.chats li.out .message {
 .media-thumb video{ height:220px;}
 .media-thumb-list{ height:auto;}
 .media-thumb-list img{ width:100%; height:100% !important;}
+
+a.deleteVideo, a.uploadVideo {
+    color: #999999;
+    text-decoration: none;
+    cursor:pointer;
+}

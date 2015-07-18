@@ -22,11 +22,17 @@
 						{{ Form::open(array('url' => 'users/sendpushmessage','class'=>'form-horizontal')) }}
 						<div class="form-body pal">
 							<div class="form-group">
+								<div class="col-md-2"><h4><input type='checkbox' id='selectall' name="selectall" />  Select All</h4></div>
+								<div class="col-md-2"><h4><input type='checkbox' id='2' name="selectModerator" />  Moderator</h4></div>
+								<div class="col-md-2"><h4><input type='checkbox' id='3' name="selectUser" />  User</h4></div>
+								<div class="col-md-2"><h4><input type='checkbox' id='4' name="selectTeam" />  Team</h4></div>
+								<div class="col-md-2"><h4><input type='checkbox' id='5' name="selectMentor" />  Mentor</h4></div>
+							</div>
+							<div class="form-group">
 								{{ Form::label('message', 'Send Push Notification Message', array('class' => 'col-md-3 control-label')) }}
 								<div class="col-md-9">
 									{{ Form::textarea('message', '',array('class'=>'form-control','placeholder'=>'Push Notification Message')) }}
 								</div>
-								<input type='hidden' id='selectall' name="selectall" value ="on" />
 							</div>
 
 							<div class="form-actions">
@@ -61,10 +67,39 @@
  		$('#selectall').on('ifChecked ifUnchecked', function(event) {
 	        if (event.type == 'ifChecked') {
 	            $('.list-group input[type="checkbox"]').iCheck('check');
+	            //$('.case').iCheck('check');
 	        } else {
 	            $('.list-group input[type="checkbox"]').iCheck('uncheck');
 	        }
-    });
+    	});
+    	$('#selectModerator').on('ifChecked ifUnchecked', function(event) {
+	        if (event.type == 'ifChecked') {
+	            $('.list-group input[class="case2"]').iCheck('check');
+	        } else {
+	            $('.list-group input[class="case2"]').iCheck('uncheck');
+	        }
+    	});
+    	$('#selectUser').on('ifChecked ifUnchecked', function(event) {
+	        if (event.type == 'ifChecked') {
+	            $('.list-group input[class="case3"]').iCheck('check');
+	        } else {
+	            $('.list-group input[class="case3"]').iCheck('uncheck');
+	        }
+    	});
+    	$('#selectTeam').on('ifChecked ifUnchecked', function(event) {
+	        if (event.type == 'ifChecked') {
+	            $('.list-group input[class="case4"]').iCheck('check');
+	        } else {
+	            $('.list-group input[class="case4"]').iCheck('uncheck');
+	        }
+    	});
+    	$('#selectMentor').on('ifChecked ifUnchecked', function(event) {
+	        if (event.type == 'ifChecked') {
+	            $('.list-group input[class="case5"]').iCheck('check');
+	        } else {
+	            $('.list-group input[class="case5"]').iCheck('uncheck');
+	        }
+    	});
 
 });
 
