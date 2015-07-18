@@ -179,13 +179,13 @@ class UsersController extends BaseController {
 								where u.user_deleted = 0 
 								group by u.user_id 
 								order by t1.device_registration_date_created desc"));								
-				/*if(!empty($usersData))
+				if(!empty($usersData))
 				{	
 					for($i=0; $i<count($usersData);$i++)
 					{
 						$this->registerSNSEndpoint($usersData[$i],$message);
 					}
-				}*/
+				}
 			}
 			/*else
 			{
@@ -246,15 +246,15 @@ class UsersController extends BaseController {
 								group by u.user_id 
 								order by t1.device_registration_date_created desc"));
 
-					dd(DB::getQueryLog());
-					/*if(!empty($usersData))
+					//dd(DB::getQueryLog());
+					if(!empty($usersData))
 					{	
 						for($i=0; $i<count($usersData);$i++)
 						{
 							$this->registerSNSEndpoint($usersData[$i],$message);
 						}
 						Session::flash('message', 'Push Message sent Successfully.');
-					}*/
+					}
 				}
 				else
 				{
