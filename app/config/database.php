@@ -1,8 +1,5 @@
 <?php
 
-$database_host = $_SERVER['HTTP_HOST'] == 'mobstar-admin.com.local' ? 'localhost' : 'mobstar-apibeta.cyz3qf3vz9qw.eu-west-1.rds.amazonaws.com';
-$database_username = $_SERVER['HTTP_HOST'] == 'mobstar-admin.com.local' ? 'mobstar' : 'root';
-
 return array(
 
 	/*
@@ -57,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => $database_host,
-			'database'  => 'dotidol-2',
-			'username'  => $database_username,
-			'password'  => 'd0wnund3r',
+			'host'      => $_ENV['DATABASE_HOST'],
+			'database'  => $_ENV['DATABASE_DATABASE'],
+			'username'  => $_ENV['DATABASE_USER'],
+			'password'  => $_ENV['DATABASE_PASSWORD'],
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

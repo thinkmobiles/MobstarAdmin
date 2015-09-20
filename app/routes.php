@@ -11,7 +11,31 @@
 |
 */
 
+Route::get( 'debug', function() {
+  return; // no output in production. Comment it while testing
+  ob_start();
 
+  echo '<pre>';
+
+  echo 'Api url: ', Config::get( 'app.url_api'), "\n";
+  echo 'Admin url: ', Config::get( 'app.url_admin' ), "\n";
+
+  echo 'App home path: ', Config::get( 'app.home' ), "\n";
+  echo 'App tmp path: ', Config::get( 'app.tmp' ), "\n";
+
+  var_dump($_ENV);
+
+	echo "\n";
+
+	echo 'current environment: ', print_r( App::environment(), true ), "\n\n";
+	echo 'mysql database config:', "\n";
+	print_r( Config::get( 'database.connections' )['mysql'] );
+	echo 'AWS bucket: ', Config::get( 'app.bucket' ), "\n";
+
+	echo "\n", '</pre>';
+
+	return ob_get_clean();
+});
 
 Route::get('login', array('uses' => 'HomeController@showLogin'));
 Route::post('login', array('uses' => 'HomeController@doLogin'));
@@ -28,15 +52,15 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('category/delete', array('uses' => 'CategoriesController@deleteCategory'));
 	Route::get('category/{category_id}', array('uses' => 'CategoriesController@showCategory'));
 	Route::post('category/{category_id}', array('uses' => 'CategoriesController@saveCategory'));
-	
+
 	Route::get('defaultNotification', array('uses' => 'DefaultNotificationController@showDefaultNotifications'));
 	Route::get('defaultNotification/{iDefaultNotificationId}', array('uses' => 'DefaultNotificationController@showDefaultNotification'));
 	Route::post('defaultNotification/{iDefaultNotificationId}', array('uses' => 'DefaultNotificationController@saveDefaultNotification'));
-	
+
 	Route::get('modelingVideo', array('uses' => 'ModelingVideoController@showVideos'));
 	Route::get('video/{iModelingVideoId}', array('uses' => 'ModelingVideoController@showVideo'));
 	Route::post('video/{iModelingVideoId}', array('uses' => 'ModelingVideoController@saveVideo'));
-	
+
 	Route::get('settings', array('uses' => 'SettingsController@showSettings'));
 	Route::get('setting/{iSettingId}',array('uses' => 'SettingsController@showSetting'));
 	Route::post('setting/{iSettingId}',array('uses' => 'SettingsController@saveSetting'));
@@ -76,10 +100,10 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('entry/youtubedelete/{entry_id}', array('uses' => 'EntriesController@youtubedelete'));
 	//Route::post('entry/youtubeFinalUpload', array('uses' => 'EntriesController@youtubeFinalUpload'));
 	/* End */
-	
+
 	Route::get('fashionEntries', array('uses' => 'EntriesController@showFashionEntries'));
 	Route::get('delete/{entry_id}', array('uses' => 'EntriesController@delete'));
-	
+
 	Route::get('tags', array('uses' => 'TagsController@showTags'));
 	Route::post('tag/delete', array('uses' => 'TagsController@deleteTag'));
 	Route::post('tag/combine', array('uses' => 'TagsController@combineTag'));
@@ -92,12 +116,12 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('{page}', array('uses' => 'PageController@showPage'))->where('page', '[A-Za-z]+');
 	Route::get('{page}/{subpage}', array('uses' => 'PageController@showPage'))->where(array('page' => '[A-Za-z]+', 'subpage' => '[a-z]+'));
-	
+
 	Route::get('comment/entry/{entry_id}', array('uses' => 'CommentsController@showEntryComment'));
 	Route::post('comment/setstatus', array('uses' => 'CommentsController@setstatus'));
 	Route::post('comment/delete', array('uses' => 'CommentsController@commetDelete'));
 	Route::post('comment/savecomment', array('uses' => 'CommentsController@saveComment'));
-	
+
 	//Route::get('sendMessages/show', array('uses' => 'SendMessagesController@show'));
 	//Route::post('sendMessages/send', array('uses' => 'SendMessagesController@sendMessage'));
 });

@@ -46,7 +46,7 @@ return array(
             'driver'    => 'awss3',
             'key'       => 'AKIAIE4TLASFISDQDHPA',
             'secret'    => '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',
-            'bucket'    => 'mobstar-1',
+            'bucket'    => Config::get( 'app.bucket' ),
             // 'region'    => 'your-region',
             // 'prefix'    => 'your-prefix',
             // 'eventable' => true,
@@ -89,14 +89,14 @@ return array(
 
 		'localEntry' => array(
 			'driver'    => 'local',
-			//'path'      => $_ENV['PATH'] . 'public/uploads/',
+			'path'      => Config::get('app.home') . 'public/uploads/',
 			// 'eventable' => true,
 			// 'cache'     => 'foo'
 		),
 
 		'localProfile' => array(
 			'driver'    => 'local',
-			//'path'      => $_ENV['PATH'] . 'public/profile/',
+			'path'      => Config::get('app.home') . 'public/profile/',
 			// 'eventable' => true,
 			// 'cache'     => 'foo'
 		),

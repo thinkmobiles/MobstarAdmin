@@ -24,11 +24,13 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('Koalas-iMac.local'),
-
-));
+$env = $app->detectEnvironment(function()
+{
+	if(getenv('ENV'))
+		return getenv('ENV');
+	else
+		return 'local';
+});
 
 /*
 |--------------------------------------------------------------------------

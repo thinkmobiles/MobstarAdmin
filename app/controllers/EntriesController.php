@@ -12,8 +12,8 @@ class EntriesController extends BaseController
 		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
 		$order_by = ( Input::get( 'orderBy', 'latest' ) );
 		$this->data['errors'] = array();
-		
-		
+
+
 		if(Input::has('pageList'))
 		{
 			$pageList = (Input::get('pageList',20));
@@ -23,15 +23,15 @@ class EntriesController extends BaseController
 		{
 			if(isset($_COOKIE['cookie_pageList']))
 			{
-				$pageList = $_COOKIE['cookie_pageList']; 
+				$pageList = $_COOKIE['cookie_pageList'];
 			}
 			else
 			{
-				setcookie('cookie_pageList','20', time() + (86400 * 30), "/"); 
+				setcookie('cookie_pageList','20', time() + (86400 * 30), "/");
 				$pageList = 20;
-			}   
+			}
 		}
-		
+
 		switch( $order_by )
 		{
 			case "popular":
@@ -91,48 +91,48 @@ class EntriesController extends BaseController
 			}
 			if(!empty($ids))
 			{
-				$query = $query->whereIn('entry_id',$ids);				
+				$query = $query->whereIn('entry_id',$ids);
 			}
 			else
 			{
 				$this->data[ 'errors' ][ ] = 'Entries not found.';
 			}
 		}
-		
-		
+
+
 		///////////////////
 
 		//////////////Get Age
 		$age = Input::get('age','all');
-				 
+
 		if(Input::has('age') && $age != 'all')
-		{		
+		{
 			$values = explode('-',Input::get('age'));
 			$start = intval($values[0]);
 			$end = intval($values[1]);
 
 			$query = $query->where('entry_age','>=',$start)->where('entry_age','<=',$end);
-		 
+
 		}
 		///////////////////
 		//////////////Get Height
 		$height = Input::get('height','all');
-				 
+
 		if(Input::has('height') && $height != 'all')
-		{		
+		{
 			$values = explode('-',Input::get('height'));
 			$start = floatval($values[0]);
 			$end = floatval($values[1]);
 
 			$query = $query->where('entry_height','>=',$start)->where('entry_height','<=',$end);
-		 
+
 		}
 		///////////////////
 		//////////////Get Name
 		$name = Input::get('name','');
-				 
+
 		if(Input::has('name') && $name != '')
-		{		
+		{
 			$values = Input::get('name');
 			$query = $query->where('entry_name', 'LIKE', '%'.$values.'%');
 
@@ -140,17 +140,17 @@ class EntriesController extends BaseController
 		///////////////////
 		//////////////Get Date
 		$datepicker = Input::get('datepicker','');
-				 
+
 		if(Input::has('datepicker') && $datepicker != '')
-		{		
+		{
 			$values = Input::get('datepicker');
 			$dt = date("Y-m-d", strtotime($values));
-			
+
 			$query = $query->where('entry_created_date', 'LIKE', '%'.$dt.'%');
 
 		}
 		///////////////////
-		
+
 
 
 		if( $order_by == 'popular' )
@@ -163,16 +163,16 @@ class EntriesController extends BaseController
 			if( Input::get( 'subCategory', 'All' ) == 'All')
 			{
 				$query = $query->where( 'entry_category_id', array('3'));
-			}			
-			elseif (Input::get('subCategory') == 'Male') 
+			}
+			elseif (Input::get('subCategory') == 'Male')
 			{
 				$query = $query->where( 'entry_subcategory', '=', 'Male');
 			}
-			elseif (Input::get('subCategory') == 'Female') 
+			elseif (Input::get('subCategory') == 'Female')
 			{
 				$query = $query->where( 'entry_subcategory', '=', 'Female');
 			}
-			elseif (Input::get('subCategory') == 'Curve') 
+			elseif (Input::get('subCategory') == 'Curve')
 			{
 				$query = $query->where( 'entry_subcategory', '=', 'Curve');
 			}
@@ -196,9 +196,9 @@ class EntriesController extends BaseController
 			} );
 		}
 
-		
+
 		$entries = $query->orderBy( $order, $dir )->paginate( $pageList );
-		
+
 		//dd(DB::getQueryLog());
 		$this->data[ 'pages' ] = $entries->appends( Input::all() )->links();
 
@@ -221,7 +221,7 @@ class EntriesController extends BaseController
 					$down_votes++;
 				}
 			}
-			
+
 
 			if( count( $entry->file ) == 0 )
 			{
@@ -290,17 +290,17 @@ class EntriesController extends BaseController
 	}
 	public function showEntryNote( $entry_id = '' )
 	{
-		$adminUser = Auth::User();   	
+		$adminUser = Auth::User();
     	$type = DB::table('admins')->where('admin_email',(isset($adminUser->admin_email)?$adminUser->admin_email:''))->pluck('admin_type');
     	if($type == 'fashion_user')
     	{
-    		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;	
+    		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
     	}
     	else
     	{
-    		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;	
+    		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;
     	}
-		
+
 		$this->data[ 'entry' ] = !empty( $entry_id ) ? Entry::find( $entry_id ) : new Entries;
 
 		if($this->data['entry']['entry_category_id'] == 3)
@@ -309,9 +309,9 @@ class EntriesController extends BaseController
 		}
 		// else
 		// {
-		// 	return View::make( 'entries/edit' )->with( 'data', $this->data );	
+		// 	return View::make( 'entries/edit' )->with( 'data', $this->data );
 		// }
-		
+
 	}
 
 	public function saveEntryNote()
@@ -334,7 +334,7 @@ class EntriesController extends BaseController
 		return Redirect::to('fashionEntries');
 
 	}
-	
+
 	public function showEntries()
 	{
 		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;
@@ -385,7 +385,7 @@ class EntriesController extends BaseController
 				$query = $query->whereNotIn( 'entry_category_id', array('7','8'));
 			else
 				$query = $query->where( 'entry_category_id', '=', $category );
-		}	
+		}
 
 		if( $deleted == 1 )
 		{
@@ -506,15 +506,15 @@ class EntriesController extends BaseController
 		if(isset($this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ]))
 			$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ]= true;
 		*/
-		$adminUser = Auth::User();   	
+		$adminUser = Auth::User();
     	$type = DB::table('admins')->where('admin_email',(isset($adminUser->admin_email)?$adminUser->admin_email:''))->pluck('admin_type');
     	if($type == 'fashion_user')
     	{
-    		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;	
+    		$this->data[ 'sidenav' ][ 'fashionEntries' ][ 'page_selected' ] = true;
     	}
     	else
     	{
-    		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;	
+    		$this->data[ 'sidenav' ][ 'entries' ][ 'page_selected' ] = true;
     	}
 		$this->data[ 'entry' ] = !empty( $entry_id ) ? Entry::find( $entry_id ) : new Entries;
 
@@ -535,7 +535,7 @@ class EntriesController extends BaseController
 		}
 		else
 		{
-			return View::make( 'entries/edit' )->with( 'data', $this->data );	
+			return View::make( 'entries/edit' )->with( 'data', $this->data );
 		}
 	}
 
@@ -598,10 +598,10 @@ class EntriesController extends BaseController
 			$filename = $file->entry_file_name;
 			$filetype = $file->entry_file_type;
 			$data = array("filename" => "$filename", "filetype" => "$filetype");
-			
-			$url = 'http://api.mobstar.com/entry/deleteentryfiles';
+
+			$url = 'http://'.Config::get('app.url_api').'/entry/deleteentryfiles';
 			//$url = 'http://192.168.1.32/project/mobstarapi/public/index.php/entry/deleteentryfiles';
-			
+
 			//set URL and other appropriate options
 			$options = array(CURLOPT_URL => $url,
 							 CURLOPT_POST => true,
@@ -613,23 +613,23 @@ class EntriesController extends BaseController
 
 			// grab URL and pass it to the browser
 			$response = curl_exec($ch);
-			
+
 			// close cURL resource, and free up system resources
 			curl_close($ch);
 
 			//print_r($response);
-			
+
 			$thumbimage = 'thumbs/'.$filename.'-thumb.jpg';
 			$video = $filename.'.'.$filetype;
-			$bucket = 'mobstar-1';
-			
-			//$removethumb = $client->deleteObject('mobstar-1', $thumbimage);
+			$bucket = Config::get('app.bucket');
+
+			//$removethumb = $client->deleteObject(Config::get('app.bucket'), $thumbimage);
 			$removethumb = $client->deleteObject(array(
 			    'Bucket' => $bucket,
 			    'Key'    => $thumbimage
 			));
 
-			//$removevideo = $client->deleteObject('mobstar-1', $video);
+			//$removevideo = $client->deleteObject(Config::get('app.bucket'), $video);
 			$removevideo = $client->deleteObject(array(
 			    'Bucket' => $bucket,
 			    'Key'    => $video
@@ -648,20 +648,20 @@ class EntriesController extends BaseController
 		Vote::where('vote_entry_id', '=', $id)->delete();
 
 		Comment::where('comment_entry_id', '=', $id)->delete();
-		
+
 		Notification::where('notification_entry_id','=',$id)->delete();
 
 		$entry = Entry::find( $id );
-		
+
 		if( $entry->entry_type == 'video' )
 		{
 			$serviceDetails = array();
 			$serviceDetails["entry_id"] = $entry->entry_id;
 			$serviceDetails["videoid"] = $entry->entry_youtube_id;
-			$this->backgroundPost('http://api.mobstar.com/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
-		}		
+			$this->backgroundPost('http://'.Config::get('app.url_api').'/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
+		}
 		$entry->delete();
-		
+
 		return Response::make( [ 'status' => 'entry deleted' ], 200 );
 	}
 
@@ -691,9 +691,10 @@ class EntriesController extends BaseController
 
 			if( $entry->entry_type == 'video' )
 			{
+			  //@fixme this will not work. Admin site will not have access to API uploads directory
 				$contents = file_get_contents( '/var/www/api/public/uploads/' . $filename . '-log.txt' );
 				preg_match( "#rotate.*?([0-9]{1,3})#im", $contents, $rotationMatches );
-				
+
 				$rotation_angel = '';
 
 				if( count( $rotationMatches ) > 0 )
@@ -713,6 +714,7 @@ class EntriesController extends BaseController
 				}
 				if( $entry->entry_category_id != 7 && $entry->entry_category_id != 8 )
 			    {
+			      //@fixme this will not work. Admin site will not have access to API uploads directory
 			    	$pathfile = '/var/www/api/public/uploads/'. $filename . '-uploaded.' . $extension;
 			    	$serviceDetails = array();
 			    	if(file_exists($pathfile))
@@ -721,12 +723,12 @@ class EntriesController extends BaseController
 			       		$serviceDetails["entry_id"] = $entry->entry_id;
 			       		$serviceDetails["rotation_angel"] = $rotation_angel;
 			       		$serviceDetails["name"] = $title;
-			       		$serviceDetails["description"] = $description;			       		
+			       		$serviceDetails["description"] = $description;
 			       		$serviceDetails["category"] = $entry->entry_category_id;
-			       		$this->backgroundPost('http://api.mobstar.com/entry/youtubeUpload?jsonData='.urlencode(json_encode($serviceDetails)));
+			       		$this->backgroundPost('http://'.Config::get('app.url_api').'/entry/youtubeUpload?jsonData='.urlencode(json_encode($serviceDetails)));
 			    	}
 			    }
-			}			
+			}
 		}
 	}
 	/**
@@ -736,8 +738,8 @@ class EntriesController extends BaseController
 
 		$parts = parse_url($url);
 		//mail('anil@spaceotechnologies.com','Backgroundcall_Called',print_r($parts,true));
-		$fp = fsockopen($parts['host'], 
-			  isset($parts['port'])?$parts['port']:80, 
+		$fp = fsockopen($parts['host'],
+			  isset($parts['port'])?$parts['port']:80,
 			  $errno, $errstr, 30);
 		if (!$fp) {
 			return false;
@@ -747,7 +749,7 @@ class EntriesController extends BaseController
 			$out.= "Content-Type: application/x-www-form-urlencoded\r\n";
 			$out.= "Content-Length: ".strlen($parts['query'])."\r\n";
 			$out.= "Connection: Close\r\n\r\n";
-			
+
 			if (isset($parts['query'])) $out.= $parts['query'];
 			//mail('anil@spaceotechnologies.com','out_check',print_r($out,true));
 			$rs = fwrite($fp, $out);
@@ -755,7 +757,7 @@ class EntriesController extends BaseController
 			fclose($fp);
 			return true;
 		}
-		
+
 	}
 	public function youtubedelete( $id )
 	{
@@ -767,7 +769,7 @@ class EntriesController extends BaseController
 				$serviceDetails = array();
 				$serviceDetails["entry_id"] = $entry->entry_id;
 				$serviceDetails["videoid"] = $entry->entry_youtube_id;
-				$this->backgroundPost('http://api.mobstar.com/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
+				$this->backgroundPost('http://'.Config::get('app.url_api').'/entry/youtubeDelete?jsonData='.urlencode(json_encode($serviceDetails)));
 			}
 		}
 	}

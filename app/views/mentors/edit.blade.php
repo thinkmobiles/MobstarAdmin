@@ -26,11 +26,11 @@
 									</div>
 									<div class="col-md-9">
 										@if ( !file_exists(($data['mentor']->mentor_profile_picture)) )
-											<img src="http://api.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+											<img src="http://{{ Config::get('app.url_api') }}/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
 										@else
-											<img src="http://admin.mobstar.com/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
+											<img src="http://{{ Config::get('app.url_admin') }}/{{ $data['mentor']->mentor_profile_picture }}" width="100%" />
 										@endif
-										
+
 										<input type="file" name="mentor_profile_picture" />
 									</div>
 								</div>
@@ -56,7 +56,7 @@
 										<input id="inputSurname" name="mentor_surname" type="text" placeholder="Surname" class="form-control" {{ isset($data['mentor']->mentor_surname) ? "value=\"".$data['mentor']->mentor_surname."\"" : '' }} />
 									</div>
 								</div>
-								
+
 
 								<div class="form-group">
 									<label for="inputVideo" class="col-md-3 control-label">Video</label>
@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		@if ( !empty($data['mentor']->mentor_id) )
-		
+
 		<div id="form-layouts" class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-green">

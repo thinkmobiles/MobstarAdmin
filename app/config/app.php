@@ -196,4 +196,13 @@ return array(
 
 	),
 
+	'bucket' => isset( $_ENV[ 'bucket' ] ) ? $_ENV[ 'bucket' ] : '',
+
+	'home' => isset( $_ENV['PATH'] ) ? $_ENV['PATH'] : realpath( __DIR__.'/../../' ),
+
+	'tmp' => isset( $_ENV['TMP'] ) ? $_ENV['TMP'] : sys_get_temp_dir(),
+
+	'url_api' => isset( $_ENV['URL_API'] ) ?  $_ENV['URL_API'] : die( 'no API url' ),
+
+	'url_admin' => isset( $_ENV['URL_ADMIN'] ) ?  $_ENV['URL_ADMIN'] : die( 'no Admin url' ),
 );

@@ -29,7 +29,7 @@ class EntryFile extends \Eloquent {
 		$thumbnail_suffix = ($thumb) ? "-thumb.jpg" : "." . trim($type, '.');
 
 
-		return $s3->getObjectUrl( 'mobstar-1', $thumbnail . $value . "" . $thumbnail_suffix, '+10 minutes' );
+		return $s3->getObjectUrl( Config::get('app.bucket'), $thumbnail . $value . "" . $thumbnail_suffix, '+10 minutes' );
 	}
 
 

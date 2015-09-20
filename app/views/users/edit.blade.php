@@ -12,7 +12,7 @@
 
 	<div class="page-content">
 		<div id="form-layouts" class="row">
-			
+
 
 
 			<div class="col-lg-6">
@@ -130,7 +130,7 @@
 									</div>
 								</div>
 								@endif
-								
+
 							</div>
 							<div class="form-actions">
 								<div class="col-md-offset-3 col-md-9">
@@ -146,12 +146,12 @@
 				<div class="panel panel-green">
 					<div class="panel-heading">Images</div>
 					<div class="panel-body pan">
-						<form class="form-horizontal" method="post" action="http://api.mobstar.com/user/uploadimage" name="uploadimage" enctype="multipart/form-data">
+						<form class="form-horizontal" method="post" action="http://{{ Config::get('app.url_api') }}/user/uploadimage" name="uploadimage" enctype="multipart/form-data">
 
 							<div class="form-body pal">
 								<div class="form-group">
 									<div class="col-md-3">
-										<img src="http://api.mobstar.com/{{ $data['user']->user_profile_image }}" width="100%" />
+										<img src="http://{{ Config::get('app.url_api') }}/{{ $data['user']->user_profile_image }}" width="100%" />
 									</div>
 									<div class="col-md-9">
 										<input type="file" name="user_profile_image"/>
@@ -159,7 +159,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-md-3">
-										<img src="http://api.mobstar.com/{{ $data['user']->user_cover_image }}" width="100%" />
+										<img src="http://{{ Config::get('app.url_api') }}/{{ $data['user']->user_cover_image }}" width="100%" />
 									</div>
 									<div class="col-md-9">
 										<input type="file" name="user_cover_image"/>
@@ -240,14 +240,14 @@
 			</div>
 			@endif
 
-			
-			@if ( isset($data['entries']) && ! $data['entries']->isEmpty() )				
+
+			@if ( isset($data['entries']) && ! $data['entries']->isEmpty() )
 			<div class="col-lg-12">
 				<div class="panel panel-green">
 					<div class="panel-heading">Entries</div>
 					<div class="panel-body">
 						<div class="row">
-							
+
 							@foreach($data['entries'] as $entry)
 							<div class="col-lg-3">
 								<div><img src="http://lorempixel.com/640/480/business/1/" class="img-responsive"/>
