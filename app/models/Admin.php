@@ -8,7 +8,7 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('admin_password');
 
 	protected $primaryKey = 'admin_id';
-
+	public $timestamps = false;
 	public static $rules = array(
 		'admin_password' => 'required',
 		'admin_email' => 'required'

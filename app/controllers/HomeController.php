@@ -65,4 +65,16 @@ class HomeController extends BaseController {
         return Redirect::to('')->with('success', 'You are logged out');
     }
 
+	public function adminPassword($id)
+	{
+	$password = Hash::make(Input::get('password'));
+
+	$user = Admin::find($id);
+
+	$user->admin_password = $password;
+	$user->save();
+
+	return Response::make('saved', 200);
+	}
+
 }
