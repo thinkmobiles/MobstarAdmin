@@ -11,8 +11,8 @@
 	</div>
 
 <!-- <p><a href="/entry/add" role="button" class="btn btn-green">Add entry</a></p> -->
-					
-<?php //echo $data['entries']->links(); ?> 
+
+<?php //echo $data['entries']->links(); ?>
 
 <div class="page-content">
 				<div class="row">
@@ -116,6 +116,7 @@
 												<!--	<p class="title"><a href='/entry/{{$entry['entry_id']}}'>{{$entry['entry_name']}} - {{$entry['entry_description']}}</a></p> -->
 													<p class="title"><a href='/entry/{{$entry['entry_id']}}'><?php echo App::make("EntriesController")->ellipsis($entry['entry_name'].'-'.$entry['entry_description'],22); ?></a></p>
 													<p class="like">{{$entry['entry_up_votes']}} Up votes - {{$entry['entry_down_votes']}} Down votes</p>
+													<p class="like">{{$entry['entry_views_total']}} total views ({{$entry['entry_views']}} real, {{$entry['entry_views_added']}} added)</p>
 													<!--@if($entry['entry_uploaded_on_youtube'] != 0)
 														<a class="delete btn btn-warning toggle" id="{{$entry['entry_id']}}">Delete Youtube Entry</a>
 													@else

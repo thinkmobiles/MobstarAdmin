@@ -21,7 +21,7 @@
 							<input type="hidden" name="entry_id" value="{{ $data['entry']->entry_id }}" />
 							@endif
 							<div class="form-body pal">
-								
+
 								<div class="form-group">
 									<label for="inputUserGroup" class="col-md-3 control-label">User Group</label>
 									<div class="col-md-9">
@@ -47,7 +47,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="form-group">
 									<label class="col-md-3 control-label">Deleted</label>
 									<div class="col-md-9">
@@ -61,11 +61,11 @@
 									<div class="col-md-9">
 										<div class="input-group">
 											<select id="inputUserGroup" class="form-control" name="">
-												
+
 												<option value="video" @if (isset($data['entry']->entry_category_id) && 'video' === $data['entry']->entry_type)selected="selected"@endif>Video</option>
 												<option value="image" @if (isset($data['entry']->entry_category_id) && 'image' === $data['entry']->entry_type)selected="selected"@endif>Image</option>
 												<option value="audio" @if (isset($data['entry']->entry_category_id) && 'audio' === $data['entry']->entry_type)selected="selected"@endif>Audio</option>
-											
+
 											</select>
 										</div>
 									</div>
@@ -96,6 +96,20 @@
 									<label for="inputEntryLanguage" class="col-md-3 control-label">Language</label>
 									<div class="col-md-9">
 										<input id="inputEntryLanguage" name="entry_language" type="text" placeholder="Language" class="form-control" {{ isset($data['entry']->entry_language) ? 'value='.$data['entry']->entry_language.'' : '' }} />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputEntryViewsTotal" class="col-md-3 control-label">Views total</label>
+									<div class="col-md-9">
+										<span id="inputEntryViewsTotal" >{{ $data['entry']->viewsTotal()}} </span>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputEntryViewsAdded" class="col-md-3 control-label">Views added</label>
+									<div class="col-md-9">
+										<input id="inputEntryViewsAdded" name="entry_views_added" type="text" placeholder="0" class="form-control" {{ isset($data['entry']->entry_views_added) ? 'value='.$data['entry']->entry_views_added.'' : '0' }} />
 									</div>
 								</div>
 

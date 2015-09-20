@@ -481,6 +481,9 @@ class EntriesController extends BaseController
 			$new[ 'entry_uploaded_on_youtube' ] = $entry->entry_uploaded_on_youtube;
 			$new[ 'entry_youtube_id' ] = $entry->entry_youtube_id;
 			$new[ 'entry_category_id' ] = $entry->entry_category_id;
+			$new[ 'entry_views_total' ] = $entry->viewsTotal();
+			$new[ 'entry_views' ] = $entry->entry_views;
+			$new[ 'entry_views_added' ] = $entry->entry_views_added;
 
 			$this->data[ 'entries' ][ ] = $new;
 
@@ -518,7 +521,7 @@ class EntriesController extends BaseController
     	}
 		$this->data[ 'entry' ] = !empty( $entry_id ) ? Entry::find( $entry_id ) : new Entries;
 
-		$this->data[ 'users' ] = User::all();
+		$this->data[ 'users' ] = User::all(); // @todo do we realy need this list of all users?
 
 		$this->data[ 'categories' ] = Category::all();
 
@@ -559,6 +562,11 @@ class EntriesController extends BaseController
 			$this->data[ 'entry' ] = new Entry;
 		}
 
+		if( $_POST['entry_views_added'] < 0 )
+		{
+		    $this->data[ 'errors' ][ 'entry_views_added' ] = "added views can't be negative.";
+		}
+
 		$this->data[ 'entry' ]->entry_name = $_POST[ 'entry_name' ];
 		$this->data[ 'entry' ]->entry_category_id = $_POST[ 'entry_category_id' ];
 		$this->data[ 'entry' ]->entry_description = $_POST[ 'entry_description' ];
@@ -567,6 +575,8 @@ class EntriesController extends BaseController
 
 		if( empty( $this->data[ 'errors' ] ) )
 		{
+			$this->data[ 'entry' ]->setViewsAdded( $_POST['entry_views_added'] );
+
 			$this->data[ 'entry' ]->save();
 		}
 
