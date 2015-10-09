@@ -5,3 +5,6 @@ composer.lock
 .DS_Store
 Thumbs.db
 .idea
+.settings
+.buildpath
+.project
