@@ -484,6 +484,7 @@ class EntriesController extends BaseController
 			$new[ 'entry_views_total' ] = $entry->viewsTotal();
 			$new[ 'entry_views' ] = $entry->entry_views;
 			$new[ 'entry_views_added' ] = $entry->entry_views_added;
+			$new[ 'entry_hide_on_feed' ] = $entry->entry_hide_on_feed;
 
 			$this->data[ 'entries' ][ ] = $new;
 
@@ -783,5 +784,26 @@ class EntriesController extends BaseController
 			}
 		}
 	}
+
+
+	public function hideOnFeed( $entryId )
+	{
+	    \DB::table( 'entries' )
+	       ->where( 'entry_id', '=', $entryId )
+	       ->update( array( 'entry_hide_on_feed' => 1 ) );
+
+	    return Response::make( [ 'status' => 'Ok' ], 200 );;
+	}
+
+
+	public function showOnFeed( $entryId )
+	{
+	    \DB::table( 'entries' )
+	       ->where( 'entry_id', '=', $entryId )
+	       ->update( array( 'entry_hide_on_feed' => 0 ) );
+
+	    return Response::make( [ 'status' => 'Ok' ], 200 );;
+	}
+
 	/* End */
 }

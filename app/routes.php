@@ -88,6 +88,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('message/{users_id}', array('uses' => 'MessagesController@saveMessage'));
 
 	Route::get('entries', array('uses' => 'EntriesController@showEntries'));
+	Route::post('entry/{entry_id}/hide_on_feed', array('uses' => 'EntriesController@hideOnFeed'));
+	Route::post('entry/{entry_id}/show_on_feed', array('uses' => 'EntriesController@showOnFeed'));
 	Route::get('entry/{entry_id}', array('uses' => 'EntriesController@showEntry'));
 	Route::post('entry/{entry_id}', array('uses' => 'EntriesController@saveEntry'));
 	Route::get('entryNote/{entry_id}', array('uses' => 'EntriesController@showEntryNote'));

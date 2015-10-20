@@ -134,11 +134,16 @@
 													<a class="btn btn-info" id="{{$entry['entry_id']}}" href="comment/entry/{{$entry['entry_id']}}">View Comments</a>
 
                                                     @if($entry['entry_deleted'] == 0)
-                                                        <a class="disable btn btn-warning toggle" id="{{$entry['entry_id']}}">Disable Entry</a>
+                                                        <a class="disable btn btn-warning toggle" id="{{$entry['entry_id']}}">Disable</a>
                                                     @else
-                                                        <a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable Entry</a>
+                                                        <a class="restore btn btn-success toggle" id="{{$entry['entry_id']}}">Enable</a>
                                                     @endif
                                                     <a class="deletebtn btn btn-danger" id="{{$entry['entry_id']}}">Delete</a>
+                                                    @if($entry['entry_hide_on_feed'] == 0)
+                                                        <a class="hide-on-feed btn btn-warning" id="{{$entry['entry_id']}}">Hide on feed</a>
+                                                    @else
+                                                        <a class="show-on-feed btn btn-success" id="{{$entry['entry_id']}}">Show on feed</a>
+                                                    @endif
 											</div>
 										@endforeach
 
@@ -180,6 +185,78 @@
 
             }
             });
+
+            (function() {
+
+                var noHandler = function(e) {
+                    e.preventDefault();
+                }
+
+
+                var enable = function( el, whatToShow ) {
+                    el.removeClass( 'disabled' );
+                    if( whatToShow == 'show' ) {
+                        el.removeClass('hide-on-feed btn-warning')
+                            .addClass('show-on-feed btn-success')
+                            .text('Show on feed')
+                            .off( 'click', noHandler )
+                            .on( 'click', showHandler );
+                    } else {
+                        el.removeClass('show-on-feed btn-success')
+                            .addClass('hide-on-feed btn-warning')
+                            .text('Hide on feed')
+                            .off( 'click', noHandler )
+                            .on( 'click', hideHandler );
+                    }
+                }
+
+
+                var disable = function( el ) {
+                    el.addClass('disabled')
+                        .off( 'click', hideHandler )
+                        .off( 'click', showHandler )
+                        .on( 'click', noHandler );
+                }
+
+
+                var hideHandler = function() {
+
+                    var self = $(this);
+
+                    var entryId = self.attr('id');
+
+                    disable( self );
+
+                    $.ajax({
+                        url: 'entry/'+entryId+'/hide_on_feed',
+                        type: 'POST'
+                    })
+                    .done( enable.bind( null, self, 'show' ) )
+                    .error( enable.bind( null, self, 'hide' ) );
+                };
+
+
+                var showHandler = function() {
+
+                    var self = $(this);
+
+                    var entryId = self.attr('id');
+
+                    disable( self );
+
+                    $.ajax({
+                        url: 'entry/'+entryId+'/show_on_feed',
+                        type: 'POST'
+                    })
+                    .done( enable.bind( null, self, 'hide' ) )
+                    .error( enable.bind( null, self, 'show' ) );
+                };
+
+                $('.hide-on-feed').click( hideHandler );
+                $('.show-on-feed').click( showHandler );
+            })();
+
+
 
             $('.deletebtn').click(function(){
                 var id = $(this).attr('id');
