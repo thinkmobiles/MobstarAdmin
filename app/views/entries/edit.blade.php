@@ -48,6 +48,24 @@
 									</div>
 								</div>
 
+								@if ( $data['entry']->entry_category_id == 7 )
+								<div class="form-group">
+									<label for="inputUserProfileCategory" class="col-md-3 control-label">Profile Category</label>
+									<div class="col-md-9">
+										<div class="input-group">
+											<select id="inputUserProfileCategory" class="form-control" name="entry_profile_category_id">
+												<option value="0" @if ( $data['entry']->entry_profile_category_id == 0 )selected="selected"@endif>No category</option>
+											@foreach($data['categories'] as $category)
+												@if( $category->category_id != 7 )
+												<option value="{{ $category->category_id }}" @if ( $data['entry']->entry_profile_category_id == $category->category_id  )selected="selected"@endif>{{ $category->category_name }}</option>
+												@endif
+											@endforeach
+											</select>
+										</div>
+									</div>
+								</div>
+								@endif
+
 								<div class="form-group">
 									<label class="col-md-3 control-label">Deleted</label>
 									<div class="col-md-9">

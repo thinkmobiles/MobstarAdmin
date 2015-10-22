@@ -14,6 +14,22 @@
 
 <?php //echo $data['entries']->links(); ?>
 
+<?php
+$categoryById = array(
+    0 => 'No category',
+);
+foreach( $data['categories'] as $category )
+{
+    $categoryById[ $category->category_id ] = $category->category_name;
+}
+?>
+
+<style type='text/css'>
+.flex-container > .flex-child {
+    height: auto;
+}
+</style>
+
 <div class="page-content">
 				<div class="row">
 					<div class="col-lg-12">
@@ -122,6 +138,9 @@
 													@else
 														<a class="upload btn btn-success toggle" id="{{$entry['entry_id']}}">Upload Youtube Entry</a>
 													@endif -->
+													@if ( $entry['entry_category_id'] == 7 )
+													<p class="like">Profile category - {{isset( $categoryById[$entry['entry_profile_category_id']]) ? $categoryById[$entry['entry_profile_category_id']] : 'unknown'}}
+													@endif
 													@if($entry['entry_type'] =='video' && $entry['entry_category_id'] != 7 && $entry['entry_category_id'] != 8 )
 														@if($entry['entry_uploaded_on_youtube'] != 0)
 															<p><a class="deleteVideo twice" id="{{$entry['entry_id']}}"><img class="actionIcon" src="images/delete_icon.png" style=" width: auto!important;">Delete Youtube Entry</a></p>

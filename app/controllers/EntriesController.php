@@ -481,6 +481,7 @@ class EntriesController extends BaseController
 			$new[ 'entry_uploaded_on_youtube' ] = $entry->entry_uploaded_on_youtube;
 			$new[ 'entry_youtube_id' ] = $entry->entry_youtube_id;
 			$new[ 'entry_category_id' ] = $entry->entry_category_id;
+			$new[ 'entry_profile_category_id' ] = $entry->entry_profile_category_id;
 			$new[ 'entry_views_total' ] = $entry->viewsTotal();
 			$new[ 'entry_views' ] = $entry->entry_views;
 			$new[ 'entry_views_added' ] = $entry->entry_views_added;
@@ -570,6 +571,7 @@ class EntriesController extends BaseController
 
 		$this->data[ 'entry' ]->entry_name = $_POST[ 'entry_name' ];
 		$this->data[ 'entry' ]->entry_category_id = $_POST[ 'entry_category_id' ];
+		$this->data[ 'entry' ]->entry_profile_category_id = isset( $_POST[ 'entry_profile_category_id'] ) ? $_POST[ 'entry_profile_category_id'] : 0;
 		$this->data[ 'entry' ]->entry_description = $_POST[ 'entry_description' ];
 		$this->data[ 'entry' ]->entry_deleted = $_POST[ 'entry_deleted' ];
 		$this->data[ 'entry' ]->entry_modified_date = date( 'Y-m-d H:i:s' );
